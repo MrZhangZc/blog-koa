@@ -1,0 +1,9 @@
+language : node_js
+node_js :
+ - 10
+install:
+ - npm install
+script:
+  - docker build -t $DOCKER_USER/blog-test .
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker push blog-test

@@ -1,0 +1,15 @@
+{
+  "name": "blog-koa",
+  "version": "0.0.1",
+  "description": "blog-sever",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": "https://github.com/MrZhangZc/blog-koa.git",
+  "author": "zhangzhichao <jiayouzzc@126.com>",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.7.0"
+  }
+}
