@@ -10,9 +10,10 @@ EXPOSE $PORT
 
 WORKDIR /app
 COPY package.json yarn.lock up.yml /app/
+COPY src/ /app/src
 RUN yarn install \
     && yarn cache clean
 
-COPY index.js /app/index.js
+COPY start.js /app/start.js
 
 CMD [ "pm2-runtime", "start", "up.yml" ]

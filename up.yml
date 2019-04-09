@@ -1,6 +1,6 @@
 apps:
   - name: blog-koa
-    script: index.js
+    script: start.js
     instances: 1
     exec_mode: cluster
     max_memory_restart: 1024M

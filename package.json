@@ -10,6 +10,12 @@
   "author": "zhangzhichao <jiayouzzc@126.com>",
   "license": "MIT",
   "dependencies": {
-    "koa": "^2.7.0"
+    "koa": "^2.7.0",
+    "mongoose": "^5.5.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
   }
 }
