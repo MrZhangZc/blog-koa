@@ -4,6 +4,6 @@ node_js :
 install:
  - npm install
 script:
-  - docker build -t $DOCKER_USER/blog-test .
+  - docker build -t $DOCKER_USER/blog-koa .
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
-  - docker push $DOCKER_USER/blog-test
+  - docker push $DOCKER_USER/blog-koa
