@@ -14,6 +14,4 @@ COPY src/ /app/src
 RUN yarn install \
     && yarn cache clean
 
-COPY start.js /app/start.js
-
 CMD [ "pm2-runtime", "start", "up.yml" ]

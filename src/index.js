@@ -1,6 +1,5 @@
-import Koa from 'koa'
-import { database } from './database'
-
+const Koa = require('koa')
+const database = require('./database') 
 const PORT = process.env.PORT || '8888'
 const HOST = process.env.HOST || '127.0.0.1'
 

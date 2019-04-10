@@ -1,12 +1,15 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
+const config = require('../config')
 
-export const database = () => {
-  //mongoose.set('debug', true)
+const database = () => {
+  if(process.env.NODE_ENV === 'development'){
+    mongoose.set('debug', true)
+  }
 
-  mongoose.connect('mongodb://mongo/blog-koa')
+  mongoose.connect(config.dbURL, { useNewUrlParser: true })
 
   mongoose.connection.on('disconnected', () => {
-      mongoose.connect(config.dbUrl)
+      mongoose.connect(config.dbURL, { useNewUrlParser: true })
   })
 
   mongoose.connection.on('err', err => {
@@ -14,6 +17,8 @@ export const database = () => {
   })
 
   mongoose.connection.on('open', async () => {
-    console.log('成功连接数据库：' + config.dbUrl)
+    console.log('成功连接数据库：' + config.dbURL)
   })
 }
+
+module.exports = database
