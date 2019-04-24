@@ -1,9 +1,14 @@
 const Koa = require('koa')
-const database = require('./database') 
+const database = require('./database')
+//const redis = require('./redis')()
 const PORT = process.env.PORT || '8888'
-const HOST = process.env.HOST || '127.0.0.1'
 
-database()
+//database()
+
+// redis.set('foo', 'bar');
+// redis.get('foo', function (err, result) {
+//   console.log(result);
+// });
 
 const app = new Koa()
 
@@ -11,6 +16,6 @@ app.use(async ctx => {
   ctx.body = `<h1>zzchm</h1>`
 })
 
-app.listen(PORT, HOST, () => {
-  console.log(`server Success on : ${HOST} : ${PORT}`)
+app.listen(PORT, () => {
+  console.log(`server Success on : ${PORT}`)
 })

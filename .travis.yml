@@ -4,6 +4,8 @@ node_js :
 install:
  - yarn install
 script:
-  - docker build -t $DOCKER_USER/blog-koa .
+  - docker build -t $DOCKER_USER/blog-koa:latest .
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
-  - docker push $DOCKER_USER/blog-koa
+  - docker push $DOCKER_USER/blog-koa:latest
+  - docker tag $DOCKER_USER/blog-koa:latest $DOCKER_USER/blog-koa:0.1.0
+  - docker push $DOCKER_USER/blog-koa:0.1.0

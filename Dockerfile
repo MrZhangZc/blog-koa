@@ -13,5 +13,5 @@ COPY package.json yarn.lock up.yml /app/
 COPY src/ /app/src
 RUN yarn install \
     && yarn cache clean
-
+    
 CMD [ "pm2-runtime", "start", "up.yml" ]
