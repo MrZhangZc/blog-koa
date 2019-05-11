@@ -3,7 +3,7 @@ const database = require('./database')
 //const redis = require('./redis')()
 const PORT = process.env.PORT || '8888'
 
-//database()
+database()
 
 // redis.set('foo', 'bar');
 // redis.get('foo', function (err, result) {
@@ -13,7 +13,7 @@ const PORT = process.env.PORT || '8888'
 const app = new Koa()
 
 app.use(async ctx => {
-  ctx.body = `<h1>zzchm</h1>`
+  ctx.body = `<h1>zzcandhm</h1>`
 })
 
 app.listen(PORT, () => {
