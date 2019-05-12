@@ -1,21 +1,26 @@
-const Koa = require('koa')
-const database = require('./database')
-//const redis = require('./redis')()
-const PORT = process.env.PORT || '8888'
+import Koa from 'koa'
+import R from 'ramda'
+import { resolve } from 'path'
+import config from './config'
 
-database()
+const r = url => resolve(__dirname,url)
+const MIDDLEWARES = ['mongo', 'common', 'router']
 
-// redis.set('foo', 'bar');
-// redis.get('foo', function (err, result) {
-//   console.log(result);
-// });
+const userMiddlewares = app => {
+  return R.map(R.compose(
+    R.map(i => i(app)),
+    require,
+    i => `${r('./middlewares')}/${i}`
+  ))
+}
 
-const app = new Koa()
+async function start (){
+  const app = new Koa()
+  const { port } = config
+  await userMiddlewares(app)(MIDDLEWARES)
 
-app.use(async ctx => {
-  ctx.body = `<h1>zzcandhm</h1>`
-})
+  app.listen(port)
+  console.log('服务已经运行在' + '<' +port+ '>' + '端口')
+}
 
-app.listen(PORT, () => {
-  console.log(`server Success on : ${PORT}`)
-})
+start()

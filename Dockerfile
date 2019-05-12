@@ -9,9 +9,10 @@ ENV PORT $PORT
 EXPOSE $PORT
 
 WORKDIR /app
-COPY package.json yarn.lock up.yml /app/
-COPY src/ /app/src
+COPY package.json yarn.lock .babelrc start.js up.yml /app/
 RUN yarn install \
     && yarn cache clean
-    
+COPY src/ /app/src
+COPY public/ /app/public
+
 CMD [ "pm2-runtime", "start", "up.yml" ]
