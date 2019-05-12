@@ -1,0 +1,25 @@
+extends ../layout
+
+append css
+  link(rel="stylesheet", href="/css/frontlayout.css")
+block main
+  .container
+    .main-herader
+      .main-title
+        a(href="/") 张智超的博客
+      .main-info
+        .main-home
+          a(class={active: pathName === "/"}, href="/") 首页
+        .main-about
+          a(class={active: pathName === "/about"}, href="/about") 关于我
+        .main-message
+          a(class={active: pathName === "/message"}, href="/message") 留言板
+        .main-login
+          a(href="/login") 注册&nbsp;&nbsp;|
+          a(href="/register") &nbsp;&nbsp;登陆
+    .main-left
+      .main-img
+      .main-left-info
+        P 张智超
+    .main-right
+      block right-content

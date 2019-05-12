@@ -1,0 +1,25 @@
+.main-right{
+  margin-left: 280px;
+}
+.home-head{
+  margin-top: 6em;
+}
+.swiper-container {
+  width: 600px;
+  height: 300px;
+}
+.swiper-slide1{
+  background: url('/images/slide1.jpg') no-repeat;
+  background-size: 100% 100%;
+  max-width: 600px;
+}
+.swiper-slide2{
+  background: url('/images/slide2.jpg') no-repeat;
+  background-size: 100% 100%;
+  max-width: 600px;
+}
+.swiper-slide3{
+  background: url('/images/slide3.jpg') no-repeat;
+  background-size: 100% 100%;
+  max-width: 600px;
+}

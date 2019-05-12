@@ -10,9 +10,9 @@ export const addBodyParser = app => {
   app.use(bodyParser())
 }
 
-export const addLogger = app => {
-  app.use(logger())
-}
+// export const addLogger = app => {
+//   app.use(logger())
+// }
 
 export const view = async app => {
   app.use(views(r('../app/views'), {

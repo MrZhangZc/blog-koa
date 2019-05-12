@@ -1,0 +1,22 @@
+extends layout
+
+append css
+  link(rel="stylesheet", href="/css/home.css")
+  link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css")
+block right-content
+  .home-head
+    .swiper-container 
+      .swiper-wrapper 
+        .swiper-slide.swiper-slide1
+        .swiper-slide.swiper-slide2
+        .swiper-slide.swiper-slide3
+      .swiper-scrollbar
+
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js")
+  script.
+    const mySwiper = new Swiper ('.swiper-container', {
+      autoplay:true,
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+    })     

@@ -1,11 +1,16 @@
 import Router from 'koa-router'
+import { home } from '../app/controllers/page/frontpage'
+import url from 'url'
 
 export const router = app => {
   const router = new Router()
-
-  router.get('/', async ctx => {
-    await ctx.render('home')
+  router.use(async (ctx,next)=>{
+    const pathName=url.parse(ctx.request.url).pathname
+    ctx.state.pathName=pathName
+    await next()
   })
+
+  router.get('/', home)
 
   app.use(router.routes())
   app.use(router.allowedMethods())
