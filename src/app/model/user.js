@@ -10,10 +10,6 @@ const UserSchema = new Schema({
     type: String,
     default: '/images/head.jpg'
   },
-  rank: {
-    type: Number,
-    default: 0
-  },
   sex: {
     type: String,
   },

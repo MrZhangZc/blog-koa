@@ -1,8 +1,9 @@
-
+import { logJson } from '../../../util'
 
 //首页 '/'
 export const home = async ctx => {
   try {
+    logJson(300, '有人访问了', 'blog-koa')
     // console.log('user in session')
     // console.log(ctx.session.user)
     // let _user = ctx.session.user
