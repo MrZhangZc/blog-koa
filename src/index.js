@@ -20,7 +20,6 @@ async function start (){
   await userMiddlewares(app)(MIDDLEWARES)
 
   app.listen(port)
-  console.log('服务已经运行在' + '<' +port+ '>' + '端口')
 }
 
 start()
