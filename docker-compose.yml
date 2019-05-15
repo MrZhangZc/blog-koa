@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  blog-node1:
+    container_name: blog-node1
+    image: zzcimau/blog-koa:latest
+    ports:
+    - 8887:8888
+    depends_on: 
+    - mongo
+    - redis
+    links:
+    - mongo
+    - redis
+  blog-node2:
+    container_name: blog-node2
+    image: zzcimau/blog-koa:latest
+    ports:
+    - 8888:8888
+    depends_on: 
+    - mongo
+    - redis
+    links:
+    - mongo
+    - redis
+  blog-node3:
+    container_name: blog-node3
+    image: zzcimau/blog-koa:latest
+    ports:
+    - 8889:8888
+    depends_on: 
+    - mongo
+    - redis
+    links:
+    - mongo
+    - redis
+  mongo: 
+    container_name: mongo
+    image: mongo
+    ports: 
+    - 27019:27017
+    volumes:
+    - /usr/src/mongo:data/db:rw
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+    - 6379:6379
+    volumes:
+    - /usr/src/redis:data
