@@ -1,8 +1,8 @@
 * {margin: 0;padding: 0;list-style: none;text-decoration: none;}
-a {color: #DEAE9C;font-size: 1em;font-weight: bold;}
+a {font-size: 1em;font-weight: bold;}
 img {max-width: 100%;}
-a:hover {color: sandybrown;text-decoration:none;}
+a:hover {text-decoration:none;}
 html,body {width: 100%;height: 100%;}
-body {font: normal 100% Helvetica, Arial, sans-serif;background-color: aliceblue;
+body {font: normal 100% Helvetica, Arial, sans-serif;background-color: #F9F9F9;
   /* cursor:url(/img/normal.cur),default;  */
 }
