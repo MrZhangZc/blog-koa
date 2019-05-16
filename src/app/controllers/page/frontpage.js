@@ -3,7 +3,7 @@ import { logJson } from '../../../util'
 //首页 '/'
 export const home = async ctx => {
   try {
-    logJson(300, '有人访问了', 'blogzzc')
+    logJson(300, 'someonein', 'blogzzc')
     // console.log('user in session')
     // console.log(ctx.session.user)
     // let _user = ctx.session.user
@@ -16,7 +16,7 @@ export const home = async ctx => {
         //posts: post.slice(0,13)
     })
   }catch(err){
-    logJson(500, '博客首页出错', 'blogzzc')
+    logJson(500, 'home', 'blogzzc')
   }
 }
 
@@ -35,6 +35,6 @@ export const login = async ctx => {
         //posts: post.slice(0,13)
     })
   }catch(err){
-    logJson(500, '博客登陆页出错', 'blogzzc')
+    logJson(500, 'login', 'blogzzc')
   }
 }
