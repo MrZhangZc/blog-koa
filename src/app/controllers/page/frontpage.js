@@ -4,9 +4,6 @@ import { logJson } from '../../../util'
 export const home = async ctx => {
   try {
     logJson(300, 'someonein', 'blogzzc')
-    // console.log('user in session')
-    // console.log(ctx.session.user)
-    // let _user = ctx.session.user
     // ctx.state.user = _user
     // ctx.state.moment = moment
     // ctx.state.truncate = truncate

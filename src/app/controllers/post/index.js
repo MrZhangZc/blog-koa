@@ -23,6 +23,13 @@ export const login = async ctx => {
   }
 }
 
+export const logout = async ctx => {
+  delete ctx.session.user
+  delete ctx.state.user
+
+  ctx.response.redirect('/')
+}
+
 //POST
 export const registerPost = async ctx => {
   try{

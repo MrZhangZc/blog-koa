@@ -12,7 +12,12 @@ block main
   .home-header
     .home-header-center
       .home-header-left
-        p zzc
+        if user
+          a(href="/") 你好,#{user.nickname}&nbsp;|&nbsp;
+          a(href="/logout") 登出
+        else
+          a(href="/login") 登陆&nbsp;|&nbsp;
+          a(href="/register") 注册
       .home-header-right
         a(href="https://github.com/MrZhangZc", target="_blank")
           i(aria-hidden="true").fa.fa-github
