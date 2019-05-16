@@ -31,7 +31,7 @@ const ArticleSchema = new Schema({
   }
 })
 
-ArticleSchema.pre('save', next => {
+ArticleSchema.pre('save', function(next) {
   if (this.isNew) {
     this.meta.createdAt = this.meta.updatedAt = Date.now()
   } else {

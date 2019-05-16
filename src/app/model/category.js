@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const CategorySchema = new Schema({
-  title: String,
+  name: String,
   slug: String,
   meta: {
     createdAt: {
@@ -16,7 +16,7 @@ const CategorySchema = new Schema({
   }
 })
 
-CategorySchema.pre('save', next => {
+CategorySchema.pre('save', function (next) {
   if (this.isNew) {
     this.meta.createdAt = this.meta.updatedAt = Date.now()
   } else {
