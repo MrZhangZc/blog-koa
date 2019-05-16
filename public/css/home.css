@@ -18,6 +18,9 @@
   justify-content:space-around;
   align-items: center;
 }
+.home-header-right a{
+  color: #000;
+}
 /* home-front样式 */
 .home-front{
   width: 100%;

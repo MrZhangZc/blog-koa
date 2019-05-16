@@ -27,19 +27,17 @@ export const login = async ctx => {
 export const registerPost = async ctx => {
   try{
     const opts = ctx.request.body.user
-    const auser = await User.findOne({ name: opts.name })
+    const auser = await User.findOne({ nickname: opts.nickname })
     if(auser !== null){
-      throw new Error('用户已存在')
+      throw new Error('用户已存在,请更换用户名重新注册')
     }
     const user = new User(opts)
     await user.save()
     ctx.response.redirect('/login')
   }catch(err){
     logJson(500, 'register', 'blogzzc')
-    const errinfo = '用户已存在'
     await ctx.render('onstage/register', {
-      title: '注册',
-      errinfo: errinfo
+      errinfo: err.message
     })
   }
 }
@@ -47,30 +45,28 @@ export const registerPost = async ctx => {
 export const loginPost = async ctx => {
   try {
     const opts = ctx.request.body.user
-    const name = opts.name
+    const nickname = opts.nickname
     const password = opts.password
 
-    const _user = await User.findOne({ name: name })
+    const _user = await User.findOne({ nickname: nickname })
     const trueuser = await _user.conparePassword(password)
-
+    
     if (trueuser) {
-      // ctx.session.user = {
-      //   _id: zzc._id,
-      //   name: zzc.name,
-      //   role: zzc.role,
-      //   sex : zzc.sex
-      // }
-      // console.log('session中的用户', ctx.session)
+      ctx.session.user = {
+        _id: _user._id,
+        nickname: _user.nickname,
+        role: _user.role,
+        sex : _user.sex
+      }
+      logJson(300, 'userloginsuccess', 'blogzzc')
       ctx.response.redirect('/')
     }else{
       throw new Error('用户名或密码出错,请重新填写')
     }
-
-} catch (err) {
-    logJson(500, 'login', 'blogzzc')
-    const errinfo = '用户名或密码出错,请重新填写'
-    await ctx.render('onstage/login', {
-      errinfo: errinfo
-    })
+  } catch (err) {
+      logJson(500, 'login', 'blogzzc')
+      await ctx.render('onstage/login', {
+        errinfo: err.message
+      })
   }
 }
