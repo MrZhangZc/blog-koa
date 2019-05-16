@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs'
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema({
-  nikename: String,
+  nickname: String,
   password: String,
   headimg: {
     type: String,
@@ -12,6 +12,7 @@ const UserSchema = new Schema({
   },
   sex: {
     type: String,
+    default: '男'
   },
   role: {
     type:String,
@@ -33,7 +34,7 @@ const UserSchema = new Schema({
   }
 })
 
-UserSchema.pre('save', next => {
+UserSchema.pre('save', function (next) {
   if (this.isNew) {
     this.meta.createdAt = this.meta.updatedAt = Date.now()
   } else {
@@ -42,14 +43,13 @@ UserSchema.pre('save', next => {
   next()
 })
 
-UserSchema.pre('save', next => {
+UserSchema.pre('save', function (next) {
+  let user = this
   bcrypt.genSalt(10, function (err, salt) {
     if (err) return next(err)
-
-    bcrypt.hash(this.password, salt, function (err, hash) {
+    bcrypt.hash(user.password, salt, function (err, hash) {
       if (err) return next(err)
-
-      this.password = hash
+      user.password = hash
       next()
     })
   })

@@ -21,7 +21,7 @@ async function start (){
   await userMiddlewares(app)(MIDDLEWARES)
 
   app.listen(port)
-  logJson(300, `服务成功启动在 ${port} 端口`, 'blog-koa')
+  logJson(300, `服务成功启动在${port}端口`, 'blog-koa')
 }
 
 start()

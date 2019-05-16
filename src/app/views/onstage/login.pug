@@ -1,0 +1,14 @@
+extends ../layout
+
+append css
+  link(rel="stylesheet", href="/css/login.css")
+block main
+  .login
+    h1 登录
+    form.form(method="post", action="/login" style="margin-top:20%;")
+      label(for="signupName") 用户名
+      input#signupName.input-sing(name="user[nickname]", type="text",required='true')
+      label(for="signupPassword") 密码&nbsp;&nbsp;&nbsp;
+      input#signupPassword.input-sing(name="user[password]", type="password",required='true')
+      button.btn.btn-success.btn-signin(type="submit") 登录
+      a.register(href="/register") 没有账号?立即注册

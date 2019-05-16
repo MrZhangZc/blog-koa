@@ -23,6 +23,6 @@ export const mongo = () => {
   })
 
   mongoose.connection.on('open', async () => {
-    logJson(300, `成功链接数据库：${dbURL}`, 'blog-mongo')
+    logJson(300, `成功链接数据库`, 'blog-mongo')
   })
 }

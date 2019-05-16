@@ -16,6 +16,25 @@ export const home = async ctx => {
         //posts: post.slice(0,13)
     })
   }catch(err){
-    console.log('博客首页出错', err)
+    logJson(500, '博客首页出错', 'blog-koa')
+  }
+}
+
+export const login = async ctx => {
+  try {
+    //logJson(300, '有人访问了', 'blog-koa')
+    // console.log('user in session')
+    // console.log(ctx.session.user)
+    // let _user = ctx.session.user
+    // ctx.state.user = _user
+    // ctx.state.moment = moment
+    // ctx.state.truncate = truncate
+    // let post = await Post.find().sort({ '_id': -1 })
+    await ctx.render('onstage/login', {
+        title: '登陆',
+        //posts: post.slice(0,13)
+    })
+  }catch(err){
+    logJson(500, '博客登陆页出错', 'blog-koa')
   }
 }
