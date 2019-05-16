@@ -4,7 +4,7 @@ import logger from 'koa-logger'
 import views from 'koa-views'
 import serve from 'koa-static'
 import { resolve } from 'path'
-import Store from "../util/store";
+import Store from "../util/store"
 
 const r = path => resolve(__dirname, path)
 

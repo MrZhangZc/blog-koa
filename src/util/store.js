@@ -1,10 +1,11 @@
 import Redis from 'ioredis';
 import { Store } from 'koa-session2';
+import { redisHost } from '../config'
 
 export default class RedisStore extends Store {
   constructor() {
     super()
-    this.redis = new Redis()
+    this.redis = new Redis('6379', redisHost)
   }
 
   async get(sid) {
