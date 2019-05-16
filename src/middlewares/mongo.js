@@ -19,10 +19,9 @@ export const mongo = () => {
   })
 
   mongoose.connection.on('err', err => {
-    logJson(500, '连接数据库出错', 'blog-mongo')
+    logJson(500, '连接数据库出错', 'blogzzc')
   })
 
   mongoose.connection.on('open', async () => {
-    logJson(300, `成功链接数据库`, 'blog-mongo')
   })
 }

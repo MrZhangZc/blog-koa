@@ -9,7 +9,7 @@ export const register = async ctx => {
       title: '注册'
     })
   } catch (err) {
-    logJson(500, '注册出错', 'blog-koa')
+    logJson(500, '注册出错', 'blogzzc')
   }
 }
 
@@ -19,7 +19,7 @@ export const login = async ctx => {
       title: '登录'
     })
   } catch (err) {
-    logJson(500, '登录出错', blog-koa)
+    logJson(500, '登录出错', blogzzc)
   }
 }
 
@@ -35,7 +35,7 @@ export const registerPost = async ctx => {
     await user.save()
     ctx.response.redirect('/login')
   }catch(err){
-    logJson(500, '博客注册页出错', 'blog-koa')
+    logJson(500, '博客注册页出错', 'blogzzc')
     const errinfo = '用户已存在'
     await ctx.render('onstage/register', {
       title: '注册',
@@ -67,7 +67,7 @@ export const loginPost = async ctx => {
     }
 
 } catch (err) {
-    logJson(500, '登录出错', blog-koa)
+    logJson(500, '登录出错', blogzzc)
     const errinfo = '用户名或密码出错,请重新填写'
     await ctx.render('onstage/login', {
       errinfo: errinfo
