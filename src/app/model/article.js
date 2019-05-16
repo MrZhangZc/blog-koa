@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
-const PostSchema = new Schema({
+const ArticleSchema = new Schema({
   title: String,
   content: String,
   imgurl: String,
@@ -31,7 +31,7 @@ const PostSchema = new Schema({
   }
 })
 
-PostSchema.pre('save', next => {
+ArticleSchema.pre('save', next => {
   if (this.isNew) {
     this.meta.createdAt = this.meta.updatedAt = Date.now()
   } else {
@@ -40,4 +40,4 @@ PostSchema.pre('save', next => {
   next()
 })
 
-mongoose.model('Post', PostSchema)
+mongoose.model('Article', ArticleSchema)

@@ -17,6 +17,11 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
+"@notadd/neditor@^2.1.14":
+  version "2.1.14"
+  resolved "https://registry.npm.taobao.org/@notadd/neditor/download/@notadd/neditor-2.1.14.tgz#3159a64f2c28f7246da3bebb71ff49338b51546d"
+  integrity sha1-MVmmTywo9yRto767cf9JM4tRVG0=
+
 "@types/babel-types@*", "@types/babel-types@^7.0.0":
   version "7.0.7"
   resolved "https://registry.npm.taobao.org/@types/babel-types/download/@types/babel-types-7.0.7.tgz#667eb1640e8039436028055737d2b9986ee336e3"

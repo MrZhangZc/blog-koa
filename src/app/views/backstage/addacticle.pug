@@ -1,0 +1,18 @@
+extends ../layout
+
+append css
+  link(rel="stylesheet", href="/css/back/add.css")
+append js
+  <script type="text/javascript" charset="utf-8" src="/utf8-php/ueditor.config.js"></script>
+  <script type="text/javascript" charset="utf-8" src="/utf8-php/ueditor.all.min.js"> </script>
+  <script type="text/javascript" charset="utf-8" src="/utf8-php/lang/zh-cn/zh-cn.js"></script>
+block main
+  h2.page.header 添加文章
+  form.vertical-form(method="post", action='/article/add')
+    label(for="title") 标题
+    input.form-control.input-lg(name="title", required='true',placeholder="请输入标题。。。")
+    label(for="content") 内容
+    textarea#editor.form-control(type="text/plain",name="content", required='true')
+    button(type="submit")= "发布"
+  script.
+    var ue = UE.getEditor('editor')
