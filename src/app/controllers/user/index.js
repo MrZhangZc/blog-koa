@@ -40,6 +40,7 @@ export const registerPost = async ctx => {
     }
     const user = new User(opts)
     await user.save()
+    logJson(300, 'registersucess', 'blogzzc')
     ctx.response.redirect('/login')
   }catch(err){
     logJson(500, 'register', 'blogzzc')
@@ -75,5 +76,24 @@ export const loginPost = async ctx => {
       await ctx.render('onstage/login', {
         errinfo: err.message
       })
+  }
+}
+
+//权限
+export const signinRequired = async (ctx, next) => {
+  let user = ctx.session.user
+  if(user){
+    await next()
+  }else{
+    ctx.redirect('/')
+  }
+}
+
+export const adminRequired = async (ctx,next) => {
+  let user = ctx.session.user
+  if(user.role === '管理员'){
+    await next()
+  }else{
+    ctx.redirect('/')
   }
 }
