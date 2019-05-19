@@ -2,48 +2,71 @@ extends ../layout
 
 append css
   link(rel="stylesheet", href="/css/home.css")
-  link(rel="stylesheet", href="/js/mf-pattern/mF_51xflash.css")
-append js
-  script(src="/js/myfocus-2.0.4.min.js")
-  script(src="/js/mf-pattern/mF_51xflash.js")
-  script.
-    myFocus.set({id:'boxID', pattern:'mF_51xflash'})
 block main
-  .home-header
-    .home-header-center
-      .home-header-left
-        if user
-          a(href="/") 你好,#{user.nickname}&nbsp;|&nbsp;
-          a(href="/logout") 登出
-        else
-          a(href="/login") 登陆&nbsp;|&nbsp;
-          a(href="/register") 注册
-      .home-header-right
-        a(href="https://github.com/MrZhangZc", target="_blank")
-          i(aria-hidden="true").fa.fa-github
-        a(href="http://grafana.lihailezzc.com/d/6EfjJmZWz/blog?orgId=1", target="_blank")
-          i(aria-hidden="true").fa.fa-area-chart.fa-bar-chart  
-        a(href="http://kibana.lihailezzc.com/app/kibana#/discover?_g=(refreshInterval:(pause:!t,value:0),time:(from:now%2Fd,mode:quick,to:now%2Fd))&_a=(columns:!(level,msg,proj),index:'931355f0-7567-11e9-9c97-51c780d77cbb',interval:auto,query:(language:lucene,query:''),sort:!('@timestamp',desc))", target="_blank")
-          i(aria-hidden="true").fa.fa-bar-chart  
-        i(aria-hidden="true").fa.fa-twitter
-        i(aria-hidden="true").fa.fa-linkedin
-        i(aria-hidden="true").fa.fa-search
   .home-front
-    .home-front.img
-    .home-nav
-      a(href="/") HOME
-      a(href="/") ABOUT ME
-      a(href="/") CONTACT ME
-  #boxID
-    .loading
-      img(src="/images/loading.gif" alt="请稍等...")
-    .pic
-      ul
-        li
-          img(src="/images/slide1.jpg" text="这是图片1的说明")
-        li
-          img(src="/images/slide2.jpg" text="这是图片2的说明")
-        li
-          img(src="/images/slide3.jpg" text="这是图片3的说明")
-        li
-          img(src="/images/slide1.jpg" text="这是图片3的说明")
+    .logo
+      img(src="/images/zzc.png", alt="", srcset="")
+    //- .home-nav
+    //-   a(href="/") HOME &nbsp;&nbsp;
+    //-   a(href="/") ABOUT ME &nbsp;&nbsp;
+    //-   a(href="/") CONTACT ME
+  nav.navbar.navbar-expand-sm.bg-info.navbar-dark 
+    a.navbar-brand(href='/') 导航
+    button.navbar-toggler(type="button" data-toggle="collapse" data-target="#collapsibleNavbar")
+      span.navbar-toggler-icon
+    .collapse.navbar-collapse#collapsibleNavbar
+      ul.navbar-nav 
+        li.nav-item 
+          a.nav-link(href="#") 链接
+        li.nav-item 
+          a.nav-link(href="#") 链接
+        li.nav-item 
+          a.nav-link(href="#") 链接
+  //- #boxID
+  //-   .loading
+  //-     img(src="/images/loading.gif" alt="请稍等...")
+  //-   .pic 
+  //-     ul
+  //-       li
+  //-         img(src="/images/slide1.jpg" text="这是图片1的说明")
+  //-       li
+  //-         img(src="/images/slide2.jpg" text="这是图片2的说明")
+  //-       li
+  //-         img(src="/images/slide3.jpg" text="这是图片3的说明")
+  //-       li
+  //-         img(src="/images/slide1.jpg" text="这是图片3的说明")
+  .container
+    .row
+      .col-lg-8.col-12
+        each article in articles
+          .single-blog-post
+            .image-box
+              img(src= article.imgurl, alt="", srcset="")
+            .post-meta-box.bg-box
+              .top-info
+                .top-info-category
+                  a(href="/" ) #{article.category.name}
+                .top-info-date
+                  a(href="/")
+                    i.fa.fa-calendar &nbsp; #{moment(article.created).format('YYYY-MM-DD')}
+              h4.post-title #{article.title}
+              .under-info
+                a.comments(href="/" )
+                  i.fa.fa-shopping-basket &nbsp;  #{article.category.name} &nbsp;&nbsp;
+                a.like(href="/")
+                  i.fa.fa-calendar &nbsp; #{moment(article.created).format('YYYY-MM-DD')} &nbsp;&nbsp;
+                a.share-option(href="/")
+                  i.fa.fa-calendar &nbsp; #{moment(article.created).format('YYYY-MM-DD')} &nbsp;
+              p!= truncate(article.content,200)
+      .col-lg-4.col-md-7.col-12.theme-main-sidebar
+        .sidebar-box.bg-box.about-me
+          h6.sidebar-title 关于我
+          img(src="/images/slide1.jpg", alt="", srcset="")
+          p Hi, 我是张智超
+        .sidebar-box.bg-box.sidebar-categories
+          h6.sidebar-title 文章类别
+          ul
+            each category in categories
+              li
+                a(href="/") #{category.name}
+    .container-right

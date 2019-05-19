@@ -1,8 +1,30 @@
-* {margin: 0;padding: 0;list-style: none;text-decoration: none;}
-a {font-size: 1em;font-weight: bold;color:#000}
+* {margin: 0;padding: 0;list-style: none;text-decoration: none;box-sizing: border-box;}
+a {font-size: 1em;font-weight: bold;color:#000;text-decoration: none;
+  display: inline-block;touch-action: manipulation;cursor: pointer;}
 img {max-width: 100%;}
 a:hover {text-decoration:none;}
 html,body {width: 100%;height: 100%;}
 body {font: normal 100% Helvetica, Arial, sans-serif;background-color: #F9F9F9;
   /* cursor:url(/img/normal.cur),default;  */
 }
+p{
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+a:hover, a:focus, a:visited {
+  text-decoration: none;
+  outline: none;
+}
+.bg-box {
+  background: #fff;
+  box-shadow: 0px 11px 9px 0px rgba(0, 0, 0, 0.02);
+}
+
+/* herder样式 */
+.home-header{width: 100%;height: 2em;border-bottom: 1px solid #EFEFEF;}
+.home-header-center{width: 80%;margin: 0 auto;display: flex;height: 2em;line-height: 2em;justify-content: space-between;}
+.home-header-right{display: flex;width: 40%;justify-content:space-around;align-items: center;}
+.home-header-right a{color: #000;}

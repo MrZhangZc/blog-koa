@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    link(rel="shortcut icon", href="/images/favicon.ico", type="image/x-icon")
+    block css
+      link(rel="stylesheet", href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css")
+      link(rel="stylesheet", href="/css/responsive.css")
+      link(rel='stylesheet', href='/font-awesome/css/font-awesome.min.css')
+      link(rel='stylesheet', href='/css/base.css')
+      link(rel="stylesheet", href="/css/color.css")
+      link(rel="stylesheet", href="/css/style.css")
+    block js
+    title #{title}
+  body(style="overflow: visible;")
+    .top-header
+    .home-header
+      .home-header-center
+        .home-header-left
+          if user
+            a(href="/") 你好,#{user.nickname}&nbsp;|&nbsp;
+            a(href="/logout") 登出
+          else
+            a(href="/login") 登陆&nbsp;|&nbsp;
+            a(href="/register") 注册
+        .home-header-right
+          a(href="https://github.com/MrZhangZc", target="_blank")
+            i(aria-hidden="true").fa.fa-github
+          a(href="http://grafana.lihailezzc.com/d/hZ2ux7ZZk/blog?orgId=1", target="_blank")
+            i(aria-hidden="true").fa.fa-area-chart.fa-bar-chart  
+          a(href="http://kibana.lihailezzc.com/app/kibana#/discover?_g=(refreshInterval:(pause:!t,value:0),time:(from:now%2Fd,mode:quick,to:now%2Fd))&_a=(columns:!(level,msg,proj),index:'931355f0-7567-11e9-9c97-51c780d77cbb',interval:auto,query:(language:lucene,query:''),sort:!('@timestamp',desc))", target="_blank")
+            i(aria-hidden="true").fa.fa-bar-chart  
+          i(aria-hidden="true").fa.fa-twitter
+          i(aria-hidden="true").fa.fa-linkedin
+          i(aria-hidden="true").fa.fa-search
+    block main
+    footer.theme-footer
+      .container
+        .logo
+          a(href="/")
+            img(src="/images/zzc.png", alt="", srcset="")
+        p.footer-text Blog and Portfolio Theme
+        ul.social-icon
+          li.icon
+            a
+              i.fa.fa-github
+          li.icon
+            a
+              i.fa.fa-github
+          li.icon
+            a
+              i.fa.fa-github
+          li.icon
+            a
+              i.fa.fa-github
+        p.copyright Copyright © 2018.Company name All rights reserved.

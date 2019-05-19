@@ -7,7 +7,7 @@ const User = mongoose.model('User')
 
 export const addArticle = async ctx => {
   try {
-    await ctx.render('backstage/addacticle', {
+    await ctx.render('backstage/acticle/add', {
         title: '添加文章',
         //posts: post.slice(0,13)
     })

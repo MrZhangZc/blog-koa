@@ -6,6 +6,7 @@ import { signinRequired, adminRequired } from '../app/controllers/user'
 import url from 'url'
 import moment from 'moment'
 import mongoose from 'mongoose'
+import truncate from 'truncate'
 const Category = mongoose.model('Category')
 
 export const router = async app => {
@@ -14,8 +15,9 @@ export const router = async app => {
     const categories = await Category.find({}).sort('-created')
     const pathName = url.parse(ctx.request.url).pathname
     ctx.state.categories = categories
-    ctx.state.pathName = pathName
+    ctx.state.pathName = pathName 
     ctx.state.moment = moment
+    ctx.state.truncate = truncate
     ctx.state.user = ctx.session.user
     await next()
   })

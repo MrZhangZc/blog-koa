@@ -19,7 +19,7 @@ export const login = async ctx => {
       title: '登录'
     })
   } catch (err) {
-    logJson(500, 'login', blogzzc)
+    logJson(500, 'login', 'blogzzc')
   }
 }
 
