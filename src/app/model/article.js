@@ -7,6 +7,10 @@ const ArticleSchema = new Schema({
   content: String,
   imgurl: String,
   slug: String,
+  publishd: {
+    type: Boolean,
+    default: true
+  },
   category: { 
     type: ObjectId, 
     ref:'Category' 

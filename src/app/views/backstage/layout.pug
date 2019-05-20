@@ -1,7 +1,11 @@
-extends ../layout
+extends ../layout1
 
 append css
   link(rel='stylesheet', href='/css/admin.css')
+append js
+  <script type="text/javascript" charset="utf-8" src="/utf8-php/ueditor.config.js"></script>
+  <script type="text/javascript" charset="utf-8" src="/utf8-php/ueditor.all.min.js"> </script>
+  <script type="text/javascript" charset="utf-8" src="/utf8-php/lang/zh-cn/zh-cn.js"></script>
 block main
   nav.navbar.navbar-inverse.navbar-fixed-top
     .container-fluid
@@ -11,46 +15,45 @@ block main
           span.icon-bar
           span.icon-bar
           span.icon-bar
-        a.navbar-brand(href='/') NODE.JS   博客系统首页
+        a.navbar-brand(href='/') 张智超博客系统管理员后台
       #navbar.navbar-collapse.collapse
         ul.nav.navbar-nav.navbar-right
           if user
-              li
-                a= user.name
-              li
-                a(href='/admin/users/logout') 
-                    i.fa.fa-unlock-alt
-                    | &nbsp;注销
-          li
-            a(href='/admin/help') 
-                i.fa.fa-question
-                | &nbsp;帮助
+            li
+              a= user.name
+            li
+              a(href='/logout') 
+                i.fa.fa-unlock-alt
+                | &nbsp;注销
   .container-fluid
     .row
       .col-sm-3.col-md-2.sidebar
         ul.nav.nav-sidebar
-          li(class={active: pageName === "/admin/posts"})
-            a(href='/admin/posts')
+          li(class={active: pathName === "/admin/article"})
+            a(href='/admin/article')
               i.fa.fa-files-o
               | &nbsp;文章列表 
               span.sr-only (current)
-          li(class={active: pageName === "/admin/posts/add"})
-            a(href='/admin/posts/add') 
+          li(class={active: pathName === "/admin/article/add"})
+            a(href='/admin/article/add') 
               i.fa.fa-file-o
               | &nbsp;添加文章
-          li(class={active: pageName === "/admin/categories"})
-            a(href='/admin/categories') 
+          li(class={active: pathName === "/admin/category"})
+            a(href='/admin/category') 
               i.fa.fa-th-list
               | &nbsp;分类列表
-          li(class={active: pageName === "/admin/categories/add"})
-            a(href='/admin/categories/add') 
+          li(class={active: pathName === "/admin/category/add"})
+            a(href='/admin/category/add') 
               i.fa.fa-plus
               | &nbsp;添加分类
+          li(class={active: pathName === "/admin/user"})
+            a(href='/admin/user') 
+              i.fa.fa-users
+              | &nbsp;用户列表
         ul.nav.nav-sidebar
-          li(class={active: pageName === "/admin/users/password"})
-            a(href='/admin/users/password') 
+          li(class={active: pathName === "/admin/user/password"})
+            a(href='/admin/user/password') 
               i.fa.fa-lock
               | &nbsp;修改密码
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
-        //- != messages()
         block content

@@ -6,6 +6,9 @@ block main
   form.form-signin(method="post", action="/login")
     h2.form-signin-heading 登录
 
+    if err
+      p.alert.alert-danger #{err}
+      
     label.sr-only(for="myname") 用户名
     input.myname.form-control(name="user[nickname]",type="text", placeholder="请输入用户名...", required="", autofocus="")
 

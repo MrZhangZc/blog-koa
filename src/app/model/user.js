@@ -6,6 +6,7 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema({
   nickname: String,
   password: String,
+  email: String,
   headimg: {
     type: String,
     default: '/images/head.jpg'

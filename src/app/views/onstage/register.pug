@@ -3,15 +3,39 @@ extends ../layout
 append css
   link(rel="stylesheet", href="/css/register.css")
 block main
-  .register
-    h1 注册
-    p.registerp #{errinfo}
-    form.form(method="post", action="/register" style="margin-top:20%;")
-      label(for="signupName") 用户名
-      input#signupName.input-sing(name="user[nickname]", type="text",required='true')
-      label(for="signupPassword") 密码&nbsp;&nbsp;&nbsp;
-      input#signupPassword.input-sing(name="user[password]", type="password",required='true')
-      button.btn.btn-success.btn-signin(type="submit") 注册
-    //- form(method="post", action="uploadimg", enctype="multipart/form-data")
-    //-   input(type="file" name="file") 
-    //-   input(type="submit" value="ok") 
+  form.form-signin(method="post", action="/register")
+    h2.form-signin-heading 注册
+    if err
+      p.alert.alert-danger #{err}
+
+    label.sr-only(for="nickname") 用户名
+    input.myname.form-control(name="nickname",type="text", placeholder="请输入昵称", required="", autofocus="")
+
+    label.sr-only(for="sex") 性别
+    select.form-control.input-lg.sex(name="sex", required='true')
+        option(value="") - 性别 -
+          option 男
+          option 女
+
+    label.sr-only(for="password") 密码
+    input.password.form-control(name="password",type="password", placeholder="请输入密码", required="", autofocus="")
+
+    label.sr-only(for="cpassword") 确认密码
+    input.password.form-control(name="cpassword",type="password", placeholder="请再次输入密码", required="", autofocus="")
+
+    label.sr-only(for="email") 邮箱
+    input.password.form-control(name="email",type="email", placeholder="请输入邮箱", required="", autofocus="")
+
+    label.sr-only(for="autograph") 个性签名
+    textarea.password.form-control(name="autograph", placeholder="个性签名",type="text", required="", autofocus="")
+
+    button.btn.btn-lg.btn-primary.btn-block(type="submit") 注册
+  //- .login
+  //-   h1 登录
+  //-   form.form(method="post", action="/login" style="margin-top:20%;")
+  //-     label(for="signupName") 用户名
+  //-     input#signupName.input-sing(name="user[nickname]", type="text",required='true')
+  //-     label(for="signupPassword") 密码&nbsp;&nbsp;&nbsp;
+  //-     input#signupPassword.input-sing(name="user[password]", type="password",required='true')
+  //-     button.btn.btn-success.btn-signin(type="submit") 登录
+  //-     a.register(href="/register") 没有账号?立即注册

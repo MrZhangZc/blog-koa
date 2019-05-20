@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  h2.page.header 编辑分类
+
+  if errors && errors.length
+    .errors
+      each error in errors
+        p.alert.alert-danger #{error.msg}
+
+  form.vertical-form(method="post", action='/admin/category/edit/' + category._id)
+    .form-group
+      label(for="title") 标题
+      input.form-control.input-lg(name="name", required='true',placeholder="请输入名字。。。" value=category.name)
+
+    button.btn.btn-lg.btn-info(type="submit") 确认修改

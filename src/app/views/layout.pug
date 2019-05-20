@@ -17,9 +17,13 @@ html(lang='zh-cmn-Hans')
     .home-header
       .home-header-center
         .home-header-left
-          if user 
-            a(href="/") 你好,#{user.nickname}&nbsp;|&nbsp;
-            a(href="/logout") 登出
+          if user
+            if user.role === '普通用户'
+              a(href="/") 你好,#{user.nickname}&nbsp;|&nbsp;
+              a(href="/logout") 登出
+            else
+              a(href="/admin/article") 进入后台管理 &nbsp;|&nbsp;
+              a(href="/logout") 登出
           else
             a(href="/login") 登陆&nbsp;|&nbsp;
             a(href="/register") 注册

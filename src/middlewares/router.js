@@ -1,7 +1,8 @@
 import Router from 'koa-router'
 import { home } from '../app/controllers/page/frontpage'
-import { addArticle, postArticle, addCategory, postCategory, } from '../app/controllers/page/backpage'
-import { login, loginPost, register, registerPost, logout } from '../app/controllers/user'
+import { login, loginPost, register, registerPost, logout, fixPassworrd, postFixPassworrd, userList, deleteUser, upUser, downUser } from '../app/controllers/user'
+import { showArticles, addArticle, postArticle,editArticle, postEditArticle, publishdArticle, deleteArticle} from '../app/controllers/article'
+import { showCategory, addCategory, postCategory, editCategory, postEditCategory, deleteCategory} from '../app/controllers/category'
 import { signinRequired, adminRequired } from '../app/controllers/user'
 import url from 'url'
 import moment from 'moment'
@@ -25,22 +26,38 @@ export const router = async app => {
   //get page front
   router.get('/', home)
 
-  //get brck page
-  router.get('/article/add', addArticle)
-  router.post('/article/add', postArticle)
+  //article
+  router.get('/admin/article', showArticles)
+  router.get('/admin/article/add', addArticle)
+  router.post('/admin/article/add', postArticle)
+  router.get('/admin/article/edit/:id', editArticle)
+  router.post('/admin/article/edit/:id', postEditArticle)
+  router.get('/admin/article/publishd/:id', publishdArticle)
+  router.get('/admin/article/delete/:id', deleteArticle)
 
-  router.get('/article/category/add', addCategory)
-  router.post('/article/category/add', postCategory)
+  // category
+  router.get('/admin/category', showCategory)
+  router.get('/admin/category/add', addCategory)
+  router.post('/admin/category/add', postCategory)
+  router.get('/admin/category/edit/:id', editCategory)
+  router.post('/admin/category/edit/:id', postEditCategory)
+  router.get('/admin/category/delete/:id', deleteCategory)
 
   // user get
   router.get('/login', login)
   router.get('/register', register)
   router.get('/logout', logout)
+  router.get('/admin/user/password', fixPassworrd)
+  router.get('/admin/user', userList)
+  router.get('/admin/user/delete/:id', deleteUser)
+  router.get('/admin/user/up/:id', upUser)
+  router.get('/admin/user/down/:id', downUser)
 
   // user post
   router.post('/login', loginPost)
   router.post('/register', registerPost)
- 
+  router.post('/admin/user/password', postFixPassworrd)
+
   app.use(router.routes())
   app.use(router.allowedMethods())
 }

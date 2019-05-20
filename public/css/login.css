@@ -5,12 +5,6 @@
 	margin: 200px auto;
 }
 
-.form-signin small{
-	font-size: 50%;
-	display: inline-block;
-	margin-top: 20px;
-}
-
 .myname{
 	margin-top: 50px;
 }
@@ -22,20 +16,4 @@
 
 .confirm-password{
 	margin-bottom: 20px;
-}
-
-#messages .error{
-	margin: 0;
-	padding: 0
-}
-
-#messages .error li{
-	list-style: none;
-	padding: 5px;
-	margin-bottom: 10px;
-	border:1px solid transparent;
-	border-radius: 4px;
-	color:#a94442;
-	background-color: #f2dede;
-	border-color: #ebccd1
 }

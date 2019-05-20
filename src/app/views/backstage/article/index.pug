@@ -1,0 +1,50 @@
+extends ../layout
+
+block content
+  h2.page.header 博文列表
+
+  //- article
+  if info
+
+  table.table.table-bordered
+    thead
+      tr
+        th(width="30%") 标题
+        th 是否发布
+        th 分类
+        th 添加时间
+        th 被赞
+        th 评论
+        th 管理
+    tbody
+    each article in articles
+      tr
+        td
+          a(href="/posts/view/" + article._id, target="_blank") #{article.title}
+        td(style="color:#5BC0DE") #{article.publishd}
+        td #{article.category.name}
+        td #{moment(article.created).format('YYYY-MM-DD HH:mm:ss')}
+        td #{article.meta.favorites || 0}
+        td 0
+        td
+          a.btn.btn-sm.btn-info(href="/admin/article/edit/" + article._id) 编辑
+          | &nbsp;&nbsp;
+          a.btn.btn-sm.btn-success(href="/admin/article/publishd/" + article._id) 发布
+          | &nbsp;&nbsp;
+          a.btn.btn-sm.btn-danger(href="/admin/article/delete/" + article._id) 取消发布
+          
+
+  if pageCount > 1
+    nav
+      ul.pagination
+        - var currentPage = 1
+        while currentPage < pageCount
+          if (currentPage === pageNum)
+            li.active
+               a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author + "&sortby=" + sortby + "&sortdir" + sortdir)= currentPage++
+          else
+            li
+               a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author +"&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
+
+  script(src="/js/querystring.js")
+  script(src="/js/admin/post.js")
