@@ -1,11 +1,6 @@
 extends ../layout
 
 block content
-  h2.page.header 博文列表
-
-  //- article
-  if info
-
   table.table.table-bordered
     thead
       tr
@@ -20,7 +15,7 @@ block content
     each article in articles
       tr
         td
-          a(href="/posts/view/" + article._id, target="_blank") #{article.title}
+          a(href="/article/" + article._id, target="_blank") #{article.title}
         td(style="color:#5BC0DE") #{article.publishd}
         td #{article.category.name}
         td #{moment(article.created).format('YYYY-MM-DD HH:mm:ss')}

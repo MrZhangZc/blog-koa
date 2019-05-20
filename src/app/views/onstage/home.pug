@@ -13,24 +13,12 @@ block main
     .collapse.navbar-collapse#collapsibleNavbar
       ul.navbar-nav 
         li.nav-item 
-          a.nav-link(href="#") 链接
+          a.nav-link(href="/about") 关于我
         li.nav-item 
-          a.nav-link(href="#") 链接
-        li.nav-item 
-          a.nav-link(href="#") 链接
-  //- #boxID
-  //-   .loading
-  //-     img(src="/images/loading.gif" alt="请稍等...")
-  //-   .pic 
-  //-     ul
-  //-       li
-  //-         img(src="/images/slide1.jpg" text="这是图片1的说明")
-  //-       li
-  //-         img(src="/images/slide2.jpg" text="这是图片2的说明")
-  //-       li
-  //-         img(src="/images/slide3.jpg" text="这是图片3的说明")
-  //-       li
-  //-         img(src="/images/slide1.jpg" text="这是图片3的说明")
+          a.nav-link(href="/messageBoard") 留言板
+        if user
+          li.nav-item 
+            a.nav-link(href="/personal") 个人中心
   .container
     .row
       .col-lg-8.col-12
@@ -45,7 +33,8 @@ block main
                 .top-info-date
                   a(href="/")
                     i.fa.fa-calendar &nbsp; #{moment(article.created).format('YYYY-MM-DD')}
-              h4.post-title #{article.title}
+              h4 
+                a.post-title(href='/article/' + article._id) #{article.title}
               .under-info
                 a.comments(href="/" )
                   i.fa.fa-shopping-basket &nbsp;  #{article.category.name} &nbsp;&nbsp;

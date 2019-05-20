@@ -1,0 +1,27 @@
+extends ../layout
+
+append css
+  link(rel="stylesheet", href="/css/article.css")
+block main
+  img.article-bg(src= article.imgurl, alt="", srcset="")
+  .container
+    .row
+      .article
+        .article-info
+          h4.article-title #{article.title}
+          .article-meta
+            span.post-auther
+              i.fa.fa-user &nbsp; #{article.author.nickname} &nbsp;
+            span.article-create
+              i.fa.fa-calendar &nbsp; #{moment(article.created).format('YYYY-MM-DD')} &nbsp;
+            span.article-category 
+              i.fa.fa-shopping-basket &nbsp; 
+              a(href='/category/' + article.category.name, target="_black") #{article.category.name} &nbsp;
+            span.article-comment 
+              i.fa.fa-comment &nbsp; 0 &nbsp;
+            span.article-favorite 
+              a(href='/favorite/' + article._id)
+                i.fa.fa-star &nbsp; 0
+        //- .article-bg(style="background-image: url(#{article.imgurl})")
+          h1 #{article.title}
+        p!= article.content

@@ -1,0 +1,26 @@
+.article-bg{
+  width: 100%;
+  height: 40%;
+}
+.article{
+  width: 100%;
+  padding-left: 3em;
+  padding-right: 3em;
+}
+.article-meta{
+  display: flex;
+}
+.article p{
+  line-height: 2em;
+  text-indent: 2em;
+}
+.article-title{
+  margin-top: 3em;
+  color: #555555;
+}
+
+.article-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

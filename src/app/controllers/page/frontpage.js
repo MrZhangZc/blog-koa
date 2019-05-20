@@ -15,3 +15,16 @@ export const home = async ctx => {
     logJson(500, 'home', 'blogzzc')
   }
 }
+
+export const article = async ctx => {
+  try {
+    const articleId = ctx.params.id
+    const article = await Article.findById(articleId).populate('author').populate('category')
+    await ctx.render('onstage/article', {
+      title: 'zzc博客',
+      article: article
+    })
+  }catch(err){
+    logJson(500, 'article', 'blogzzc')
+  }
+}

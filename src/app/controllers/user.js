@@ -100,7 +100,6 @@ export const deleteUser = async ctx => {
 export const registerPost = async ctx => {
   try{
     const opts = ctx.request.body
-    console.log(opts)
     const auser = await User.findOne({ nickname: opts.nickname })
     if(auser !== null){
       throw new Error('用户已存在,请更换用户名重新注册')
@@ -144,7 +143,7 @@ export const loginPost = async ctx => {
         sex : _user.sex
       }
       logJson(300, 'userloginsuccess', 'blogzzc')
-      ctx.response.redirect('/admin/article')
+      ctx.response.redirect('/')
     }else{
       throw new Error('用户名或密码出错,请重新填写')
     }
