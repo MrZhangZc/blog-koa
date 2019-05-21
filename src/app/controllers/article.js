@@ -4,6 +4,7 @@ import { logJson } from '../../util'
 const Article = mongoose.model('Article')
 const Category = mongoose.model('Category')
 const User = mongoose.model('User')
+const Comment = mongoose.model('Comment')
 
 export const showArticles = async ctx => {
   try{
@@ -98,5 +99,26 @@ export const publishdArticle = async ctx => {
     ctx.response.redirect('/admin/article')
   }catch(err){
     logJson(500, 'publishdarticle', 'blogzzc')
+  }
+}
+
+export const comment = async ctx => {
+  try {
+    const articleId = ctx.params.id
+    const user = ctx.state.user
+    const postComment = ctx.request.body.comment
+
+    const comment = await new Comment({
+      from: user._id,
+      content: postComment
+    })
+    console.log(comment)
+    await comment.save()
+    const upComment = { $push: { comments: comment._id } }
+    await Article.updateOne({ _id:articleId }, upComment)
+    ctx.response.redirect('/article/' + articleId)
+  }catch(err){
+    console.log(err)
+    logJson(500, 'comment', 'blogzzc')
   }
 }

@@ -6,6 +6,8 @@
   width: 100%;
   padding-left: 3em;
   padding-right: 3em;
+  border-bottom: 1px solid #DDD;
+  padding-bottom: 3em;
 }
 .article-meta{
   display: flex;
@@ -23,4 +25,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+} 
+.commentList{
+  margin-top: 2em;
+  border-bottom: 1px solid #DDD;
+}
+.commentList .commentTitle{
+  color: #444444;
+}
+.acomment{
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+.acommentFlex{
+  display: flex;
+  align-items:center
+}
+.acomment img{
+  border-radius: 50%;
+  width: 4em;
+  height: 4em;
+}
+.acommentCon{
+  width: 100%;
+  border: 1px solid #DDDDDD;
+  padding: 2em;
+  box-shadow: 4px 4px 10px #ccc
+}
+.comment{
+  margin-top: 3em;
 }

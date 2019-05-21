@@ -6,22 +6,46 @@ block main
   img.article-bg(src= article.imgurl, alt="", srcset="")
   .container
     .row
-      .article
-        .article-info
-          h4.article-title #{article.title}
-          .article-meta
-            span.post-auther
-              i.fa.fa-user &nbsp; #{article.author.nickname} &nbsp;
-            span.article-create
-              i.fa.fa-calendar &nbsp; #{moment(article.created).format('YYYY-MM-DD')} &nbsp;
-            span.article-category 
-              i.fa.fa-shopping-basket &nbsp; 
-              a(href='/category/' + article.category.name, target="_black") #{article.category.name} &nbsp;
-            span.article-comment 
-              i.fa.fa-comment &nbsp; 0 &nbsp;
-            span.article-favorite 
-              a(href='/favorite/' + article._id)
-                i.fa.fa-star &nbsp; 0
-        //- .article-bg(style="background-image: url(#{article.imgurl})")
-          h1 #{article.title}
-        p!= article.content
+      .article-left.col-lg-8.col-12
+        .article
+          .article-info
+            h4.article-title #{article.title}
+            .article-meta
+              span.post-auther
+                i.fa.fa-user &nbsp; #{article.author.nickname} &nbsp;
+              span.article-create
+                i.fa.fa-calendar &nbsp; #{moment(article.created).format('YYYY-MM-DD')} &nbsp;
+              span.article-category 
+                i.fa.fa-shopping-basket &nbsp; 
+                a(href='/category/' + article.category.name, target="_black") #{article.category.name} &nbsp;
+              span.article-comment 
+                i.fa.fa-comment &nbsp; #{article.comments.length} &nbsp;
+              span.article-favorite 
+                a(href='/favorite/' + article._id)
+                  i.fa.fa-star &nbsp; 0
+          p!= article.content
+        if article.comments.length !== 0
+          .commentList
+            .commentTitle 
+              h3 #{article.comments.length} Comments
+            each comment in article.comments
+              .acomment
+                .acommentFlex
+                  img(src= comment.from.headimg)
+                  .acommentInfo
+                    p #{comment.from.nickname}
+                    p #{moment(comment.created).format('YYYY-MM-DD')}
+                .acommentCon
+                  p #{comment.content}
+        if user
+          .comment
+            form.form-signin(method="post", action="/comment/" + article._id)
+              h2.form-signin-heading 评论
+                
+              label.sr-only(for="comment") 内容
+              textarea.form-control(name="comment", cols="30", rows="10", required="")
+
+              button.btn.btn-lg.btn-primary.btn-block(type="submit", style="margin-top:3em;") 确定
+        else
+          a(href="/login")
+            button.btn.btn-lg.btn-primary.btn-block(type="submit", style="margin-top:3em;") 登录后即可评论

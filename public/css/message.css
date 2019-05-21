@@ -1,0 +1,33 @@
+.messagesBoard img{
+  border-radius: 50%;
+  width: 4em;
+  height: 4em;
+}
+.messagesBoard{
+  display: flex;
+  justify-content:space-around;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+.messagesLeft{
+  display: flex;
+  align-items:center;
+  flex-direction: column;
+}
+.messagesRight{
+  width: 80%;
+  border: 1px solid #DDDDDD;
+  box-shadow: 4px 4px 10px #ccc;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.reply img{
+  border-radius: 50%;
+  width: 3em;
+  height: 3em;
+}
+
+.reply{display: flex;justify-content:space-around;margin-left: 3em;margin-bottom: 1em;}
+.replyLeft{display: flex;flex-direction: column;align-items: center;}
+.replyRight{width: 80%;padding: 1em;border: 1px solid #DDDDDD;box-shadow: 4px 4px 10px #ccc}

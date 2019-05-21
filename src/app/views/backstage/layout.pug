@@ -46,6 +46,10 @@ block main
             a(href='/admin/category/add') 
               i.fa.fa-plus
               | &nbsp;添加分类
+          li(class={active: pathName === "/admin/message"})
+            a(href='/admin/message') 
+              i.fa.fa-comments
+              | &nbsp;留言管理
           li(class={active: pathName === "/admin/user"})
             a(href='/admin/user') 
               i.fa.fa-users

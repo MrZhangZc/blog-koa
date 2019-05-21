@@ -1,0 +1,39 @@
+extends ../layout
+
+append css
+  link(rel="stylesheet", href="/css/message.css")
+block main
+  .container
+    .row
+      .message.col-lg-8.col-12
+        each message in messages
+          .messagesBoard
+            .messagesLeft
+              img(src= message.from.headimg, alt="")
+              p #{message.from.nickname}
+              a(href="/message/reply/" + message._id) 回复
+            .messagesRight
+              p #{moment(message.created).format('YYYY-MM-DD')}
+              p #{message.content}
+          if message.reply.length !== 0
+            each reply in message.reply
+              .reply
+                .replyLeft
+                  img(src=reply.from.headimg, alt="")
+                  p #{reply.from.nickname}
+                .replyRight
+                  p #{reply.content}
+        if user
+          .comment
+            form.form-signin(method="post", action= action)
+              h2.form-signin-heading 留言
+                
+              label.sr-only(for="content") 内容
+              textarea.form-control(name="content", cols="30", rows="10", required="")
+
+              button.btn.btn-lg.btn-primary.btn-block(type="submit", style="margin-top:3em;") 确定
+        else
+          a(href="/login")
+            button.btn.btn-lg.btn-primary.btn-block(type="submit", style="margin-top:3em;") 登录后即可评论
+          
+        

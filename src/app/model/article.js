@@ -19,10 +19,10 @@ const ArticleSchema = new Schema({
     type: ObjectId, 
     ref:'User' 
   },
-  comments: {
+  comments: [{
     type: ObjectId, 
     ref:'Comment'
-  },
+  }],
   meta: {
     createdAt: {
       type: Date,

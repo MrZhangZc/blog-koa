@@ -2,14 +2,13 @@ const mongoose = require('mongoose')
 const Schema   = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
-const CommentSchema = new mongoose.Schema({
+const MessageSchema = new mongoose.Schema({
 	from: {
-    type: ObjectId, 
+    type: ObjectId,
     ref: 'User'
   },
 	reply: [{
     from: { type: ObjectId, ref: 'User' },
-    to: { type: ObjectId, ref: 'User' },
     content: String
   }],
 	content: String,
@@ -25,7 +24,7 @@ const CommentSchema = new mongoose.Schema({
 	}
 })
 
-CommentSchema.pre('save', function(next) {
+MessageSchema.pre('save', function(next) {
 	if(this.isNew) {
 		this.meta.createAt = this.meta.updateAt = Date.now()
 	}else{
@@ -34,4 +33,4 @@ CommentSchema.pre('save', function(next) {
 	next()
 })
 
-mongoose.model('Comment', CommentSchema)
+mongoose.model('Message', MessageSchema)

@@ -1,0 +1,17 @@
+extends ../layout
+
+append css
+  link(rel="stylesheet", href="/css/personal.css")
+block main
+  .container
+    .row
+      .persional
+        p #{tuser.nickname}
+        p #{tuser.sex}
+        p #{tuser.autograph}
+        p #{tuser.email}
+        img(src= tuser.headimg, alt="")
+        //- form(action="/load", method="post")
+        //-   input.filename(type="text" name='filename')
+        //-   input.imgPath(type="file" name="file")
+        //-   button.btn.btn-lg.btn-primary.btn-block(type="submit") 登录

@@ -14,7 +14,7 @@ export const addSession = app => {
   }))
 }
 export const addBodyParser = app => {
-  app.use(bodyParser())
+  app.use(bodyParser({ multipart: true,formidable: { maxFileSize: 200*1024*1024 }}))
 }
 
 // export const addLogger = app => {

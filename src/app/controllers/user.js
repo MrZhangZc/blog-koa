@@ -1,7 +1,8 @@
 import mongoose from 'mongoose'
 import { logJson } from '../../util'
 import bcrypt from 'bcryptjs'
-
+import fs from 'fs'
+import path from 'path'
 const User = mongoose.model('User')
 
 // GET
@@ -184,10 +185,36 @@ export const postFixPassworrd = async ctx => {
     })
   }
 }
+export const load = async ctx => {
+  try {
+    const file = ctx.request.body.file
+    const filename = ctx.request.body.filename
+    console.log(file)
 
+    const render = fs.createReadStream('./');
+    let filePath = path.join('/upload/',filename+'.png');
+    const fileDir = path.join('/upload/');
+    if (!fs.existsSync(fileDir)) {
+      fs.mkdirSync(fileDir, err => {
+        console.log(err)
+        console.log('创建失败')
+      });
+    }
+    // 创建写入流
+    const upStream = fs.createWriteStream(filePath);
+    render.pipe(upStream);
+    console.log('上传成功')
+    // const userId = ctx.params.id
+    // await User.deleteOne({ _id: userId })
+    // ctx.response.redirect('/admin/user')
+  } catch (err) {
+    console.log(err)
+    logJson(500, 'deleteuser', 'blogzzc')
+  }
+}
 //权限
 export const signinRequired = async (ctx, next) => {
-  let user = ctx.session.user
+  const user = ctx.session.user
   if(user){
     await next()
   }else{
@@ -203,3 +230,4 @@ export const adminRequired = async (ctx,next) => {
     ctx.redirect('/')
   }
 }
+

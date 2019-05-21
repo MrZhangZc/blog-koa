@@ -1,8 +1,9 @@
 import Router from 'koa-router'
-import { home, article } from '../app/controllers/page/frontpage'
-import { login, loginPost, register, registerPost, logout, fixPassworrd, postFixPassworrd, userList, deleteUser, upUser, downUser } from '../app/controllers/user'
-import { showArticles, addArticle, postArticle,editArticle, postEditArticle, publishdArticle, deleteArticle} from '../app/controllers/article'
+import { home, article, personal, messageBoard, message, messageReply, reply } from '../app/controllers/page/frontpage'
+import { login, loginPost, register, registerPost, logout, fixPassworrd, postFixPassworrd, userList, deleteUser, upUser, downUser, load } from '../app/controllers/user'
+import { showArticles, addArticle, postArticle,editArticle, postEditArticle, publishdArticle, deleteArticle, comment} from '../app/controllers/article'
 import { showCategory, addCategory, postCategory, editCategory, postEditCategory, deleteCategory} from '../app/controllers/category'
+import { adminMess, deleteMess } from '../app/controllers/message'
 import { signinRequired, adminRequired } from '../app/controllers/user'
 import url from 'url'
 import moment from 'moment'
@@ -26,6 +27,11 @@ export const router = async app => {
   //get page front
   router.get('/', home)
   router.get('/article/:id', article)
+  router.get('/personal', personal)
+  router.get('/messageBoard', messageBoard)
+  router.post('/message', message)
+  router.get('/message/reply/:id', messageReply)
+  router.post('/reply/:id', reply)
 
   //article
   router.get('/admin/article', showArticles)
@@ -35,6 +41,7 @@ export const router = async app => {
   router.post('/admin/article/edit/:id', postEditArticle)
   router.get('/admin/article/publishd/:id', publishdArticle)
   router.get('/admin/article/delete/:id', deleteArticle)
+  router.post('/comment/:id', comment)
 
   // category
   router.get('/admin/category', showCategory)
@@ -43,6 +50,10 @@ export const router = async app => {
   router.get('/admin/category/edit/:id', editCategory)
   router.post('/admin/category/edit/:id', postEditCategory)
   router.get('/admin/category/delete/:id', deleteCategory)
+
+  //message
+  router.get('/admin/message', adminMess)
+  router.get('/admin/message/delete/:id', deleteMess)
 
   // user get
   router.get('/login', login)
@@ -58,6 +69,7 @@ export const router = async app => {
   router.post('/login', loginPost)
   router.post('/register', registerPost)
   router.post('/admin/user/password', postFixPassworrd)
+  router.post('/load', load)
 
   app.use(router.routes())
   app.use(router.allowedMethods())
