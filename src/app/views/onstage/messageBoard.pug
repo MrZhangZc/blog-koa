@@ -3,6 +3,8 @@ extends ../layout
 append css
   link(rel="stylesheet", href="/css/message.css")
 block main
+  .message-bg
+    h1 留言板
   .container
     .row
       .message.col-lg-8.col-12
@@ -34,6 +36,6 @@ block main
               button.btn.btn-lg.btn-primary.btn-block(type="submit", style="margin-top:3em;") 确定
         else
           a(href="/login")
-            button.btn.btn-lg.btn-primary.btn-block(type="submit", style="margin-top:3em;") 登录后即可评论
+            button.btn.btn-lg.btn-primary.btn-block(type="submit", style="margin-top:3em;margin-bottom:3em;") 登录后即可评论
           
         

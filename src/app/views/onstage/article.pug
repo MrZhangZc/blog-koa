@@ -11,8 +11,6 @@ block main
           .article-info
             h4.article-title #{article.title}
             .article-meta
-              span.post-auther
-                i.fa.fa-user &nbsp; #{article.author.nickname} &nbsp;
               span.article-create
                 i.fa.fa-calendar &nbsp; #{moment(article.created).format('YYYY-MM-DD')} &nbsp;
               span.article-category 
@@ -20,9 +18,6 @@ block main
                 a(href='/category/' + article.category.name, target="_black") #{article.category.name} &nbsp;
               span.article-comment 
                 i.fa.fa-comment &nbsp; #{article.comments.length} &nbsp;
-              span.article-favorite 
-                a(href='/favorite/' + article._id)
-                  i.fa.fa-star &nbsp; 0
           p!= article.content
         if article.comments.length !== 0
           .commentList

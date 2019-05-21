@@ -8,7 +8,7 @@ const Comment = mongoose.model('Comment')
 
 export const showArticles = async ctx => {
   try{
-    const articles = await Article.find().populate('author').populate('category')
+    const articles = await Article.find().populate('author').populate('category').sort({ '_id': -1 })
     await ctx.render('backstage/article/index', {
       title: '文章列表',
       articles: articles

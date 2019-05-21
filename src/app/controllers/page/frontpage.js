@@ -21,7 +21,7 @@ export const home = async ctx => {
 export const article = async ctx => {
   try {
     const articleId = ctx.params.id
-    const article = await Article.findById(articleId).populate('author').populate('category').populate({ path: 'comments' ,populate: {path: 'from'}})
+    const article = await Article.findById(articleId).populate('author').populate('category').populate({ path: 'comments' ,populate: {path: 'from'}}).sort({ '_id': -1 })
     await ctx.render('onstage/article', {
       title: 'zzc博客',
       article: article
@@ -30,7 +30,15 @@ export const article = async ctx => {
     logJson(500, 'article', 'blogzzc')
   }
 }
-
+export const aboutMe = async ctx => {
+  try {
+    await ctx.render('onstage/aboutme', {
+      title: '关于我'
+    })
+  }catch(err){
+    logJson(500, 'aboutme', 'blogzzc')
+  }
+}
 export const personal = async ctx => {
   try {
     const cuser = ctx.session.user

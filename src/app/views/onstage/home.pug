@@ -13,7 +13,7 @@ block main
     .collapse.navbar-collapse#collapsibleNavbar
       ul.navbar-nav 
         li.nav-item 
-          a.nav-link(href="/about") 关于我
+          a.nav-link(href="/aboutMe") 关于我
         li.nav-item 
           a.nav-link(href="/messageBoard") 留言板
         if user
@@ -35,13 +35,6 @@ block main
                     i.fa.fa-calendar &nbsp; #{moment(article.created).format('YYYY-MM-DD')}
               h4 
                 a.post-title(href='/article/' + article._id) #{article.title}
-              .under-info
-                a.comments(href="/" )
-                  i.fa.fa-shopping-basket &nbsp;  #{article.category.name} &nbsp;&nbsp;
-                a.like(href="/")
-                  i.fa.fa-calendar &nbsp; #{moment(article.created).format('YYYY-MM-DD')} &nbsp;&nbsp;
-                a.share-option(href="/")
-                  i.fa.fa-calendar &nbsp; #{moment(article.created).format('YYYY-MM-DD')} &nbsp;
               p!= truncate(article.content,200)
       .col-lg-4.col-md-7.col-12.theme-main-sidebar
         .sidebar-box.bg-box.about-me
