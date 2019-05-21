@@ -206,11 +206,11 @@ export const load = async ctx => {
 }
 //权限
 export const signinRequired = async (ctx, next) => {
-  const user = ctx.session.user
+  let user = ctx.session.user
   if(user){
     await next()
   }else{
-    ctx.redirect('/')
+    ctx.response.redirect('/')
   }
 }
 
@@ -219,7 +219,7 @@ export const adminRequired = async (ctx,next) => {
   if(user.role === '管理员'){
     await next()
   }else{
-    ctx.redirect('/')
+    ctx.response.redirect('/')
   }
 }
 
