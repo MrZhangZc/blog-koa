@@ -14,7 +14,6 @@ export const showArticles = async ctx => {
       articles: articles
     })
   }catch(err){
-    console.log(err)
     logJson(500, 'showarticles', 'blogzzc')
   }
 }
@@ -59,7 +58,6 @@ export const editArticle = async ctx=> {
       article: article
     })
   }catch(err){
-    console.log(err)
     logJson(500, 'editarticle', 'blogzzc')
   }
 }
@@ -118,7 +116,6 @@ export const comment = async ctx => {
     await Article.updateOne({ _id:articleId }, upComment)
     ctx.response.redirect('/article/' + articleId)
   }catch(err){
-    console.log(err)
     logJson(500, 'comment', 'blogzzc')
   }
 }

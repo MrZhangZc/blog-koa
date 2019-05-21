@@ -12,7 +12,6 @@ export const showCategory = async ctx => {
       articles: articles
     })
   }catch(err){
-    console.log(err)
     logJson(500, 'showcategory', 'blogzzc')
   }
 }
@@ -36,7 +35,6 @@ export const postCategory = async ctx => {
     await category.save()
     ctx.response.redirect('/admin/category')
   }catch(err){
-    console.log(err)
     logJson(500, 'postCategory', 'blogzzc')
   }
 }
@@ -50,7 +48,6 @@ export const editCategory = async ctx=> {
       category: category
     })
   }catch(err){
-    console.log(err)
     logJson(500, 'editcategory', 'blogzzc')
   }
 }
@@ -63,7 +60,6 @@ export const postEditCategory = async ctx => {
     await Category.updateOne({ _id:category_id }, update)
     ctx.response.redirect('/admin/category')
   }catch(err){ 
-    console.log(err)
     logJson(500, 'editcategory', 'blogzzc')
   }
 }

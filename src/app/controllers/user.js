@@ -44,7 +44,6 @@ export const userList = async ctx => {
       users: users
     })
   } catch (err) {
-    console.log(err)
     logJson(500, 'userlist', 'blogzzc')
   }
 }
@@ -62,7 +61,6 @@ export const upUser = async ctx => {
     }
     ctx.response.redirect('/admin/user')
   }catch(err){
-    console.log(err)
     logJson(500, 'upuser', 'blogzzc')
   }
 }
@@ -74,7 +72,6 @@ export const downUser = async ctx => {
     await User.updateOne({ _id: userId }, upUser)
     ctx.response.redirect('/admin/user')
   }catch(err){
-    console.log(err)
     logJson(500, 'upuser', 'blogzzc')
   }
 }
@@ -92,7 +89,6 @@ export const deleteUser = async ctx => {
     await User.deleteOne({ _id: userId })
     ctx.response.redirect('/admin/user')
   } catch (err) {
-    console.log(err)
     logJson(500, 'deleteuser', 'blogzzc')
   }
 }
@@ -189,15 +185,12 @@ export const load = async ctx => {
   try {
     const file = ctx.request.body.file
     const filename = ctx.request.body.filename
-    console.log(file)
 
     const render = fs.createReadStream('./');
     let filePath = path.join('/upload/',filename+'.png');
     const fileDir = path.join('/upload/');
     if (!fs.existsSync(fileDir)) {
       fs.mkdirSync(fileDir, err => {
-        console.log(err)
-        console.log('创建失败')
       });
     }
     // 创建写入流
@@ -208,7 +201,6 @@ export const load = async ctx => {
     // await User.deleteOne({ _id: userId })
     // ctx.response.redirect('/admin/user')
   } catch (err) {
-    console.log(err)
     logJson(500, 'deleteuser', 'blogzzc')
   }
 }

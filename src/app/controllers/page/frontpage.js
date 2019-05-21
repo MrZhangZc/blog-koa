@@ -40,7 +40,6 @@ export const personal = async ctx => {
       tuser: user
     })
   }catch(err){
-    console.log(err)
     logJson(500, 'personal', 'blogzzc')
   }
 }
@@ -55,7 +54,6 @@ export const messageBoard = async ctx => {
       action: action
     })
   }catch(err){
-    console.log(err)
     logJson(500, 'messageboard', 'blogzzc')
   }
 }
@@ -71,7 +69,6 @@ export const message = async ctx => {
     await message.save()
     ctx.response.redirect('/messageBoard')
   }catch(err){
-    console.log(err)
     logJson(500, 'message', 'blogzzc')
   }
 }
@@ -87,7 +84,6 @@ export const messageReply = async ctx => {
       action: action
     })
   }catch(err){
-    console.log(err)
     logJson(500, 'messagereply', 'blogzzc')
   }
 }
@@ -115,7 +111,6 @@ export const reply = async ctx => {
     // await Article.updateOne({ _id:articleId }, upComment)
     
   }catch(err){
-    console.log(err)
     logJson(500, 'messagereply', 'blogzzc')
   }
 }
