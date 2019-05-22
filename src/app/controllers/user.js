@@ -196,7 +196,7 @@ export const load = async ctx => {
     // 创建写入流
     const upStream = fs.createWriteStream(filePath);
     render.pipe(upStream);
-    console.log('上传成功')
+    //console.log('上传成功')
     // const userId = ctx.params.id
     // await User.deleteOne({ _id: userId })
     // ctx.response.redirect('/admin/user')

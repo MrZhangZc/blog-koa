@@ -31,7 +31,6 @@ export const addArticle = async ctx => {
 
 export const postArticle = async ctx => {
   try {
-    console.log(ctx.request.body)
     const opts = ctx.request.body
     const title = opts.title.trim()
     const userinfo = ctx.state.user
@@ -110,7 +109,6 @@ export const comment = async ctx => {
       from: user._id,
       content: postComment
     })
-    console.log(comment)
     await comment.save()
     const upComment = { $push: { comments: comment._id } }
     await Article.updateOne({ _id:articleId }, upComment)
