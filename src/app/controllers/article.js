@@ -34,9 +34,11 @@ export const postArticle = async ctx => {
     const opts = ctx.request.body
     const title = opts.title.trim()
     const userinfo = ctx.state.user
+    const tags = opts.tags.split(',')
     const article = new Article({
       title: title,
       content: opts.content,
+      tags: tags,
       imgurl: opts.imgsrc,
       category: opts.category,
       author: userinfo._id

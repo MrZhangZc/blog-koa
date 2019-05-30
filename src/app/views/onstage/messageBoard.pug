@@ -13,7 +13,9 @@ block main
             .messagesLeft
               img(src= message.from.headimg, alt="")
               p #{message.from.nickname}
-              a(href="/message/reply/" + message._id) 回复
+              if user
+                if user.role === '管理员'
+                  a(href="/message/reply/" + message._id) 回复
             .messagesRight
               p #{moment(message.created).format('YYYY-MM-DD')}
               p #{message.content}

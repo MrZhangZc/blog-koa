@@ -3,13 +3,22 @@ extends ../layout1
 append css
   link(rel="stylesheet", href="/css/about.css")
 block main
-  //- a(href="/")
-  //-   i.fa.fa-arrow-left &nbsp;&nbsp;&nbsp;BACK TO HOME
-  //- .aboutme
-  //-   .aboutme-title
-  //-     h3 Hi,我叫张智超
-  //-     h3 来自内蒙古包头市
-  //-     h3 毕业于内蒙古农业大学
-  //-     h3 感谢访问我的博客
-  //-     h3 欢迎给我留言
-
+  .backHome
+    a(href="/")
+      li.fa.fa-arrow-left &nbsp;返回首页
+  .col-lg-3.col-sm-4.col-md-4.left
+    img(src="/images/abobtme.jpg", alt="", srcset="")
+    p 姓名：张智超
+    p 邮箱：jiayouzzc@126.com
+    p 内蒙古农业大学
+    p 软件工程
+  .col-lg-9.col-sm-8.col-md-8.right
+    h1 张智超
+    h5(style="margin-top: 3em;") 内蒙古包头市昆都仑区
+    h5(style="margin-bottom: 3em;") 利用NodeJs构建高性能web端，移动端，pc端各种应用，提高用户体验。
+    ul
+      li
+        a(href="https://github.com/MrZhangZc", target="_blank")
+         i.fa.fa-github
+      li
+        i.fa.fa-weixin.wechat

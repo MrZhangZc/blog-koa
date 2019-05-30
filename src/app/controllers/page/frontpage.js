@@ -26,6 +26,8 @@ export const article = async ctx => {
       title: 'zzc博客',
       article: article
     })
+    const addOne = { $inc: { lookTimes: 1} }
+    await Article.updateOne({ _id: articleId }, addOne)
   }catch(err){
     logJson(500, 'article', 'blogzzc')
   }

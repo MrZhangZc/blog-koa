@@ -31,20 +31,27 @@ block main
                 .top-info-category
                   a(href="/" ) #{article.category.name}
                 .top-info-date
-                  a(href="/")
-                    i.fa.fa-calendar &nbsp; #{moment(article.created).format('YYYY-MM-DD')}
+                  i.fa.fa-calendar &nbsp; #{moment(article.meta.createdAt).format('YYYY-MM-DD')} &nbsp;
+                  i.fa.fa-eye &nbsp; (#{article.lookTimes}) &nbsp;
+                  i.fa.fa-comment &nbsp; (#{article.comments.length}) &nbsp;
               h4 
                 a.post-title(href='/article/' + article._id) #{article.title}
               p!= truncate(article.content,200)
       .col-lg-4.col-md-7.col-12.theme-main-sidebar
         .sidebar-box.bg-box.about-me
           h6.sidebar-title 关于我
-          img(src="/images/slide1.jpg", alt="", srcset="")
+          img(src="/images/zzc.jpg", alt="", srcset="")
           p Hi, 我是张智超
         .sidebar-box.bg-box.sidebar-categories
-          h6.sidebar-title 文章类别
+          h6.fa.fa-shopping-basket.ranking 文章类别
           ul
             each category in categories
               li
                 a(href="/") #{category.name}
+        .sidebar-box.bg-box.sidebar-categories.sidebar-ranking
+          h6.fa.fa-fire.ranking &nbsp;热门文章排行
+          ul
+            each article in articles.sort((a, b) => b.lookTimes - a.lookTimes ).slice(0,5)
+              li 
+                a(href='/article/' + article._id) #{article.title} (#{article.lookTimes})
     .container-right

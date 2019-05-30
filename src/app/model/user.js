@@ -9,7 +9,7 @@ const UserSchema = new Schema({
   email: String,
   headimg: {
     type: String,
-    default: '/images/head.jpg'
+    default: '/images/boy.png'
   },
   sex: {
     type: String,

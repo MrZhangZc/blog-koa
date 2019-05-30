@@ -12,12 +12,12 @@ block main
             h4.article-title #{article.title}
             .article-meta
               span.article-create
-                i.fa.fa-calendar &nbsp; #{moment(article.created).format('YYYY-MM-DD')} &nbsp;
+                i.fa.fa-calendar &nbsp; #{moment(article.meta.createdAt).format('YYYY-MM-DD')} &nbsp;
               span.article-category 
                 i.fa.fa-shopping-basket &nbsp; 
                 a(href='/category/' + article.category.name, target="_black") #{article.category.name} &nbsp;
-              span.article-comment 
-                i.fa.fa-comment &nbsp; #{article.comments.length} &nbsp;
+              span.article-create
+                i.fa.fa-eye &nbsp; #{article.lookTimes}
           p!= article.content
         if article.comments.length !== 0
           .commentList
@@ -44,3 +44,9 @@ block main
         else
           a(href="/login")
             button.btn.btn-lg.btn-primary.btn-block(type="submit", style="margin-top:3em;") 登录后即可评论
+      .article-right.col-lg-4.col-12
+        if article.tags.length > 0
+          .article-tags
+            i.fa.fa-tags.tags-title &nbsp;标签
+            each tag in article.tags
+              p #{tag}

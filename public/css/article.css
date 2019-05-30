@@ -55,3 +55,18 @@
 .comment{
   margin-top: 3em;
 }
+.article-tags{
+  background: #E4ECEA;
+  padding: 2em;
+  margin-top: 5em;
+  margin-bottom: 3em;
+}
+.tags-title{
+  font-size: 1.2em;
+  font-weight: bold;
+  color:#79C2E2;
+}
+
+.article-tags p{
+  color:#A4A7D5;
+}

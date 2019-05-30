@@ -7,6 +7,11 @@ const ArticleSchema = new Schema({
   content: String,
   imgurl: String,
   slug: String,
+  tags: Array,
+  lookTimes: {
+    type: Number,
+    default: 0
+  },
   publishd: {
     type: Boolean,
     default: true

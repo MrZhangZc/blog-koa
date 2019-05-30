@@ -20,7 +20,7 @@ block content
         td(style="color:#5BC0DE") #{user.role}
         td #{user.sex}
         td #{user.email}
-        td #{moment(user.created).format('YYYY-MM-DD HH:mm:ss')}
+        td #{moment(user.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}
         td #{user.autograph}
         td
           a.btn.btn-sm.btn-info(href="/admin/user/delete/" + user._id) 删除

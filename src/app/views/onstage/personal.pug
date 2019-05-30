@@ -3,6 +3,8 @@ extends ../layout
 append css
   link(rel="stylesheet", href="/css/personal.css")
 block main
+  .personal-bg
+    h1 个人中心
   .container
     .row
       .persional
@@ -10,6 +12,8 @@ block main
         p #{tuser.sex}
         p #{tuser.autograph}
         p #{tuser.email}
+        p #{tuser.autograph}
+        P #{moment(tuser.created).format('YYYY-MM-DD')}
         img(src= tuser.headimg, alt="")
         //- form(action="/load", method="post")
         //-   input.filename(type="text" name='filename')

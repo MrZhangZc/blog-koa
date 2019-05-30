@@ -14,7 +14,7 @@ block content
       tr
         td
           a(href="/posts/view/" + category._id, target="_blank") #{category.name}
-        td #{moment(category.created).format('YYYY-MM-DD HH:mm:ss')}
+        td #{moment(category.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}
         td
           a.btn.btn-sm.btn-info(href="/admin/category/edit/" + category._id) 编辑
           | &nbsp;&nbsp;

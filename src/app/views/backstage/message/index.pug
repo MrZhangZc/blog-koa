@@ -14,7 +14,7 @@ block content
     each message in messages
       tr
         td #{message.from.nickname}
-        td #{moment(message.created).format('YYYY-MM-DD HH:mm:ss')}
+        td #{moment(message.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}
         td #{message.content}
         td
           a.btn.btn-sm.btn-danger(href="/admin/message/delete/" + message._id) 删除

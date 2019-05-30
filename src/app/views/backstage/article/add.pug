@@ -4,13 +4,16 @@ block content
   form.vertical-form(method="post", action='/admin/article/add')
     .form-group
       label(for="title") 标题
-      input.form-control.input-lg(name="title", required='true',placeholder="请输入标题。。。")
+      input.form-control.input-lg(name="title", required='true',placeholder="请输入标题")
     .form-group
       label(for="category") 分类
       select.form-control.input-lg(name="category",required='true')
         option(value="") - 选择分类 -
         each category in categories
           option(value=category._id) #{category.name}
+    .form-group
+      label(for="tags") 标签
+      input.form-control.input-lg(name="tags", required='true',placeholder="请输入标签")
     .form-gropp
       label(for="imgsrc") 图片:
       input.form-control.input-lg(name="imgsrc", required='true',placeholder="请输入图片地址")

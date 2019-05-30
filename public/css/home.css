@@ -142,3 +142,16 @@
   border: 1px solid rgba(0,0,0,0.06);
   margin-bottom: 15px;
 }
+.sidebar-ranking{
+  background-color: #DCDDE8;
+}
+.sidebar-categories{
+  background-color: #DCDDE8;
+}
+.about-me{
+  background-color: #DCDDE8;
+}
+.ranking{
+  color: #D0344E;
+  font-weight: bold
+}

@@ -56,7 +56,7 @@ export const upUser = async ctx => {
       const upUser = { $set: { role: '普通用户' } }
       await User.updateOne({ _id: userId }, upUser)
     }else{
-      const upUser = { $set: { role: '管理员' } }
+      const upUser = { $set: { role: '管理员', headimg: '/images/me.jpg'} }
       await User.updateOne({ _id: userId }, upUser)
     }
     ctx.response.redirect('/admin/user')
@@ -97,6 +97,13 @@ export const deleteUser = async ctx => {
 export const registerPost = async ctx => {
   try{
     const opts = ctx.request.body
+    const sex = opts.sex
+    let imgurl = ''
+    if(sex === '男'){
+      imgurl = '/images/boy.png'
+    }else{
+      imgurl = '/images/girl.png'
+    }
     const auser = await User.findOne({ nickname: opts.nickname })
     if(auser !== null){
       throw new Error('用户已存在,请更换用户名重新注册')
@@ -109,6 +116,7 @@ export const registerPost = async ctx => {
         sex: opts.sex,
         password: opts.password,
         email: opts.email,
+        headimg: imgurl,
         autograph: opts.autograph
       })
       await user.save()

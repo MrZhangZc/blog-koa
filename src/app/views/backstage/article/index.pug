@@ -7,6 +7,7 @@ block content
         th(width="30%") 标题
         th 是否发布
         th 分类
+        th 浏览次数
         th 添加时间
         th 被赞
         th 评论
@@ -18,9 +19,10 @@ block content
           a(href="/article/" + article._id, target="_blank") #{article.title}
         td(style="color:#5BC0DE") #{article.publishd}
         td #{article.category.name}
-        td #{moment(article.created).format('YYYY-MM-DD HH:mm:ss')}
+        td #{article.lookTimes}
+        td #{moment(article.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}
         td #{article.meta.favorites || 0}
-        td 0
+        td #{article.comments.length}
         td
           a.btn.btn-sm.btn-info(href="/admin/article/edit/" + article._id) 编辑
           | &nbsp;&nbsp;
