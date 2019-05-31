@@ -8,13 +8,13 @@ block main
   .container
     .row
       .persional
+        img(src= tuser.headimg, alt="")
         p #{tuser.nickname}
         p #{tuser.sex}
         p #{tuser.autograph}
         p #{tuser.email}
         p #{tuser.autograph}
-        P #{moment(tuser.created).format('YYYY-MM-DD')}
-        img(src= tuser.headimg, alt="")
+        P #{moment(tuser.meta.createdAt).format('YYYY-MM-DD')}
         //- form(action="/load", method="post")
         //-   input.filename(type="text" name='filename')
         //-   input.imgPath(type="file" name="file")

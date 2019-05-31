@@ -2,7 +2,6 @@ import mongoose from 'mongoose'
 import { logJson } from '../../util'
 
 const Article = mongoose.model('Article')
-const Category = mongoose.model('Category')
 const User = mongoose.model('User')
 const Comment = mongoose.model('Comment')
 

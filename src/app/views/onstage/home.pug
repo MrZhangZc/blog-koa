@@ -22,6 +22,8 @@ block main
   .container
     .row
       .col-lg-8.col-12
+        if cate
+          h4 #{cate.name}分类下的所有文章
         each article in articles
           .single-blog-post
             .image-box
@@ -29,7 +31,7 @@ block main
             .post-meta-box.bg-box
               .top-info
                 .top-info-category
-                  a(href="/" ) #{article.category.name}
+                  a(href="/category/" + article.category._id) #{article.category.name}
                 .top-info-date
                   i.fa.fa-calendar &nbsp; #{moment(article.meta.createdAt).format('YYYY-MM-DD')} &nbsp;
                   i.fa.fa-eye &nbsp; (#{article.lookTimes}) &nbsp;
@@ -47,7 +49,7 @@ block main
           ul
             each category in categories
               li
-                a(href="/") #{category.name}
+                a(href="/category/" + category._id) #{category.name}
         .sidebar-box.bg-box.sidebar-categories.sidebar-ranking
           h6.fa.fa-fire.ranking &nbsp;热门文章排行
           ul

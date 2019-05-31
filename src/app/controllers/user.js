@@ -38,7 +38,7 @@ export const fixPassworrd = async ctx => {
 
 export const userList = async ctx => {
   try {
-    const users = await User.find()
+    const users = await User.find().sort({ '_id': -1 })
     await ctx.render('backstage/user/list', {
       title: '用户列表',
       users: users

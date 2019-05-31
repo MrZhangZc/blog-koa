@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { home, article, personal, messageBoard, aboutMe, message, messageReply, reply } from '../app/controllers/page/frontpage'
+import { home, article, personal, messageBoard, aboutMe, message, messageReply, reply, getCategoryPost } from '../app/controllers/page/frontpage'
 import { login, loginPost, register, registerPost, logout, fixPassworrd, postFixPassworrd, userList, deleteUser, upUser, downUser, load } from '../app/controllers/user'
 import { showArticles, addArticle, postArticle,editArticle, postEditArticle, publishdArticle, deleteArticle, comment} from '../app/controllers/article'
 import { showCategory, addCategory, postCategory, editCategory, postEditCategory, deleteCategory} from '../app/controllers/category'
@@ -44,7 +44,10 @@ export const router = async app => {
   router.get('/admin/article/delete/:id', signinRequired, adminRequired, deleteArticle)
   router.post('/comment/:id', comment)
 
-  // category
+  // category front
+  router.get('/category/:id', getCategoryPost)
+
+  // category admin
   router.get('/admin/category', signinRequired, adminRequired, showCategory)
   router.get('/admin/category/add', signinRequired, adminRequired, addCategory)
   router.post('/admin/category/add', signinRequired, adminRequired, postCategory)

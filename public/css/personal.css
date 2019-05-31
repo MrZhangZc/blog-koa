@@ -14,3 +14,8 @@
     transform: translate(-50%,-50%);
     color: #000;
 }
+.persional img{
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+}

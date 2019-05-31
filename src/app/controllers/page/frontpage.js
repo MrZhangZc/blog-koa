@@ -4,6 +4,7 @@ import { logJson } from '../../../util'
 const User = mongoose.model('User')
 const Article = mongoose.model('Article')
 const Message = mongoose.model('Message')
+const Category = mongoose.model('Category')
 //首页
 export const home = async ctx => {
   try {
@@ -65,6 +66,21 @@ export const messageBoard = async ctx => {
     })
   }catch(err){
     logJson(500, 'messageboard', 'blogzzc')
+  }
+}
+
+export const getCategoryPost = async ctx => {
+  try{
+    const categoryId = ctx.params.id
+    const category = await Category.findById(categoryId)
+    const articles = await Article.find({ publishd: true,  category: categoryId}).populate('author').populate('category').sort({ '_id': -1 })
+    await ctx.render('onstage/home', {
+      title: `${category.name}类别`,
+      articles: articles,
+      cate: category
+    })
+  }catch(err){
+    logJson(500, 'getcategorypost', 'blogzzc')
   }
 }
 
