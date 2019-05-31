@@ -18,9 +18,9 @@
 > * Redis v5.0.5
 > * Koa v2.7.0
 
-###主要技术
+### 主要技术
 - 博客系统：Nodejs MongoDB Redis
 - 日志系统：filebeat ELK Grafana 
 
-###设计思路
+### 设计思路
 > 一个多节点启动的具有完善日志系统的个人博客系统
