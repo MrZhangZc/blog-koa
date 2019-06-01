@@ -85,9 +85,11 @@ export const postEditArticle = async ctx => {
     const upTitle = { $set: { title: opts.title } }
     const upCate  = { $set: { category: opts.category } }
     const upCon   = { $set: { content: opts.content } }
+    const upImg   = { $set: { imgurl: opts.imgsrc } }
     await Article.updateOne({ _id:article_id }, upTitle)
     await Article.updateOne({ _id:article_id }, upCate)
     await Article.updateOne({ _id:article_id }, upCon)
+    await Article.updateOne({ _id:article_id }, upImg)
     ctx.response.redirect('/admin/article')
   }catch(err){ 
     logJson(500, 'editarticle', 'blogzzc')

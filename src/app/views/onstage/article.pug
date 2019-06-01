@@ -15,7 +15,7 @@ block main
                 i.fa.fa-calendar &nbsp; #{moment(article.meta.createdAt).format('YYYY-MM-DD')} &nbsp;
               span.article-category 
                 i.fa.fa-shopping-basket &nbsp; 
-                a(href='/category/' + article.category.name, target="_black") #{article.category.name} &nbsp;
+                a(href='/category/' + article.category._id, target="_black") #{article.category.name} &nbsp;
               span.article-create
                 i.fa.fa-eye &nbsp; #{article.lookTimes}
           p!= article.content
