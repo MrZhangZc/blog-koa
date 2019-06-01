@@ -5,12 +5,25 @@ append css
 block main
   .personal-bg
     h1 个人中心
+  nav.navbar.navbar-expand-sm.bg-dark.navbar-dark 
+    a.navbar-brand(href='/') 个人中心
+    button.navbar-toggler(type="button" data-toggle="collapse" data-target="#collapsibleNavbar")
+      span.navbar-toggler-icon
+    .collapse.navbar-collapse#collapsibleNavbar
+      ul.navbar-nav 
+        li.nav-item 
+          a.nav-link(href="/aboutMe") 基本信息
+        li.nav-item 
+          a.nav-link(href="/messageBoard") 修改信息
+        if user
+          li.nav-item 
+            a.nav-link(href="/personal") 修改密码
   .container
     .row
       .persional
         img(src= tuser.headimg, alt="")
         p #{tuser.nickname}
-        p #{tuser.sex}
+        p #{tuser.sex} 
         p #{tuser.autograph}
         p #{tuser.email}
         p #{tuser.autograph}

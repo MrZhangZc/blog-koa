@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { home, article, personal, messageBoard, aboutMe, message, messageReply, reply, getCategoryPost } from '../app/controllers/page/frontpage'
+import { home, article, personal, messageBoard, aboutMe, message, messageReply, reply, getCategoryPost } from '../app/controllers/frontpage'
 import { login, loginPost, register, registerPost, logout, fixPassworrd, postFixPassworrd, userList, deleteUser, upUser, downUser, load } from '../app/controllers/user'
 import { showArticles, addArticle, postArticle,editArticle, postEditArticle, publishdArticle, deleteArticle, comment} from '../app/controllers/article'
 import { showCategory, addCategory, postCategory, editCategory, postEditCategory, deleteCategory} from '../app/controllers/category'

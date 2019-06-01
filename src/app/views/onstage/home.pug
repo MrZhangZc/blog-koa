@@ -16,9 +16,9 @@ block main
           a.nav-link(href="/aboutMe") 关于我
         li.nav-item 
           a.nav-link(href="/messageBoard") 留言板
-        if user
-          li.nav-item 
-            a.nav-link(href="/personal") 个人中心
+        //- if user
+        //-   li.nav-item 
+        //-     a.nav-link(href="/personal") 个人中心
   .container
     .row
       .col-lg-8.col-12
@@ -38,7 +38,7 @@ block main
                   i.fa.fa-comment &nbsp; (#{article.comments.length}) &nbsp;
               h4 
                 a.post-title(href='/article/' + article._id) #{article.title}
-              p!= truncate(article.content,200)
+              p!= truncate(article.content,100)
       .col-lg-4.col-md-7.col-12.theme-main-sidebar
         .sidebar-box.bg-box.about-me
           h6.sidebar-title 关于我

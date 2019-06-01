@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { logJson } from '../../../util'
+import { logJson } from '../../util'
 
 const User = mongoose.model('User')
 const Article = mongoose.model('Article')
@@ -23,6 +23,9 @@ export const article = async ctx => {
   try {
     const articleId = ctx.params.id
     const article = await Article.findById(articleId).populate('author').populate('category').populate({ path: 'comments' ,populate: {path: 'from'}}).sort({ '_id': -1 })
+    if(article.abbreviation){
+      logJson(300, article.abbreviation, 'blogzzc')
+    }
     await ctx.render('onstage/article', {
       title: 'zzc博客',
       article: article
@@ -42,6 +45,7 @@ export const aboutMe = async ctx => {
     logJson(500, 'aboutme', 'blogzzc')
   }
 }
+
 export const personal = async ctx => {
   try {
     const cuser = ctx.session.user
@@ -93,6 +97,7 @@ export const message = async ctx => {
       content: content
     })
     await message.save()
+    logJson(300, 'newmessage', 'blogzzc')
     ctx.response.redirect('/messageBoard')
   }catch(err){
     logJson(500, 'message', 'blogzzc')
@@ -119,23 +124,9 @@ export const reply = async ctx => {
     const userId = ctx.session.user._id
     const replyContent = ctx.request.body.content
     const messageId = ctx.params.id
-    // const messages = await Message.find().populate('from')
     const upReply = { $push: { reply: { from: userId , content: replyContent } } }
     await Message.updateOne({ _id: messageId }, upReply)
     ctx.response.redirect('/messageBoard')
-    // const articleId = ctx.params.id
-    // const user = ctx.state.user
-    // const postComment = ctx.request.body.comment
-
-    // const comment = await new Comment({
-    //   from: user._id,
-    //   content: postComment
-    // })
-    // console.log(comment)
-    // await comment.save()
-    // const upComment = { $push: { comments: comment._id } }
-    // await Article.updateOne({ _id:articleId }, upComment)
-    
   }catch(err){
     logJson(500, 'messagereply', 'blogzzc')
   }

@@ -8,6 +8,7 @@ const ArticleSchema = new Schema({
   imgurl: String,
   slug: String,
   tags: Array,
+  abbreviation: String,
   lookTimes: {
     type: Number,
     default: 0
