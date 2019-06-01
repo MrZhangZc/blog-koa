@@ -97,16 +97,8 @@ export const postEditArticle = async ctx => {
     }).map(function(item){
       return item[0]
     }).join(' ')
-    const upTitle = { $set: { title: opts.title } }
-    const upSlug = { $set: { slug: slug(py) } }
-    const upCate  = { $set: { category: opts.category } }
-    const upCon   = { $set: { content: opts.content } }
-    const upImg   = { $set: { imgurl: opts.imgsrc } }
-    await Article.updateOne({ _id:article_id }, upTitle)
-    await Article.updateOne({ _id:article_id }, upCate)
-    await Article.updateOne({ _id:article_id }, upCon)
-    await Article.updateOne({ _id:article_id }, upImg)
-    await Article.updateOne({ _id:article_id }, upSlug)
+    const upData = { $set: { title: opts.title, slug: slug(py), category: opts.category, content: opts.content, imgurl: opts.imgsrc } }
+    await Article.updateOne({ _id:article_id }, upData)
     ctx.response.redirect('/admin/article')
   }catch(err){ 
     logJson(500, 'editarticle', 'blogzzc')
