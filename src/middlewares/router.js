@@ -26,7 +26,7 @@ export const router = async app => {
   
   //get page front
   router.get('/', home)
-  router.get('/article/:id', article)
+  router.get('/article/:slug', article)
   router.get('/personal', personal)
   router.get('/messageBoard', messageBoard)
   router.get('/aboutMe', aboutMe)

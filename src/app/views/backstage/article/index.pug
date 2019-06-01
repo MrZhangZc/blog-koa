@@ -58,7 +58,7 @@ block content
     each article in articles
       tr
         td
-          a(href="/article/" + article._id, target="_blank") #{article.title}
+          a(href="/article/" + article.slug, target="_blank") #{article.title}
         td(style="color:#5BC0DE") #{article.publishd ? '已发布' : '未发布' }
         td #{article.category.name}
         td #{article.lookTimes}

@@ -1,4 +1,6 @@
 import mongoose from 'mongoose'
+import slug from 'slug'
+import pinyin from 'pinyin'
 import { logJson } from '../../util'
 
 const Article = mongoose.model('Article')
@@ -49,10 +51,17 @@ export const postArticle = async ctx => {
     const abbreviation = opts.abbreviation.trim()
     const userinfo = ctx.state.user
     const tags = opts.tags.split(',')
+    const py = pinyin(title, {
+        style: pinyin.STYLE_NORMAL,
+        heteronym: false
+      }).map(function(item){
+        return item[0]
+      }).join(' ')
     const article = new Article({
       title: title,
       abbreviation: abbreviation,
       content: opts.content,
+      slug: slug(py),
       tags: tags,
       imgurl: opts.imgsrc,
       category: opts.category,
@@ -82,7 +91,14 @@ export const postEditArticle = async ctx => {
   try {
     const article_id = ctx.params.id
     const opts = ctx.request.body
+    const py = pinyin(opts.title, {
+      style: pinyin.STYLE_NORMAL,
+      heteronym: false
+    }).map(function(item){
+      return item[0]
+    }).join(' ')
     const upTitle = { $set: { title: opts.title } }
+    const upSlug = { $set: { slug: slug(py) } }
     const upCate  = { $set: { category: opts.category } }
     const upCon   = { $set: { content: opts.content } }
     const upImg   = { $set: { imgurl: opts.imgsrc } }
@@ -90,6 +106,7 @@ export const postEditArticle = async ctx => {
     await Article.updateOne({ _id:article_id }, upCate)
     await Article.updateOne({ _id:article_id }, upCon)
     await Article.updateOne({ _id:article_id }, upImg)
+    await Article.updateOne({ _id:article_id }, upSlug)
     ctx.response.redirect('/admin/article')
   }catch(err){ 
     logJson(500, 'editarticle', 'blogzzc')

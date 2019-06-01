@@ -5,14 +5,25 @@ const User = mongoose.model('User')
 const Article = mongoose.model('Article')
 const Message = mongoose.model('Message')
 const Category = mongoose.model('Category')
-//首页
+
 export const home = async ctx => {
   try {
     logJson(300, 'someonein', 'blogzzc')
-    const articles = await Article.find({ publishd: true }).populate('author').populate('category').sort({ '_id': -1 })
+    const conditions = { publishd:true }
+    if(ctx.query.keyword){
+      Object.assign(conditions, { content: new RegExp(ctx.query.keyword.trim(), 'i') })
+    }
+    const articles = await Article.find(conditions).populate('author').populate('category').sort({ '_id': -1 })
+    let pageNum = Math.abs(parseInt(ctx.query.page || 1, 10))
+    const pageSize = 5
+    const totalCount = articles.length
+    let pageCount = Math.ceil(totalCount / pageSize)
     await ctx.render('onstage/home', {
       title: 'zzc博客',
-      articles: articles
+      articles: articles.slice((pageNum -1) * pageSize,pageNum * pageSize),
+      allarticles: articles,
+      pageNum:pageNum,
+      pageCount:pageCount
     })
   }catch(err){
     logJson(500, 'home', 'blogzzc')
@@ -21,8 +32,9 @@ export const home = async ctx => {
 
 export const article = async ctx => {
   try {
-    const articleId = ctx.params.id
-    const article = await Article.findById(articleId).populate('author').populate('category').populate({ path: 'comments' ,populate: {path: 'from'}}).sort({ '_id': -1 })
+    const articleSlug = ctx.params.slug
+    const conditions = { slug: articleSlug }
+    const article = await Article.findOne(conditions).populate('author').populate('category').populate({ path: 'comments' ,populate: {path: 'from'}}).sort({ '_id': -1 })
     if(article.abbreviation){
       logJson(300, article.abbreviation, 'blogzzc')
     }
@@ -31,7 +43,7 @@ export const article = async ctx => {
       article: article
     })
     const addOne = { $inc: { lookTimes: 1} }
-    await Article.updateOne({ _id: articleId }, addOne)
+    await Article.updateOne({ slug: articleSlug }, addOne)
   }catch(err){
     logJson(500, 'article', 'blogzzc')
   }
@@ -77,11 +89,22 @@ export const getCategoryPost = async ctx => {
   try{
     const categoryId = ctx.params.id
     const category = await Category.findById(categoryId)
-    const articles = await Article.find({ publishd: true,  category: categoryId}).populate('author').populate('category').sort({ '_id': -1 })
+    const conditions = { publishd:true, category: categoryId }
+    if(ctx.query.keyword){
+      Object.assign(conditions, { content: new RegExp(ctx.query.keyword.trim(), 'i') })
+    }
+    const articles = await Article.find(conditions).populate('author').populate('category').sort({ '_id': -1 })
+    let pageNum = Math.abs(parseInt(ctx.query.page || 1, 10))
+    const pageSize = 5
+    const totalCount = articles.length
+    let pageCount = Math.ceil(totalCount / pageSize)
     await ctx.render('onstage/home', {
       title: `${category.name}类别`,
-      articles: articles,
-      cate: category
+      cate: category,
+      articles: articles.slice((pageNum -1) * pageSize,pageNum * pageSize),
+      allarticles: articles,
+      pageNum:pageNum,
+      pageCount:pageCount
     })
   }catch(err){
     logJson(500, 'getcategorypost', 'blogzzc')
