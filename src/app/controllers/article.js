@@ -149,7 +149,7 @@ export const comment = async ctx => {
     const upComment = { $push: { comments: comment._id } }
     await Article.updateOne({ _id:articleId }, upComment)
     logJson(300, 'newcomment', article.abbreviation)
-    ctx.response.redirect('/article/' + articleId)
+    ctx.response.redirect('/article/' + article.slug)
   }catch(err){
     logJson(500, 'comment', 'blogzzc')
   }
