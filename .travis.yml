@@ -7,5 +7,5 @@ script:
   - docker build -t $DOCKER_USER/blog-koa:latest .
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - docker push $DOCKER_USER/blog-koa:latest
-  - docker tag $DOCKER_USER/blog-koa:latest $DOCKER_USER/blog-koa:1.0.4
-  - docker push $DOCKER_USER/blog-koa:1.0.4
+  - docker tag $DOCKER_USER/blog-koa:latest $DOCKER_USER/blog-koa:1.0.5
+  - docker push $DOCKER_USER/blog-koa:1.0.5

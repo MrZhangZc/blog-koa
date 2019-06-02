@@ -127,6 +127,16 @@ export const publishdArticle = async ctx => {
   }
 }
 
+export const trueDeleteArticle = async ctx => {
+  try{
+    const articleId = ctx.params.id
+    await Article.deleteOne({ _id: articleId })
+    ctx.response.redirect('/admin/article')
+  }catch(err){
+    logJson(500, 'truedeletearticle', 'blogzzc')
+  }
+}
+
 export const comment = async ctx => {
   try {
     const articleId = ctx.params.id

@@ -1,7 +1,7 @@
 import Router from 'koa-router'
 import { home, article, personal, messageBoard, aboutMe, message, messageReply, reply, getCategoryPost } from '../app/controllers/frontpage'
 import { login, loginPost, register, registerPost, logout, fixPassworrd, postFixPassworrd, userList, deleteUser, upUser, downUser, load } from '../app/controllers/user'
-import { showArticles, addArticle, postArticle,editArticle, postEditArticle, publishdArticle, deleteArticle, comment} from '../app/controllers/article'
+import { showArticles, addArticle, postArticle,editArticle, postEditArticle, publishdArticle, deleteArticle, comment, trueDeleteArticle} from '../app/controllers/article'
 import { showCategory, addCategory, postCategory, editCategory, postEditCategory, deleteCategory} from '../app/controllers/category'
 import { adminMess, deleteMess } from '../app/controllers/message'
 import { signinRequired, adminRequired } from '../app/controllers/user'
@@ -42,6 +42,7 @@ export const router = async app => {
   router.post('/admin/article/edit/:id', signinRequired, adminRequired, postEditArticle)
   router.get('/admin/article/publishd/:id', signinRequired, adminRequired, publishdArticle)
   router.get('/admin/article/delete/:id', signinRequired, adminRequired, deleteArticle)
+  router.get('/admin/article/trueDelete/:id', signinRequired, adminRequired, trueDeleteArticle)
   router.post('/comment/:id', comment)
 
   // category front

@@ -69,7 +69,8 @@ block content
           a.btn.btn-sm.btn-success(href="/admin/article/publishd/" + article._id) 发布
           | &nbsp;&nbsp;
           a.btn.btn-sm.btn-danger(href="/admin/article/delete/" + article._id) 取消发布
-          
+          | &nbsp;&nbsp;
+          a.btn.btn-sm.btn-danger(href="/admin/article/trueDelete/" + article._id) 删除
 
   if pageCount > 1
     nav
