@@ -51,7 +51,6 @@ export const userList = async ctx => {
 			users: users
     });
 	} catch (err) {
-    console.log(err)
 		logJson(500, 'userlist', 'blogzzc');
 	}
 };
