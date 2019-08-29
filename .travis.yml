@@ -1,15 +1,11 @@
 language : node_js
 node_js :
  - 10
-env:
-  - PRO_TAG= git tag
-on:
-  tags: true
 install:
  - yarn install
 script:
   - docker build -t $DOCKER_USER/blog-koa:latest .
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - docker push $DOCKER_USER/blog-koa:latest
-  - docker tag $DOCKER_USER/blog-koa:latest $DOCKER_USER/blog-koa:$PRO_TAG
-  - docker push $DOCKER_USER/blog-koa:$PRO_TAG
+  - docker tag $DOCKER_USER/blog-koa:latest $DOCKER_USER/blog-koa:`git describe --abbrev=0 --tags`
+  - docker push $DOCKER_USER/blog-koa:`git describe --abbrev=0 --tags`
