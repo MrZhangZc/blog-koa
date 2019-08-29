@@ -61,7 +61,7 @@ block content
           a(href="/article/" + article.slug, target="_blank") #{article.title}
         td(style="color:#5BC0DE") #{article.publishd ? '已发布' : '未发布' }
         td #{article.category.name}
-        td #{article.lookTimes}
+        td #{watch.includes(article.title) ? watch[(watch.findIndex(item => item === article.title) + 1)] : 0}
         td #{moment(article.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}
         td
           a.btn.btn-sm.btn-info(href="/admin/article/edit/" + article._id) 编辑

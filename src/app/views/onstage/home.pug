@@ -39,7 +39,7 @@ block main
                   a(href="/category/" + article.category._id) #{article.category.name}
                 .top-info-date
                   i.fa.fa-calendar &nbsp; #{moment(article.meta.createdAt).format('YYYY-MM-DD')} &nbsp;
-                  i.fa.fa-eye &nbsp; (#{article.lookTimes}) &nbsp;
+                  i.fa.fa-eye &nbsp; (#{watch.includes(article.title) ? watch[(watch.findIndex(item => item === article.title) + 1)] : 0}) &nbsp;
                   i.fa.fa-comment &nbsp; (#{article.comments.length}) &nbsp;
               h4 
                 a.post-title(href='/article/' + article.slug) #{article.title}
@@ -69,7 +69,7 @@ block main
         .sidebar-box.bg-box.sidebar-categories.sidebar-ranking
           h6.fa.fa-fire.ranking &nbsp;热门文章排行
           ul
-            each article in allarticles.sort((a, b) => b.lookTimes - a.lookTimes ).slice(0,5)
+            each article in allarticles.filter(item => articleRank.includes(item.title) ? Object.assign(item, {score: articleRank[articleRank.findIndex(each => each === item.title) + 1]}) : '').sort((a, b) => b.score - a.score )
               li 
-                a(href='/article/' + article.slug) #{article.title} (#{article.lookTimes})
+                a(href='/article/' + article.slug) #{article.title} #{article.score} 
     .container-right

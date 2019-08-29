@@ -2,6 +2,9 @@ import mongoose from 'mongoose'
 import slug from 'slug'
 import pinyin from 'pinyin'
 import { logJson } from '../../util'
+import redisClient from '../../redis'
+
+import { KEY } from '../../util/key'
 
 const Article = mongoose.model('Article')
 const User = mongoose.model('User')
@@ -23,11 +26,13 @@ export const showArticles = async ctx => {
     sortObj[sortby] = sortdir
 
     const articles = await Article.find().sort(sortObj).populate('author').populate('category').sort({ '_id': -1 })
+    const scores = await redisClient.zrange(KEY.Article_LookTime, 0, -1, "WITHSCORES");
     await ctx.render('backstage/article/index', {
       title: '文章列表',
       articles: articles,
       sortdir:sortdir,
       sortby:sortby,
+      watch: scores,
     })
   }catch(err){
     logJson(500, 'showarticles', 'blogzzc')

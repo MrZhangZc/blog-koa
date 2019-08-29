@@ -1,5 +1,8 @@
 import mongoose from 'mongoose'
 import { logJson } from '../../util'
+import redisClient from '../../redis'
+
+import { KEY } from '../../util/key'
 
 const User = mongoose.model('User')
 const Article = mongoose.model('Article')
@@ -14,6 +17,9 @@ export const home = async ctx => {
       Object.assign(conditions, { content: new RegExp(ctx.query.keyword.trim(), 'i') })
     }
     const articles = await Article.find(conditions).populate('author').populate('category').sort({ '_id': -1 })
+    const scores = await redisClient.zrange(KEY.Article_LookTime, 0, -1, "WITHSCORES");
+    const articleRank = await redisClient.zrevrange(KEY.Article_LookTime, 0, 4, "WITHSCORES")
+
     let pageNum = Math.abs(parseInt(ctx.query.page || 1, 10))
     const pageSize = 5
     const totalCount = articles.length
@@ -23,7 +29,9 @@ export const home = async ctx => {
       articles: articles.slice((pageNum -1) * pageSize,pageNum * pageSize),
       allarticles: articles,
       pageNum:pageNum,
-      pageCount:pageCount
+      pageCount:pageCount,
+      watch: scores,
+      articleRank: articleRank
     })
   }catch(err){
     logJson(500, 'home', 'blogzzc')
@@ -38,16 +46,18 @@ export const article = async ctx => {
     if(article.abbreviation){
       logJson(300, article.abbreviation, 'blogzzc')
     }
+    const score = await redisClient.zscore(KEY.Article_LookTime, article.title) || 0;
+    const newScore = await redisClient.multi().zadd(KEY.Article_LookTime, Number(score) + 1, article.title).zscore(KEY.Article_LookTime, article.title).exec();
     await ctx.render('onstage/article', {
       title: 'zzc博客',
-      article: article
+      article: article,
+      watch: newScore[1][1]
     })
-    const addOne = { $inc: { lookTimes: 1} }
-    await Article.updateOne({ slug: articleSlug }, addOne)
   }catch(err){
     logJson(500, 'article', 'blogzzc')
   }
 }
+
 export const aboutMe = async ctx => {
   try {
     await ctx.render('onstage/aboutme', {

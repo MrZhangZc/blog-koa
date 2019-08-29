@@ -1,11 +1,13 @@
 import Redis from 'ioredis';
 import { Store } from 'koa-session2';
-import { redisHost } from '../config'
+import { redis } from '../config'
+
+const maxAge = 24 * 3600
 
 export default class RedisStore extends Store {
   constructor() {
     super()
-    this.redis = new Redis('6379', redisHost)
+    this.redis = new Redis(redis.session)
   }
 
   async get(sid) {
@@ -17,7 +19,7 @@ export default class RedisStore extends Store {
     if(!opts.sid) {
         opts.sid = this.getID(24)
     }
-    await this.redis.set(`SESSION:${opts.sid}`, JSON.stringify(session))
+    await this.redis.set(`SESSION:${opts.sid}`, JSON.stringify(session), 'ex', maxAge)
     return opts.sid
   }
 

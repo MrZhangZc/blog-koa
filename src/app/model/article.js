@@ -9,10 +9,6 @@ const ArticleSchema = new Schema({
   slug: String,
   tags: Array,
   abbreviation: String,
-  lookTimes: {
-    type: Number,
-    default: 0
-  },
   publishd: {
     type: Boolean,
     default: true

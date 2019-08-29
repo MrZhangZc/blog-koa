@@ -17,7 +17,7 @@ block main
                 i.fa.fa-shopping-basket &nbsp; 
                 a(href='/category/' + article.category._id, target="_black") #{article.category.name} &nbsp;
               span.article-create
-                i.fa.fa-eye &nbsp; #{article.lookTimes}
+                i.fa.fa-eye &nbsp; #{watch}
           p!= article.content
         if article.comments.length !== 0
           .commentList
