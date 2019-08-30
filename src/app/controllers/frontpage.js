@@ -36,11 +36,10 @@ export const home = async ctx => {
 			watch: scores,
 			articleRank: articleRank
 		});
-		const ipadd = getClientIP(ctx);
+		const ipadd = getClientIP(ctx.request);
 		const address = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${ipadd}`);
 		const merber = `${ipadd}:${address.data.province}:${address.data.city}`;
 		const expireatAt = getTomorrowTS();
-
 		await redisClient.multi()
 			.sadd(KEY.Visitors_Day, merber)
 			.expireat(KEY.Visitors_Day, expireatAt)

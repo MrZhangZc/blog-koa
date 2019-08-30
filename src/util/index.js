@@ -6,8 +6,9 @@ export const logJson = (level, msg, proj) => {
 	console.log(`${level} ${msg} ${proj}`);
 };
 
-export function getClientIP(ctx) {
-	return ctx.headers['x-forwarded-for'] || ctx.ip || ctx.ips;
+export function getClientIP(req) {
+	return req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
+  req.headers['x-real-ip']
 }
 
 export const getAddress = url => {
