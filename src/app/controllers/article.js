@@ -31,12 +31,16 @@ export const showArticles = async ctx => {
 			.populate('category')
 			.sort({_id: -1});
 		const scores = await redisClient.zrange(KEY.Article_LookTime, 0, -1, 'WITHSCORES');
+		const totalUV = await redisClient.pfcount(KEY.Visitors_Total);
+		const dayUv = await redisClient.scard(KEY.Visitors_Day);
 		await ctx.render('backstage/article/index', {
 			title: '文章列表',
 			articles: articles,
 			sortdir: sortdir,
 			sortby: sortby,
-			watch: scores
+			watch: scores,
+			totalUV: totalUV,
+			dayUv: dayUv
 		});
 	} catch (err) {
 		logJson(500, 'showarticles', 'blogzzc');

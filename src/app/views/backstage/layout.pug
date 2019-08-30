@@ -16,6 +16,9 @@ block main
           span.icon-bar
           span.icon-bar
         a.navbar-brand(href='/') 张智超博客系统管理员后台
+        if totalUV > 0
+          span.navbar-brand 今日uv #{dayUv}
+          span.navbar-brand 历史uv #{totalUV}
       #navbar.navbar-collapse.collapse
         ul.nav.navbar-nav.navbar-right
           if user
