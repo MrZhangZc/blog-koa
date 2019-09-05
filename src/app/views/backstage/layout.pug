@@ -57,6 +57,10 @@ block main
             a(href='/admin/user') 
               i.fa.fa-users
               | &nbsp;用户列表
+          li(class={active: pathName === "/admin/uv"})
+            a(href='/admin/uv') 
+              i.fa.fa-users
+              | &nbsp;今日访客
         ul.nav.nav-sidebar
           li(class={active: pathName === "/admin/user/password"})
             a(href='/admin/user/password') 

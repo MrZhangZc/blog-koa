@@ -36,9 +36,7 @@ export const home = async ctx => {
 			watch: scores,
 			articleRank: articleRank
 		});
-		const ipadd = getClientIP(ctx.request);
-		const address = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${ipadd}`);
-		const merber = `${ipadd}:${address.data.province}:${address.data.city}`;
+		const merber = getClientIP(ctx.request);
 		const expireatAt = getTomorrowTS();
 		await redisClient.multi()
 			.sadd(KEY.Visitors_Day, merber)
@@ -195,5 +193,23 @@ export const reply = async ctx => {
 		ctx.response.redirect('/messageBoard');
 	} catch (err) {
 		logJson(500, 'messagereply', 'blogzzc');
+	}
+};
+
+export const uv = async ctx => {
+	try {
+    const ipaddr = await redisClient.smembers(KEY.Visitors_Day);
+    //const address = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${ipadd}`);
+		let address = []
+		for(let ip of ipaddr){
+			const add = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${ip}`);
+			address.push(add.data)
+		}
+		await ctx.render('backstage/uv', {
+			title: '今日访客',
+			address: address
+		});
+	} catch (err) {
+		logJson(500, 'uv', 'blogzzc');
 	}
 };
