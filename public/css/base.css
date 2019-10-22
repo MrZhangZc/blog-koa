@@ -4,7 +4,11 @@ a {font-size: 1em;font-weight: bold;color:#000;text-decoration: none;
 img {max-width: 100%;}
 a:hover {text-decoration:none;}
 html,body {width: 100%;height: 100%;}
-body {font: normal 100% Helvetica, Arial, sans-serif;background-color: #F9F9F9;
+body {font: normal 100% Helvetica, Arial, sans-serif;background-color: #F9F9F9;font-family: source sans pro,helvetica neue,Arial,sans-serif;font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.8;
+  color: rgba(0,0,0,.84);
   /* cursor:url(/img/normal.cur),default;  */
 }
 p{
@@ -13,6 +17,15 @@ p{
   margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
+}
+h1 {
+  display: block;
+  font-size: 2em;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
 }
 a:hover, a:focus, a:visited {
   text-decoration: none;

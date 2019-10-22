@@ -145,7 +145,12 @@ export const loginPost = async ctx => {
 		const password = opts.password;
 
 		const _user = await User.findOne({nickname: nickname});
-		const trueuser = await _user.conparePassword(password);
+		let trueuser = null;
+		if(_user) {
+			trueuser = await _user.conparePassword(password);
+		} else {
+			throw new Error('不存在此用户');
+		}
 
 		if (trueuser) {
 			ctx.session.user = {
