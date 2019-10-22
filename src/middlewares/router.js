@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { home, article, personal, messageBoard, aboutMe, message, messageReply, reply, getCategoryPost } from '../app/controllers/frontpage'
+import { home, article, personal, messageBoard, aboutMe, message, messageReply, reply, getCategoryPost, uv } from '../app/controllers/frontpage'
 import { login, loginPost, register, registerPost, logout, fixPassworrd, postFixPassworrd, userList, deleteUser, upUser, downUser, load } from '../app/controllers/user'
 import { showArticles, addArticle, postArticle,editArticle, postEditArticle, publishdArticle, deleteArticle, comment, trueDeleteArticle} from '../app/controllers/article'
 import { showCategory, addCategory, postCategory, editCategory, postEditCategory, deleteCategory} from '../app/controllers/category'
@@ -75,6 +75,8 @@ export const router = async app => {
   router.post('/register', registerPost)
   router.post('/admin/user/password', signinRequired, adminRequired, postFixPassworrd)
   router.post('/load', signinRequired, adminRequired, load)
+
+  router.get('/admin/uv', signinRequired, adminRequired, uv)
 
   app.use(router.routes())
   app.use(router.allowedMethods())

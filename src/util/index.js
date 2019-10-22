@@ -8,7 +8,8 @@ export const logJson = (level, msg, proj) => {
 
 export function getClientIP(req) {
 	return req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
-  req.headers['x-real-ip']
+  req.headers['x-real-ip'] 
+  //|| '114.247.50.2'
 }
 
 export const getAddress = url => {
