@@ -29,7 +29,7 @@
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
     "moment": "^2.24.0",
-    "mongoose": "^5.5.0",
+    "mongoose": "^5.7.5",
     "pinyin": "^2.9.0",
     "pug": "^2.0.3",
     "ramda": "^0.26.1",
