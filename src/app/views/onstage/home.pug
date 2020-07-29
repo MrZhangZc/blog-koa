@@ -12,8 +12,8 @@ block main
       span.navbar-toggler-icon
     .collapse.navbar-collapse#collapsibleNavbar
       ul.navbar-nav.mr-auto
-        li.nav-item 
-          a.nav-link(href="/aboutMe") 关于我
+        //- li.nav-item 
+        //-   a.nav-link(href="/aboutMe") 关于我
         li.nav-item 
           a.nav-link(href="/messageBoard") 留言板
         li.nav-item
@@ -56,10 +56,6 @@ block main
                   li.page-item
                     a(href="?page=" + currentPage).page-link= currentPage++
       .col-lg-4.col-md-7.col-12.theme-main-sidebar
-        .sidebar-box.bg-box.about-me
-          h6.sidebar-title 关于我
-          img(src="/images/zzc.jpg", alt="", srcset="")
-          p Hi, 我是张智超,毕业于内蒙古农业大学,平时喜欢打篮球,热衷于对新鲜技术的探索与尝试,主要进行nodejs方向的研究开发
         .sidebar-box.bg-box.sidebar-categories
           h6.fa.fa-shopping-basket.ranking 文章类别
           ul
