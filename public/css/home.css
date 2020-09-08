@@ -4,6 +4,7 @@
 }
 .image-box img {
   width: 100%;
+  height: 300px;
 }
 .single-blog-post{
   margin-bottom: 3em;
@@ -143,13 +144,13 @@
   margin-bottom: 15px;
 }
 .sidebar-ranking{
-  background-color: #DCDDE8;
+  background-color: #fff;
 }
 .sidebar-categories{
-  background-color: #DCDDE8;
+  background-color: #fff;
 }
 .about-me{
-  background-color: #DCDDE8;
+  background-color: #fff;
 }
 .ranking{
   color: #D0344E;

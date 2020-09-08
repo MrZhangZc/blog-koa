@@ -16,7 +16,7 @@ export const home = async ctx => {
 		if (ctx.query.keyword) {
 			Object.assign(conditions, {content: new RegExp(ctx.query.keyword.trim(), 'i')});
 		}
-		const articles = await Article.find(conditions)
+		const articles = await Article.find(conditions, '-content')
 			.populate('author')
 			.populate('category')
 			.sort({_id: -1});

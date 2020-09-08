@@ -43,7 +43,6 @@ block main
                   i.fa.fa-comment &nbsp; (#{article.comments.length}) &nbsp;
               h4 
                 a.post-title(href='/article/' + article.slug) #{article.title}
-              p!= truncate(article.content,100)
         if pageCount > 1
           nav
             ul.pagination
