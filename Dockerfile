@@ -21,5 +21,4 @@ RUN yarn install \
     && yarn cache clean
 COPY src/ /app/src
 COPY public/ /app/public
-
 CMD [ "pm2-runtime", "start", "up.yml" ]

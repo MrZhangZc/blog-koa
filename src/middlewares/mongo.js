@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
-import { dbURL } from '../config'
 import glob from 'glob'
 import { join } from 'path'
 import { logJson } from '../util'
+const dbURL = process.env.DB_URL
 
 mongoose.Promise = global.Promise
 glob.sync(join(__dirname, '../app/model', '**/*.js')).forEach(require)

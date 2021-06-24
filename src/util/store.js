@@ -1,13 +1,16 @@
 import Redis from 'ioredis';
 import { Store } from 'koa-session2';
-import { redis } from '../config'
 
 const maxAge = 24 * 3600
 
 export default class RedisStore extends Store {
   constructor() {
     super()
-    this.redis = new Redis(redis.session)
+    this.redis = new Redis({
+      host: process.env.REDIS_SESSION_HOST,
+      port: process.env.REDIS_SESSION_POST,
+      db: process.env.REDIS_SESSION_DB,
+    })
   }
 
   async get(sid) {
