@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { home, article, personal, messageBoard, aboutMe, message, messageReply, reply, getCategoryPost, uv } from '../app/controllers/frontpage'
+import { home, article, personal, messageBoard, aboutMe, message, messageReply, reply,zzc, getCategoryPost, uv } from '../app/controllers/frontpage'
 import { login, loginPost, register, registerPost, logout, fixPassworrd, postFixPassworrd, userList, deleteUser, upUser, downUser, load } from '../app/controllers/user'
 import { showArticles, addArticle, postArticle,editArticle, postEditArticle, publishdArticle, deleteArticle, comment, trueDeleteArticle} from '../app/controllers/article'
 import { showCategory, addCategory, postCategory, editCategory, postEditCategory, deleteCategory} from '../app/controllers/category'
@@ -10,6 +10,8 @@ import moment from 'moment'
 import mongoose from 'mongoose'
 import truncate from 'truncate'
 const Category = mongoose.model('Category')
+const multer = require('@koa/multer');
+const upload = multer();
 
 export const router = async app => {
   const router = new Router()
@@ -33,6 +35,8 @@ export const router = async app => {
   router.post('/message', message)
   router.get('/message/reply/:id', messageReply)
   router.post('/reply/:id', reply)
+
+  router.post('/zzc', upload.single('avatar'), zzc)
 
   //article
   router.get('/admin/article', signinRequired, adminRequired, showArticles)

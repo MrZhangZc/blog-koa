@@ -2,10 +2,13 @@ extends ../layout1
 
 append css
   link(rel='stylesheet', href='/css/admin.css')
+  link(rel='stylesheet', href='/css/fileinput.min.css')
 append js
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
   <script type="text/javascript" charset="utf-8" src="/utf8-php/ueditor.config.js"></script>
   <script type="text/javascript" charset="utf-8" src="/utf8-php/ueditor.all.min.js"> </script>
   <script type="text/javascript" charset="utf-8" src="/utf8-php/lang/zh-cn/zh-cn.js"></script>
+  <script type="text/javascript" charset="utf-8" src="/js/fileinput.min.js"></script>
 block main
   nav.navbar.navbar-inverse.navbar-fixed-top
     .container-fluid

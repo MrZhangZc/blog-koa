@@ -19,11 +19,45 @@ block content
       input.form-control.input-lg(name="tags", required='true',placeholder="请输入标签")
     .form-gropp
       label(for="imgsrc") 图片:
-      input.form-control.input-lg(name="imgsrc", required='true',placeholder="请输入图片地址")
+      <input id="input-1" name="file-data" type="file">
     .form-group
       label(for="content") 内容
       textarea#editor(name="content", required='true')
 
     button.btn.btn-lg.btn-info(type="submit")= post ? "保存修改" : "发布"
-    script.
-      var ue = UE.getEditor('editor')
+  script.
+    var ue = UE.getEditor('editor')
+    $(document).ready(function() {
+    // initialize with defaults
+        //- $("#input-1").fileinput();
+
+        // with plugin options
+        $("#input-1")
+          .fileinput({
+            language: 'zh', //设置语言
+            uploadUrl:"http://127.0.0.1:3000/zzc", //上传的地址
+            allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
+            uploadAsync: true, //默认异步上传
+            showUpload:true, //是否显示上传按钮
+            showRemove :true, //显示移除按钮
+            showPreview :true, //是否显示预览
+            showCaption:false,//是否显示标题
+            browseClass:"btn btn-primary", //按钮样
+            dropZoneEnabled: false,//是否显示拖拽区域
+            //minImageWidth: 50, //图片的最小宽度
+            //minImageHeight: 50,//图片的最小高度
+            //maxImageWidth: 1000,//图片的最大宽度
+            //maxImageHeight: 1000,//图片的最大高度
+            //maxFileSize:0,//单位为kb，如果为0表示不限制文件大小
+            //minFileCount: 0,
+            maxFileCount:10, //表示允许同时上传的最大文件个数
+            enctype:'multipart/form-data',
+            validateInitialCount:true,
+            previewFileIcon: "<iclass='glyphicon glyphicon-king'></i>",
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+          })
+          .on('filepreupload', function(event, data, previewId, index) {
+            console.log('The description entered is:\n\n' + ($('#description').val() || ' NULL')
+          );
+    });;
+    });
