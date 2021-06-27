@@ -65,6 +65,10 @@ block main
               i.fa.fa-users
               | &nbsp;今日访客
         ul.nav.nav-sidebar
+          li(class={active: pathName === "/admin/user/cog"})
+              a(href='/admin/user/cog')
+                i.fa.fa-cog
+                | &nbsp;配置中心 
           li(class={active: pathName === "/admin/user/password"})
             a(href='/admin/user/password') 
               i.fa.fa-lock

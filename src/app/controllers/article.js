@@ -1,10 +1,14 @@
+import * as fs from 'fs'
+import * as path from 'path'
 import mongoose from 'mongoose';
 import slug from 'slug';
 import pinyin from 'pinyin';
 import {logJson} from '../../util';
 import redisClient from '../../redis';
-
 import {KEY} from '../../util/key';
+
+import { saveToQiNIu } from '../../util/qiniu'
+import { deleteTmpFile } from '../../util/index'
 
 const Article = mongoose.model('Article');
 const User = mongoose.model('User');
@@ -60,31 +64,30 @@ export const addArticle = async ctx => {
 export const postArticle = async ctx => {
 	try {
 		const opts = ctx.request.body;
-		console.log(opts)
-		// const title = opts.title.trim();
-		// const abbreviation = opts.abbreviation.trim();
-		// const userinfo = ctx.state.user;
-		// const tags = opts.tags.split(',');
-		// const py = pinyin(title, {
-		// 	style: pinyin.STYLE_NORMAL,
-		// 	heteronym: false
-		// })
-		// 	.map(function(item) {
-		// 		return item[0];
-		// 	})
-		// 	.join(' ');
-		// const article = new Article({
-		// 	title: title,
-		// 	abbreviation: abbreviation,
-		// 	content: opts.content,
-		// 	slug: slug(py),
-		// 	tags: tags,
-		// 	imgurl: opts.imgsrc,
-		// 	category: opts.category,
-		// 	author: userinfo._id
-		// });
-		// await article.save();
-		// ctx.response.redirect('/admin/article');
+		const title = opts.title.trim();
+		const abbreviation = opts.abbreviation.trim();
+		const userinfo = ctx.state.user;
+		const tags = opts.tags.split(',');
+		const py = pinyin(title, {
+			style: pinyin.STYLE_NORMAL,
+			heteronym: false
+		})
+			.map(function(item) {
+				return item[0];
+			})
+			.join(' ');
+		const article = new Article({
+			title: title,
+			abbreviation: abbreviation,
+			content: opts.content,
+			slug: slug(py),
+			tags: tags,
+			imgurl: opts['file-data'],
+			category: opts.category,
+			author: userinfo._id
+		});
+		await article.save();
+		ctx.response.redirect('/admin/article');
 	} catch (err) {
 		logJson(500, 'postArticle', 'blogzzc');
 	}
@@ -174,3 +177,18 @@ export const comment = async ctx => {
 		logJson(500, 'comment', 'blogzzc');
 	}
 };
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+export const upload = async ctx => {
+	const file = ctx.request.files['file-data'];
+	const paths = ctx.request.files['file-data']['path']
+	const name = ctx.request.files['file-data']['name']
+	const reader = fs.createReadStream(paths);
+  let filePath = path.join(__dirname, '../../../public/tmp') + `/${name}`;
+  const upStream = fs.createWriteStream(filePath);
+  reader.pipe(upStream);
+	await sleep(3000)
+	const res = await saveToQiNIu(name)
+  return ctx.body = 'res';
+}

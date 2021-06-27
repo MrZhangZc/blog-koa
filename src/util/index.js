@@ -1,10 +1,17 @@
 import axios from 'axios';
+import { unlinkSync } from 'fs'
+import { join } from 'path'
 
 const OneDay = 24 * 3600 * 1000;
 
 export const logJson = (level, msg, proj) => {
 	console.log(`${level} ${msg} ${proj}`);
 };
+
+export function deleteTmpFile(name) {
+  const path = join(__dirname, `../../public/tmp/${name}`)
+  unlinkSync(path)
+}
 
 export function getClientIP(req) {
 	return req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP

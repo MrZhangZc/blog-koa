@@ -1,7 +1,7 @@
 import Router from 'koa-router'
-import { home, article, personal, messageBoard, aboutMe, message, messageReply, reply,zzc, getCategoryPost, uv } from '../app/controllers/frontpage'
+import { home, article, personal, messageBoard, aboutMe, message, messageReply, reply, getCategoryPost, uv } from '../app/controllers/frontpage'
 import { login, loginPost, register, registerPost, logout, fixPassworrd, postFixPassworrd, userList, deleteUser, upUser, downUser, load } from '../app/controllers/user'
-import { showArticles, addArticle, postArticle,editArticle, postEditArticle, publishdArticle, deleteArticle, comment, trueDeleteArticle} from '../app/controllers/article'
+import { showArticles, addArticle, postArticle,editArticle, postEditArticle, publishdArticle, upload, deleteArticle, comment, trueDeleteArticle} from '../app/controllers/article'
 import { showCategory, addCategory, postCategory, editCategory, postEditCategory, deleteCategory} from '../app/controllers/category'
 import { adminMess, deleteMess } from '../app/controllers/message'
 import { signinRequired, adminRequired } from '../app/controllers/user'
@@ -10,8 +10,6 @@ import moment from 'moment'
 import mongoose from 'mongoose'
 import truncate from 'truncate'
 const Category = mongoose.model('Category')
-const multer = require('@koa/multer');
-const upload = multer();
 
 export const router = async app => {
   const router = new Router()
@@ -36,7 +34,7 @@ export const router = async app => {
   router.get('/message/reply/:id', messageReply)
   router.post('/reply/:id', reply)
 
-  router.post('/zzc', upload.single('avatar'), zzc)
+  router.post('/upload', upload)
 
   //article
   router.get('/admin/article', signinRequired, adminRequired, showArticles)
@@ -69,6 +67,7 @@ export const router = async app => {
   router.get('/register', register)
   router.get('/logout', logout)
   router.get('/admin/user/password', signinRequired, adminRequired, fixPassworrd)
+  router.get('/admin/user/cog', signinRequired, adminRequired, fixPassworrd)
   router.get('/admin/user', signinRequired, adminRequired, userList)
   router.get('/admin/user/delete/:id', signinRequired, adminRequired, deleteUser)
   router.get('/admin/user/up/:id', signinRequired, adminRequired, upUser)

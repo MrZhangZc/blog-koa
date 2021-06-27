@@ -18,7 +18,7 @@ block content
       label(for="tags") 标签
       input.form-control.input-lg(name="tags", required='true',placeholder="请输入标签")
     .form-gropp
-      label(for="imgsrc") 图片:
+      label(for="file-data") 图片:
       <input id="input-1" name="file-data" type="file">
     .form-group
       label(for="content") 内容
@@ -28,14 +28,10 @@ block content
   script.
     var ue = UE.getEditor('editor')
     $(document).ready(function() {
-    // initialize with defaults
-        //- $("#input-1").fileinput();
-
-        // with plugin options
         $("#input-1")
           .fileinput({
             language: 'zh', //设置语言
-            uploadUrl:"http://127.0.0.1:3000/zzc", //上传的地址
+            uploadUrl:"http://127.0.0.1:3000/upload", //上传的地址
             allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
             uploadAsync: true, //默认异步上传
             showUpload:true, //是否显示上传按钮

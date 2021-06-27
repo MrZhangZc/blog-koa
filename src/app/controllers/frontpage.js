@@ -1,31 +1,11 @@
 import mongoose from 'mongoose';
 import {logJson, getClientIP, getAddress, getTomorrowTS} from '../../util';
 import redisClient from '../../redis';
-import { saveToQiNIu } from '../../util/qiniu'
 import {KEY} from '../../util/key';
-const fs = require("fs");
-const path = require('path')
 const User = mongoose.model('User');
 const Article = mongoose.model('Article');
 const Message = mongoose.model('Message');
 const Category = mongoose.model('Category');
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-export const zzc = async ctx => {
-	const file = ctx.request.files['file-data'];
-	const paths = ctx.request.files['file-data']['path']
-	const name = ctx.request.files['file-data']['name']
-	const reader = fs.createReadStream(paths);
-  let filePath = path.join(__dirname, '../../util') + `/${name}`;
-	console.log({ filePath })
-  // 创建可写流
-  const upStream = fs.createWriteStream(filePath);
-  // 可读流通过管道写入可写流
-  reader.pipe(upStream);
-	await sleep(5000)
-	await saveToQiNIu(name)
-  return ctx.body = "上传成功！";
-}
 
 export const home = async ctx => {
 	try {
