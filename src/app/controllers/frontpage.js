@@ -26,7 +26,7 @@ export const home = async ctx => {
 		const totalCount = articles.length;
 		let pageCount = Math.ceil(totalCount / pageSize);
 		await ctx.render('onstage/home', {
-			title: 'zzc博客',
+			title: '张智超blog',
 			articles: articles.slice((pageNum - 1) * pageSize, pageNum * pageSize),
 			allarticles: articles,
 			pageNum: pageNum,
@@ -65,7 +65,7 @@ export const article = async ctx => {
 			.zscore(KEY.Article_LookTime, article.title)
 			.exec();
 		await ctx.render('onstage/article', {
-			title: 'zzc博客',
+			title: '张智超blog',
 			article: article,
 			watch: newScore[1][1]
 		});

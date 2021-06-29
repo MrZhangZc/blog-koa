@@ -54,7 +54,8 @@ export const showArticles = async ctx => {
 export const addArticle = async ctx => {
 	try {
 		await ctx.render('backstage/article/add', {
-			title: '添加文章'
+			title: '添加文章',
+			uploadUrl: process.env.UPLOAD_URL,
 		});
 	} catch (err) {
 		logJson(500, 'addarticle', 'blogzzc');
@@ -190,5 +191,6 @@ export const upload = async ctx => {
   reader.pipe(upStream);
 	await sleep(3000)
 	const res = await saveToQiNIu(name)
+	if(res.key) deleteTmpFile(res.key)
   return ctx.body = 'res';
 }

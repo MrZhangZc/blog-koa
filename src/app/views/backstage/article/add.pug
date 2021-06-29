@@ -3,7 +3,7 @@ extends ../layout
 block content
   form.vertical-form(method="post", action='/admin/article/add')
     .form-group
-      label(for="title") 标题
+      label(for="title") #{uploadUrl}
       input.form-control.input-lg(name="title", required='true',placeholder="请输入标题")
     .form-group
       label(for="abbreviation") 简称
@@ -31,7 +31,7 @@ block content
         $("#input-1")
           .fileinput({
             language: 'zh', //设置语言
-            uploadUrl:"http://127.0.0.1:3000/upload", //上传的地址
+            uploadUrl: '!{uploadUrl}', //上传的地址
             allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
             uploadAsync: true, //默认异步上传
             showUpload:true, //是否显示上传按钮
