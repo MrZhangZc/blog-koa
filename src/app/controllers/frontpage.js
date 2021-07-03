@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
-import {logJson, getClientIP, getAddress, getTomorrowTS} from '../../util';
+import {logJson, getClientIP, getUserAgent, getAddress, getTomorrowTS } from '../../util';
 import redisClient from '../../redis';
 import {KEY} from '../../util/key';
 const User = mongoose.model('User');
 const Article = mongoose.model('Article');
 const Message = mongoose.model('Message');
 const Category = mongoose.model('Category');
+const Visitor = mongoose.model('Visitor');
 
 export const home = async ctx => {
 	try {
@@ -35,6 +36,18 @@ export const home = async ctx => {
 			articleRank: articleRank
 		});
 		const merber = getClientIP(ctx.request);
+		const agent = getUserAgent(ctx.request)
+		const userLIno = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${merber}`);
+
+		const visitor = new Visitor({
+			ip: merber,
+			province: userLIno.province,
+			city: userLIno.city,
+			adcoce: userLIno.adcoce,
+			agent,
+		})
+		await visitor.save()
+
 		const expireatAt = getTomorrowTS();
 		await redisClient.multi()
 			.sadd(KEY.Visitors_Day, merber)
@@ -56,7 +69,7 @@ export const article = async ctx => {
 			.populate({path: 'comments', populate: {path: 'from'}})
 			.sort({_id: -1});
 		if (article.abbreviation) {
-			logJson(300, article.abbreviation, 'blogzzc');
+			logJson(300, 'article-' + article.abbreviation, 'blogzzc');
 		}
 		const score = (await redisClient.zscore(KEY.Article_LookTime, article.title)) || 0;
 		const newScore = await redisClient
@@ -99,6 +112,7 @@ export const personal = async ctx => {
 
 export const messageBoard = async ctx => {
 	try {
+		logJson(300, 'messagein', 'blogzzc');
 		const messages = await Message.find()
 			.populate('from')
 			.populate('reply.from')
@@ -122,6 +136,7 @@ export const getCategoryPost = async ctx => {
 		if (ctx.query.keyword) {
 			Object.assign(conditions, {content: new RegExp(ctx.query.keyword.trim(), 'i')});
 		}
+		logJson(300, 'category-' + category.name, 'blogzzc');
 		const articles = await Article.find(conditions)
 			.populate('author')
 			.populate('category')

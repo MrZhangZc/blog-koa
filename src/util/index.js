@@ -14,9 +14,20 @@ export function deleteTmpFile(name) {
 }
 
 export function getClientIP(req) {
-	return req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
-  req.headers['x-real-ip'] 
-  //|| '114.247.50.2'
+  let ip= req.headers['x-forwarded-for'] || 
+  req.ip || 
+  req.connection.remoteAddress || 
+  req.socket.remoteAddress || 
+  req.connection.socket.remoteAddress 
+  || ''
+  if(ip) {
+    ip = ip.replace('::ffff:', '')
+  }
+  return ip;
+}
+
+export function getUserAgent(req) {
+  return req.headers['user-agent'];
 }
 
 export const getAddress = url => {
