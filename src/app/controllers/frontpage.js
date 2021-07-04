@@ -38,16 +38,14 @@ export const home = async ctx => {
 		const merber = getClientIP(ctx.request);
 		const agent = getUserAgent(ctx.request)
 		const userLIno = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${merber}`);
-
 		const visitor = new Visitor({
 			ip: merber,
-			province: userLIno.province,
-			city: userLIno.city,
-			adcoce: userLIno.adcoce,
+			province: typeof userLIno.data.province === 'object' ? undefined : userLIno.data.province,
+			city: typeof userLIno.data.city === 'object' ? undefined : userLIno.data.city,
+			adcoce: typeof userLIno.data.adcoce === 'object' ? undefined : userLIno.data.adcoce,
 			agent,
 		})
 		await visitor.save()
-
 		const expireatAt = getTomorrowTS();
 		await redisClient.multi()
 			.sadd(KEY.Visitors_Day, merber)
