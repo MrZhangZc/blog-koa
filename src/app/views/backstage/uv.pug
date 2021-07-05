@@ -7,12 +7,14 @@ block content
         th ip
         th 省份
         th 城市
+        th 访问时间
     tbody
     each visitor in visitors
       tr
         td #{visitor.ip}
         th #{visitor.province}
         td #{visitor.city}
+        td #{moment(visitor.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}
   //- if pageCount > 1
   //-   nav
   //-     ul.pagination
