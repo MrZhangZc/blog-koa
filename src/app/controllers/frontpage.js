@@ -134,7 +134,9 @@ export const getCategoryPost = async ctx => {
 		if (ctx.query.keyword) {
 			Object.assign(conditions, {content: new RegExp(ctx.query.keyword.trim(), 'i')});
 		}
-		// logJson(300, 'category' + category.name, 'blogzzc');
+		if(category.abbreviation) {
+			logJson(300, 'category' + category.abbreviation, 'blogzzc');
+		}
 		const articles = await Article.find(conditions)
 			.populate('author')
 			.populate('category')
@@ -209,18 +211,27 @@ export const reply = async ctx => {
 
 export const uv = async ctx => {
 	try {
-    const ipaddr = await redisClient.smembers(KEY.Visitors_Day);
-    //const address = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${ipadd}`);
-		let address = []
-		for(let ip of ipaddr){
-			const add = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${ip}`);
-			address.push(add.data)
-		}
+		const visitors = await Visitor.find({city: {$ne:'未知'}}).sort({ _id: -1 })
 		await ctx.render('backstage/uv', {
-			title: '今日访客',
-			address: address
-		});
+			title: '访客记录',
+			visitors: visitors,
+    });
 	} catch (err) {
 		logJson(500, 'uv', 'blogzzc');
 	}
+	// try {
+  //   const ipaddr = await redisClient.smembers(KEY.Visitors_Day);
+  //   //const address = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${ipadd}`);
+	// 	let address = []
+	// 	for(let ip of ipaddr){
+	// 		const add = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${ip}`);
+	// 		address.push(add.data)
+	// 	}
+	// 	await ctx.render('backstage/uv', {
+	// 		title: '今日访客',
+	// 		address: address
+	// 	});
+	// } catch (err) {
+	// 	logJson(500, 'uv', 'blogzzc');
+	// }
 };

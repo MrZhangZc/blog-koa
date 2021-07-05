@@ -30,7 +30,8 @@ export const postCategory = async ctx => {
   try {
     const opts = ctx.request.body
     const category = new Category({
-      name: opts.name
+      name: opts.name,
+      abbreviation: opts.abbreviation
     })
     await category.save()
     ctx.response.redirect('/admin/category')
@@ -56,7 +57,8 @@ export const postEditCategory = async ctx => {
   try {
     const category_id = ctx.params.id
     const category_name = ctx.request.body.name
-    const update = { $set: { name: category_name } }
+    const abbreviation = ctx.request.body.abbreviation
+    const update = { $set: { name: category_name, abbreviation: abbreviation } }
     await Category.updateOne({ _id:category_id }, update)
     ctx.response.redirect('/admin/category')
   }catch(err){ 

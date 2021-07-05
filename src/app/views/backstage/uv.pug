@@ -1,20 +1,30 @@
 extends ./layout
 
 block content
-  if err
-    p.alert.alert-danger #{err}
-  if info
-    p.alert.alert-success #{info}
-  span 今日uv
   table.table.table-bordered
     thead
       tr
-        th(width="20%") 省
-        th(width="20%") 市
+        th ip
+        th 省份
+        th 城市
     tbody
-    each add in address
+    each visitor in visitors
       tr
-        td #{add.province}
-        td #{add.city}
+        td #{visitor.ip}
+        th #{visitor.province}
+        td #{visitor.city}
+  //- if pageCount > 1
+  //-   nav
+  //-     ul.pagination
+  //-       - var currentPage = 1
+  //-       while currentPage < pageCount
+  //-         if (currentPage === pageNum)
+  //-           li.active
+  //-              a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author + "&sortby=" + sortby + "&sortdir" + sortdir)= currentPage++
+  //-         else
+  //-           li
+  //-              a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author +"&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
 
+  script(src="/js/querystring.js")
+  script(src="/js/admin/post.js")
 

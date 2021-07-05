@@ -10,6 +10,7 @@ export default class RedisStore extends Store {
       host: process.env.REDIS_SESSION_HOST,
       port: process.env.REDIS_SESSION_POST,
       db: process.env.REDIS_SESSION_DB,
+      password: process.env.REDIS_AUTH
     })
   }
 

@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 const CategorySchema = new Schema({
   name: String,
   slug: String,
+  abbreviation: String,
   meta: {
     createdAt: {
       type: Date,

@@ -7,6 +7,7 @@ block content
     thead
       tr
         th 名称
+        th 简称
         th 创建时间
         th 管理
     tbody
@@ -14,6 +15,8 @@ block content
       tr
         td
           a(href="/category/" + category._id, target="_blank") #{category.name}
+        td
+          a(href="/category/" + category._id, target="_blank") #{category.abbreviation}
         td #{moment(category.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}
         td
           a.btn.btn-sm.btn-info(href="/admin/category/edit/" + category._id) 编辑
