@@ -67,7 +67,7 @@ export const article = async ctx => {
 			.populate({path: 'comments', populate: {path: 'from'}})
 			.sort({_id: -1});
 		if (article.abbreviation) {
-			logJson(300, 'article-' + article.abbreviation, 'blogzzc');
+			logJson(300, 'article' + article.abbreviation, 'blogzzc');
 		}
 		const score = (await redisClient.zscore(KEY.Article_LookTime, article.title)) || 0;
 		const newScore = await redisClient
@@ -134,7 +134,7 @@ export const getCategoryPost = async ctx => {
 		if (ctx.query.keyword) {
 			Object.assign(conditions, {content: new RegExp(ctx.query.keyword.trim(), 'i')});
 		}
-		logJson(300, 'category-' + category.name, 'blogzzc');
+		// logJson(300, 'category' + category.name, 'blogzzc');
 		const articles = await Article.find(conditions)
 			.populate('author')
 			.populate('category')
