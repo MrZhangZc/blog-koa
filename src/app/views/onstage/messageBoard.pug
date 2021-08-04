@@ -9,35 +9,35 @@ block main
     .row
       .message.col-lg-8.col-12
         each message in messages
-          .messagesBoard
-            .messagesLeft
-              img(src= message.from.headimg, alt="")
-              p #{message.from.nickname}
-              if user
-                if user.role === '管理员'
-                  a(href="/message/reply/" + message._id) 回复
-            .messagesRight
-              p #{moment(message.created).format('YYYY-MM-DD')}
-              p #{message.content}
-          if message.reply.length !== 0
-            each reply in message.reply
-              .reply
-                .replyLeft
-                  img(src=reply.from.headimg, alt="")
-                  p #{reply.from.nickname}
-                .replyRight
-                  p #{reply.content}
-        if user
-          .comment
-            form.form-signin(method="post", action= action)
-              h2.form-signin-heading 留言
-                
-              label.sr-only(for="content") 内容
-              textarea.form-control(name="content", cols="30", rows="10", required="")
+          div.card.text-center(style='margin-top:2em')
+            div.card-header #{message.email}
+            div.card-body
+              img(src= 'http://file.lihailezzc.com/1.png', style='border-radius: 50%; width: 4em;height: 4em;')
+              p.card-text #{message.content}
+            div.card-footer.text-muted #{moment(message.createdAt).format('YYYY-MM-DD')}
+        .comment
+          form.form-signin(method="post", action= action)
+            h3.form-signin-heading(style="margin-bottom:1em;") 留言
 
-              button.btn.btn-lg.btn-primary.btn-block(type="submit", style="margin-top:3em;") 确定
-        else
-          a(href="/login")
-            button.btn.btn-lg.btn-primary.btn-block(type="submit", style="margin-top:3em;margin-bottom:3em;") 登录后即可评论
-          
-        
+            div.input-group.mb-3
+              <input type="email" name="email" class="form-control" placeholder="你的邮箱" aria-label="你的邮箱" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">@example.com</span>
+              </div>
+
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">内容</span>
+              </div>
+              <textarea name="content" class="form-control" aria-label="内容"></textarea>
+            </div>
+
+            button.btn.btn-primary.btn-block(type="submit", style="margin-top:1em;width:10%") 确定
+        //- .comment
+        //-   form.form-signin(method="post", action= action)
+        //-     h2.form-signin-heading 留言
+              
+        //-     label.sr-only(for="content") 内容
+        //-     textarea.form-control(name="content", cols="30", rows="10", required="")
+
+        //-     button.btn.btn-lg.btn-primary.btn-block(type="submit", style="margin-top:3em;") 确定

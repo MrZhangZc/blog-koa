@@ -36,7 +36,7 @@ block main
             .post-meta-box.bg-box
               .top-info
                 .top-info-category
-                  a(href="/category/" + article.category._id) #{article.category.name}
+                  //- a(href="/category/" + article.category._id) #{article.category.name}
                 .top-info-date
                   i.fa.fa-calendar &nbsp; #{moment(article.meta.createdAt).format('YYYY-MM-DD')} &nbsp;
                   i.fa.fa-eye &nbsp; (#{watch.includes(article.title) ? watch[(watch.findIndex(item => item === article.title) + 1)] : 0}) &nbsp;

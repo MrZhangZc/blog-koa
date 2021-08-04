@@ -53,6 +53,7 @@ export const home = async ctx => {
       .exec();
 		await redisClient.pfadd(KEY.Visitors_Total, merber);
 	} catch (err) {
+		console.log(err)
 		logJson(500, 'home', 'blogzzc');
 	}
 };
@@ -81,6 +82,7 @@ export const article = async ctx => {
 			watch: newScore[1][1]
 		});
 	} catch (err) {
+		console.log(err)
 		logJson(500, 'article', 'blogzzc');
 	}
 };
@@ -164,11 +166,11 @@ export const getCategoryPost = async ctx => {
 
 export const message = async ctx => {
 	try {
-		const userId = ctx.session.user._id;
-		const content = ctx.request.body.content;
+		console.log(ctx.request.body)
+		const { content, email } = ctx.request.body
 		const message = await new Message({
-			from: userId,
-			content: content
+			email,
+			content
 		});
 		await message.save();
 		logJson(300, 'newmessage', 'blogzzc');

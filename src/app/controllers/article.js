@@ -162,12 +162,11 @@ export const trueDeleteArticle = async ctx => {
 export const comment = async ctx => {
 	try {
 		const articleId = ctx.params.id;
-		const user = ctx.state.user;
-		const postComment = ctx.request.body.comment;
+		const { comment:content , email } = ctx.request.body
 		const article = await Article.findById(articleId);
 		const comment = await new Comment({
-			from: user._id,
-			content: postComment
+			email,
+			content
 		});
 		await comment.save();
 		const upComment = {$push: {comments: comment._id}};

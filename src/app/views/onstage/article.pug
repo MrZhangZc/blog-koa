@@ -22,28 +22,33 @@ block main
         if article.comments.length !== 0
           .commentList
             .commentTitle
-              h3 #{article.comments.length} Comments
+              h3 #{article.comments.length} 条评论
             each comment in article.comments
               .acomment
-                .acommentFlex
-                  img(src= comment.from.headimg)
-                  .acommentInfo
-                    p #{comment.from.nickname}
-                    p #{moment(comment.created).format('YYYY-MM-DD')}
-                .acommentCon
-                  p #{comment.content}
-        if user
-          .comment
-            form.form-signin(method="post", action="/comment/" + article._id)
-              h2.form-signin-heading 评论
+                div.card.text-center
+                  div.card-header #{comment.email}
+                  div.card-body
+                    img(src= 'http://file.lihailezzc.com/1.png', style='border-radius: 50%; width: 4em;height: 4em;')
+                    p.card-text #{comment.content}
+                  div.card-footer.text-muted #{moment(comment.createdAt).format('YYYY-MM-DD')}
+        .comment
+          form.form-signin(method="post", action="/comment/" + article._id)
+            h3.form-signin-heading(style="margin-bottom:1em;") 评论
 
-              label.sr-only(for="comment") 内容
-              textarea.form-control(name="comment", cols="30", rows="10", required="")
+            div.input-group.mb-3
+              <input type="email" name="email" class="form-control" placeholder="你的邮箱" aria-label="你的邮箱" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">@example.com</span>
+              </div>
 
-              button.btn.btn-lg.btn-primary.btn-block(type="submit", style="margin-top:3em;") 确定
-        else
-          a(href="/login")
-            button.btn.btn-lg.btn-primary.btn-block(type="submit", style="margin-top:3em;") 登录后即可评论
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">内容</span>
+              </div>
+              <textarea name="comment" class="form-control" aria-label="内容"></textarea>
+            </div>
+
+            button.btn.btn-primary.btn-block(type="submit", style="margin-top:1em;width:10%") 确定
       //- .article-right.col-lg-3.col-12
       //-   if article.tags.length > 0
       //-     .article-tags
