@@ -7,6 +7,7 @@ const Article = mongoose.model('Article');
 const Message = mongoose.model('Message');
 const Category = mongoose.model('Category');
 const Visitor = mongoose.model('Visitor');
+const BlogsyStemLog = mongoose.model('BlogsyStemLog');
 
 export const home = async ctx => {
 	try {
@@ -46,6 +47,11 @@ export const home = async ctx => {
 			agent,
 		})
 		await visitor.save()
+		const blogsyStemLog = new BlogsyStemLog({
+			ip: merber,
+			type: 'homelook',
+		})
+		await blogsyStemLog.save()
 		const expireatAt = getTomorrowTS();
 		await redisClient.multi()
 			.sadd(KEY.Visitors_Day, merber)
@@ -70,6 +76,13 @@ export const article = async ctx => {
 		if (article.abbreviation) {
 			logJson(300, 'article' + article.abbreviation, 'blogzzc');
 		}
+		const merber = getClientIP(ctx.request);
+		const blogsyStemLog = new BlogsyStemLog({
+			ip: merber,
+			type: 'postlook',
+			article: article.title
+		})
+		await blogsyStemLog.save()
 		const score = (await redisClient.zscore(KEY.Article_LookTime, article.title)) || 0;
 		const newScore = await redisClient
 			.multi()
@@ -123,6 +136,12 @@ export const messageBoard = async ctx => {
 			messages: messages,
 			action: action
 		});
+		const merber = getClientIP(ctx.request);
+		const blogsyStemLog = new BlogsyStemLog({
+			ip: merber,
+			type: 'messagelook',
+		})
+		await blogsyStemLog.save()
 	} catch (err) {
 		logJson(500, 'messageboard', 'blogzzc');
 	}
@@ -159,6 +178,13 @@ export const getCategoryPost = async ctx => {
 			watch: scores,
 			articleRank: articleRank
 		});
+		const merber = getClientIP(ctx.request);
+		const blogsyStemLog = new BlogsyStemLog({
+			ip: merber,
+			type: 'catelook',
+			category: category.name
+		})
+		await blogsyStemLog.save()
 	} catch (err) {
 		logJson(500, 'getcategorypost', 'blogzzc');
 	}
