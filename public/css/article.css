@@ -19,6 +19,10 @@
   line-height: 2em;
   text-indent: 2em;
 }
+.article div{
+  line-height: 2em;
+  text-indent: 2em;
+}
 .article-title{
   margin-top: 3em;
   color: #555555;
