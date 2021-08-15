@@ -2,6 +2,10 @@ extends ../layout
 
 append css
   link(rel="stylesheet", href="/css/article.css")
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/themes/prism.css">
+append js
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
 block main
   img.article-bg(src= 'https://file.lihailezzc.com/' + article.imgurl, alt="", srcset="")
   .container
