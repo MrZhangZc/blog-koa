@@ -161,9 +161,20 @@
   flex-wrap: wrap;
 }
 .cateItemLi{
+  height: 30px;
   margin-right: 5px;
   margin-bottom: 5px;
+  border: #868686 1px solid;
+  border-radius: 15px;
+  padding-left: 7px;
+  padding-right: 7px;
+  /* padding: 5px; */
 }
 .cateItem{
+  /* display: flex; */
+  display:block;
+  height: 100%;
+  width: 100%;
+  line-height: 30px;
   /* border: 1px solid #000; */
 }
