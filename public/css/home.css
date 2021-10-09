@@ -154,5 +154,16 @@
 }
 .ranking{
   color: #D0344E;
-  font-weight: bold
+  font-weight: bold;
+}
+.cateUl{
+  display: flex;
+  flex-wrap: wrap;
+}
+.cateItemLi{
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+.cateItem{
+  /* border: 1px solid #000; */
 }

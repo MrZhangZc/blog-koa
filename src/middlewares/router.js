@@ -10,11 +10,19 @@ import moment from 'moment'
 import mongoose from 'mongoose'
 import truncate from 'truncate'
 const Category = mongoose.model('Category')
+import R from 'ramda'
+import redisClient from '../redis';
 
 export const router = async app => {
   const router = new Router()
   router.use(async (ctx,next)=>{
-    const categories = await Category.find({}).sort('-created')
+    let categories = await redisClient.get('categories')
+    if(!categories) {
+      const cates = await Category.find({}, '_id name').sort('-created')
+      await redisClient.set('categories', JSON.stringify(cates))
+      categories = await redisClient.get('categories')
+    }
+    categories = JSON.parse(categories)
     const pathName = url.parse(ctx.request.url).pathname
     ctx.state.categories = categories
     ctx.state.pathName = pathName 

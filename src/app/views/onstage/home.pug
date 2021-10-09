@@ -57,10 +57,10 @@ block main
       .col-lg-4.col-md-7.col-12.theme-main-sidebar
         .sidebar-box.bg-box.sidebar-categories
           h6.fa.fa-shopping-basket.ranking 文章类别
-          ul
+          ul.cateUl
             each category in categories
-              li
-                a(href="/category/" + category._id) #{category.name}
+              li.cateItemLi
+                a.cateItem(href="/category/" + category._id) #{category.name}
         .sidebar-box.bg-box.sidebar-categories.sidebar-ranking
           h6.fa.fa-fire.ranking &nbsp;热门文章排行
           ul
