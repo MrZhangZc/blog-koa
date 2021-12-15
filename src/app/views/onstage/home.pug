@@ -5,7 +5,7 @@ append css
 block main
   .home-front
     .logo
-      img(src="/images/zzc.png", alt="", srcset="")
+      img(src="/images/zzc.png", alt="zzc", srcset="")
   nav.navbar.navbar-expand-sm.bg-dark.navbar-dark 
     a.navbar-brand(href='/') 导航
     button.navbar-toggler(type="button" data-toggle="collapse" data-target="#collapsibleNavbar")
@@ -32,7 +32,7 @@ block main
         each article in articles
           .single-blog-post
             .image-box
-              img(src= 'https://file.lihailezzc.com/' + article.imgurl, alt="", srcset="")
+              img(src= 'https://file.lihailezzc.com/' + article.imgurl, alt=article.title, srcset="")
             .post-meta-box.bg-box
               .top-info
                 .top-info-category
@@ -50,10 +50,10 @@ block main
               while currentPage <= pageCount
                 if (currentPage === pageNum)
                   li.active.page-item
-                    a(href="?page=" + currentPage).page-link= currentPage++
+                    a(href="/" + currentPage).page-link= currentPage++
                 else
                   li.page-item
-                    a(href="?page=" + currentPage).page-link= currentPage++
+                    a(href="/" + currentPage).page-link= currentPage++
       .col-lg-4.col-md-7.col-12.theme-main-sidebar
         .sidebar-box.bg-box.sidebar-categories
           h6.fa.fa-shopping-basket.ranking 文章类别
@@ -64,7 +64,7 @@ block main
         .sidebar-box.bg-box.sidebar-categories.sidebar-ranking
           h6.fa.fa-fire.ranking &nbsp;热门文章排行
           ul
-            each article in allarticles.filter(item => articleRank.includes(item.title) ? Object.assign(item, {score: articleRank[articleRank.findIndex(each => each === item.title) + 1]}) : '').sort((a, b) => b.score - a.score )
+            each article in allarticles
               li 
-                a(href='/article/' + article.slug) #{article.title} #{article.score} 
+                a(href='/articleRank/' + article.slug) #{article.title} #{article.score} 
     .container-right

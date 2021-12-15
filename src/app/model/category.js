@@ -5,6 +5,10 @@ const CategorySchema = new Schema({
   name: String,
   slug: String,
   abbreviation: String,
+  desc: {
+    type: String,
+    default: 'desc'
+  },
   meta: {
     createdAt: {
       type: Date,

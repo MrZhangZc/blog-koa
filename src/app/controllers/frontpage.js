@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import {logJson, getClientIP, getUserAgent, getAddress, getTomorrowTS } from '../../util';
 import redisClient from '../../redis';
 import {KEY} from '../../util/key';
+import moment from 'moment';
+import { is, splitEvery, fromPairs } from 'ramda'
 const User = mongoose.model('User');
 const Article = mongoose.model('Article');
 const Message = mongoose.model('Message');
@@ -12,41 +14,64 @@ const BlogsyStemLog = mongoose.model('BlogsyStemLog');
 export const home = async ctx => {
 	try {
 		logJson(300, 'someonein', 'blogzzc');
+		const pageSize = 5;
+		let pageNum = ctx.params.page
+		if(pageNum && (isNaN(+pageNum) || !is(Number, +pageNum))) {
+			return await ctx.render('onstage/404', {
+				title: `张智超blog - 当前页面未找到`,
+				desc: '张智超个人博客网站，记录学习笔记和学习心得 nodejs mysql postgresql es redis mongodb docker...',
+				url: 'https://blog.lihailezzc.com'
+			});
+		}
+		if(pageNum === undefined) pageNum = 1
+
 		const conditions = {publishd: true};
 		if (ctx.query.keyword) {
 			Object.assign(conditions, {content: new RegExp(ctx.query.keyword.trim(), 'i')});
 		}
-		const articles = await Article.find(conditions, '-content')
-			.populate('author')
-			.populate('category')
-			.sort({_id: -1});
-		const scores = await redisClient.zrange(KEY.Article_LookTime, 0, -1, 'WITHSCORES');
-		const articleRank = await redisClient.zrevrange(KEY.Article_LookTime, 0, 4, 'WITHSCORES');
-
-		let pageNum = Math.abs(parseInt(ctx.query.page || 1, 10));
-		const pageSize = 5;
-		const totalCount = articles.length;
+		const hotTitle = await redisClient.zrevrange(KEY.Article_LookTime, 0, 5)
+		const [articles, totalCount, hotArticles, hotArticlesScore, scores] = await Promise.all([
+			Article.find(conditions, '-content')
+				.skip((pageNum - 1) * 5)
+				.limit(5)
+				.populate('author')
+				.populate('category')
+				.sort({_id: -1}),
+			Article.count(conditions),
+			Article.find({ title: { $in:hotTitle }}, '-_id title slug'),
+			redisClient.zrevrange(KEY.Article_LookTime, 0, 5, 'WITHSCORES'),
+			redisClient.zrange(KEY.Article_LookTime, 0, -1, 'WITHSCORES')
+		])
+		const hot = fromPairs(splitEvery(2, hotArticlesScore))
+		const allarticles = hotArticles.map(item => {
+			return {
+				title: item.title,
+				slug: item.slug,
+				score: hot[item.title]
+			}
+		})
 		let pageCount = Math.ceil(totalCount / pageSize);
 		await ctx.render('onstage/home', {
-			title: '张智超blog',
-			articles: articles.slice((pageNum - 1) * pageSize, pageNum * pageSize),
-			allarticles: articles,
-			pageNum: pageNum,
+			title: `张智超blog - 记录学习笔记的个人博客网站${pageNum > 1 ? `第${pageNum}页` : ''}`,
+			desc: '张智超个人博客网站，记录学习笔记和学习心得 nodejs mysql postgresql es redis mongodb docker...',
+			articles,
+			allarticles,
+			pageNum: +pageNum,
 			pageCount: pageCount,
 			watch: scores,
-			articleRank: articleRank
+			url: 'https://blog.lihailezzc.com'
 		});
 		const merber = getClientIP(ctx.request);
-		const agent = getUserAgent(ctx.request)
-		const userLIno = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${merber}`);
-		const visitor = new Visitor({
-			ip: merber,
-			province: typeof userLIno.data.province === 'object' ? undefined : userLIno.data.province,
-			city: typeof userLIno.data.city === 'object' ? undefined : userLIno.data.city,
-			adcoce: typeof userLIno.data.adcoce === 'object' ? undefined : userLIno.data.adcoce,
-			agent,
-		})
-		await visitor.save()
+		// const agent = getUserAgent(ctx.request)
+		// const userLIno = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${merber}`);
+		// const visitor = new Visitor({
+		// 	ip: merber,
+		// 	province: typeof userLIno.data.province === 'object' ? undefined : userLIno.data.province,
+		// 	city: typeof userLIno.data.city === 'object' ? undefined : userLIno.data.city,
+		// 	adcoce: typeof userLIno.data.adcoce === 'object' ? undefined : userLIno.data.adcoce,
+		// 	agent,
+		// })
+		// await visitor.save()
 		const blogsyStemLog = new BlogsyStemLog({
 			ip: merber,
 			type: 'homelook',
@@ -73,6 +98,13 @@ export const article = async ctx => {
 			.populate('category')
 			.populate({path: 'comments', populate: {path: 'from'}})
 			.sort({_id: -1});
+		if(!article) {
+			return await ctx.render('onstage/404', {
+				title: `张智超blog - 当前页面未找到`,
+				desc: '张智超个人博客网站，记录学习笔记和学习心得 nodejs mysql postgresql es redis mongodb docker...',
+				url: 'https://blog.lihailezzc.com'
+			});
+		}
 		if (article.abbreviation) {
 			logJson(300, 'article' + article.abbreviation, 'blogzzc');
 		}
@@ -90,9 +122,11 @@ export const article = async ctx => {
 			.zscore(KEY.Article_LookTime, article.title)
 			.exec();
 		await ctx.render('onstage/article', {
-			title: '张智超blog',
+			title: `张智超blog_${article.title}_发布于_${moment(article.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}`,
+			desc: `${article.category ? article.category.name : ''}-${article.desc}-${article.tags.length ? article.tags.join('-') : ''}`,
 			article: article,
-			watch: newScore[1][1]
+			watch: newScore[1][1],
+			url: `https://blog.lihailezzc.com/article/${articleSlug}`
 		});
 	} catch (err) {
 		console.log(err)
@@ -103,7 +137,9 @@ export const article = async ctx => {
 export const aboutMe = async ctx => {
 	try {
 		await ctx.render('onstage/aboutme', {
-			title: '关于我'
+			title: '张智超blog_关于我',
+			url: 'https://blog.lihailezzc.com/aboutMe',
+			desc: '关于我的自我介绍'
 		});
 	} catch (err) {
 		logJson(500, 'aboutme', 'blogzzc');
@@ -116,7 +152,8 @@ export const personal = async ctx => {
 		const user = await User.findById(cuser._id);
 		await ctx.render('onstage/personal', {
 			title: '个人中心',
-			tuser: user
+			tuser: user,
+			url: ''
 		});
 	} catch (err) {
 		logJson(500, 'personal', 'blogzzc');
@@ -132,9 +169,11 @@ export const messageBoard = async ctx => {
 			.sort({_id: -1});
 		const action = '/message';
 		await ctx.render('onstage/messageBoard', {
-			title: '留言板',
+			title: '张智超blog_留言板',
+			desc: '有什么想要交流的尽情留言吧',
 			messages: messages,
-			action: action
+			action: action,
+			url: 'https://blog.lihailezzc.com/messageBoard'
 		});
 		const merber = getClientIP(ctx.request);
 		const blogsyStemLog = new BlogsyStemLog({
@@ -150,7 +189,14 @@ export const messageBoard = async ctx => {
 export const getCategoryPost = async ctx => {
 	try {
 		const categoryId = ctx.params.id;
-		const category = await Category.findById(categoryId);
+		const category = await Category.findOne({_id:categoryId });
+		if(!category) {
+			return await ctx.render('onstage/404', {
+				title: `张智超blog - 当前页面未找到`,
+				desc: '张智超个人博客网站，记录学习笔记和学习心得 nodejs mysql postgresql es redis mongodb docker...',
+				url: 'https://blog.lihailezzc.com'
+			});
+		}
 		const conditions = {publishd: true, category: categoryId};
 		if (ctx.query.keyword) {
 			Object.assign(conditions, {content: new RegExp(ctx.query.keyword.trim(), 'i')});
@@ -169,7 +215,8 @@ export const getCategoryPost = async ctx => {
 		const totalCount = articles.length;
 		let pageCount = Math.ceil(totalCount / pageSize);
 		await ctx.render('onstage/home', {
-			title: `${category.name}类别`,
+			title: `张智超blog_${category.name}类别下的所有文章`,
+			desc: `${category.desc}`,
 			cate: category,
 			articles: articles.slice((pageNum - 1) * pageSize, pageNum * pageSize),
 			allarticles: articles,
@@ -182,11 +229,17 @@ export const getCategoryPost = async ctx => {
 		const blogsyStemLog = new BlogsyStemLog({
 			ip: merber,
 			type: 'catelook',
-			category: category.name
+			category: category.name,
+			url: `https://blog.lihailezzc.com/category/${categoryId}`
 		})
 		await blogsyStemLog.save()
 	} catch (err) {
 		logJson(500, 'getcategorypost', 'blogzzc');
+		return await ctx.render('onstage/404', {
+			title: `张智超blog - 当前页面未找到`,
+			desc: '张智超个人博客网站，记录学习笔记和学习心得 nodejs mysql postgresql es redis mongodb docker...',
+			url: 'https://blog.lihailezzc.com'
+		});
 	}
 };
 
@@ -215,9 +268,11 @@ export const messageReply = async ctx => {
 			.sort({_id: -1});
 		const action = `/reply/${messageId}`;
 		await ctx.render('onstage/messageBoard', {
-			title: '留言板',
+			title: '张智超blog_留言板',
+			desc: '张智超blog_留言板',
 			messages: messages,
-			action: action
+			action: action,
+			url: 'https://blog.lihailezzc.com/messageBoard'
 		});
 	} catch (err) {
 		logJson(500, 'messagereply', 'blogzzc');

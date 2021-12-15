@@ -12,7 +12,7 @@ block main
           div.card.text-center(style='margin-top:2em')
             div.card-header #{message.email}
             div.card-body
-              img(src= 'http://file.lihailezzc.com/1.png', style='border-radius: 50%; width: 4em;height: 4em;')
+              img(src= 'http://file.lihailezzc.com/1.png', alt="头像" ,style='border-radius: 50%; width: 4em;height: 4em;')
               p.card-text #{message.content}
             div.card-footer.text-muted #{moment(message.createdAt).format('YYYY-MM-DD')}
         .comment

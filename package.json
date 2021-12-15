@@ -1,6 +1,6 @@
 {
   "name": "blog-koa",
-  "version": "1.1.20",
+  "version": "1.1.21",
   "description": "blog-sever",
   "main": "start.js",
   "scripts": {

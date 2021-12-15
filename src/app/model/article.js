@@ -9,6 +9,10 @@ const ArticleSchema = new Schema({
   slug: String,
   tags: Array,
   abbreviation: String,
+  desc: {
+    type: String,
+    default: 'desc'
+  },
   publishd: {
     type: Boolean,
     default: true

@@ -4,7 +4,11 @@ html(lang='zh-cmn-Hans')
     title #{title}
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    meta(name="description" content=desc)
+    meta(property="og:title" content=title)
+    meta(property="og:description" content=desc)
     link(rel="shortcut icon", href="/images/favicon.ico", type="image/x-icon")
+    link(rel="canonical", href="" + url)
     script.
       var _hmt = _hmt || [];
         (function() {
@@ -45,6 +49,6 @@ html(lang='zh-cmn-Hans')
             i(aria-hidden="true").fa.fa-area-chart.fa-bar-chart  
     block main
     footer.footer
-      img(src="/images/zzc.png", alt="")
+      img(src="/images/zzc.png", alt="zzc底图")
       p Copyright © 2021 张智超Blog 蒙ICP备17000168号
       a(href="#") Back to top 
