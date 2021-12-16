@@ -1,24 +1,24 @@
-extends ../layout
+//- extends ../layout
 
-block content
-  if info
-    p.alert.alert-danger #{info}
-  table.table.table-bordered
-    thead
-      tr
-        th 名称
-        th 简称
-        th 创建时间
-        th 管理
-    tbody
-    each category in categories
-      tr
-        td
-          a(href="/category/" + category._id, target="_blank") #{category.name}
-        td
-          a(href="/category/" + category._id, target="_blank") #{category.abbreviation}
-        td #{moment(category.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}
-        td
-          a.btn.btn-sm.btn-info(href="/admin/category/edit/" + category._id) 编辑
-          | &nbsp;&nbsp;
-          a.btn.btn-sm.btn-danger(href="/admin/category/delete/" + category._id) 删除
+//- block content
+//-   if info
+//-     p.alert.alert-danger #{info}
+//-   table.table.table-bordered
+//-     thead
+//-       tr
+//-         th 名称
+//-         th 简称
+//-         th 创建时间
+//-         th 管理
+//-     tbody
+//-     each category in categories
+//-       tr
+//-         td
+//-           a(href="/category/" + category._id, target="_blank") #{category.name}
+//-         td
+//-           a(href="/category/" + category._id, target="_blank") #{category.abbreviation}
+//-         td #{moment(category.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}
+//-         td
+//-           a.btn.btn-sm.btn-info(href="/admin/category/edit/" + category._id) 编辑
+//-           | &nbsp;&nbsp;
+//-           a.btn.btn-sm.btn-danger(href="/admin/category/delete/" + category._id) 删除

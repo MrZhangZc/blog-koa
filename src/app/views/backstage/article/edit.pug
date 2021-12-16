@@ -1,23 +1,23 @@
-extends ../layout
+//- extends ../layout
 
-block content
-  form.vertical-form(method="post", action='/admin/article/edit/' + article._id)
-    .form-group
-      label(for="title") 标题
-      input.form-control.input-lg(name="title", required='true',placeholder="请输入标题。。。" value=article.title)
-    .form-group
-      label(for="category") 分类
-      select.form-control.input-lg(name="category",required='true')
-        option(value="") - 选择分类 -
-        each category in categories
-          option(value=category._id, selected=(category._id.toString() === article.category._id.toString())) #{category.name}
-    .form-gropp
-      label(for="imgsrc") 图片:
-      input.form-control.input-lg(name="imgsrc", required='true',placeholder="请输入图片地址" value=article.imgurl)
-    .form-group
-      label(for="content") 内容
-      textarea#editor(name="content", required='true') #{article.content}
+//- block content
+//-   form.vertical-form(method="post", action='/admin/article/edit/' + article._id)
+//-     .form-group
+//-       label(for="title") 标题
+//-       input.form-control.input-lg(name="title", required='true',placeholder="请输入标题。。。" value=article.title)
+//-     .form-group
+//-       label(for="category") 分类
+//-       select.form-control.input-lg(name="category",required='true')
+//-         option(value="") - 选择分类 -
+//-         each category in categories
+//-           option(value=category._id, selected=(category._id.toString() === article.category._id.toString())) #{category.name}
+//-     .form-gropp
+//-       label(for="imgsrc") 图片:
+//-       input.form-control.input-lg(name="imgsrc", required='true',placeholder="请输入图片地址" value=article.imgurl)
+//-     .form-group
+//-       label(for="content") 内容
+//-       textarea#editor(name="content", required='true') #{article.content}
 
-    button.btn.btn-lg.btn-info(type="submit")= post ? "保存修改" : "发布"
-    script.
-      var ue = UE.getEditor('editor')
+//-     button.btn.btn-lg.btn-info(type="submit")= post ? "保存修改" : "发布"
+//-     script.
+//-       var ue = UE.getEditor('editor')

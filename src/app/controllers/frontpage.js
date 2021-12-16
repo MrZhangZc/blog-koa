@@ -8,6 +8,7 @@ const User = mongoose.model('User');
 const Article = mongoose.model('Article');
 const Message = mongoose.model('Message');
 const Category = mongoose.model('Category');
+const Banner = mongoose.model('Banner');
 const Visitor = mongoose.model('Visitor');
 const BlogsyStemLog = mongoose.model('BlogsyStemLog');
 
@@ -30,7 +31,7 @@ export const home = async ctx => {
 			Object.assign(conditions, {content: new RegExp(ctx.query.keyword.trim(), 'i')});
 		}
 		const hotTitle = await redisClient.zrevrange(KEY.Article_LookTime, 0, 5)
-		const [articles, totalCount, hotArticles, hotArticlesScore, scores] = await Promise.all([
+		const [articles, totalCount, hotArticles, hotArticlesScore, scores, banners] = await Promise.all([
 			Article.find(conditions, '-content')
 				.skip((pageNum - 1) * 5)
 				.limit(5)
@@ -40,7 +41,8 @@ export const home = async ctx => {
 			Article.count(conditions),
 			Article.find({ title: { $in:hotTitle }}, '-_id title slug'),
 			redisClient.zrevrange(KEY.Article_LookTime, 0, 5, 'WITHSCORES'),
-			redisClient.zrange(KEY.Article_LookTime, 0, -1, 'WITHSCORES')
+			redisClient.zrange(KEY.Article_LookTime, 0, -1, 'WITHSCORES'),
+			Banner.find({}).sort({ rank: 1 })
 		])
 		const hot = fromPairs(splitEvery(2, hotArticlesScore))
 		const allarticles = hotArticles.map(item => {
@@ -59,19 +61,20 @@ export const home = async ctx => {
 			pageNum: +pageNum,
 			pageCount: pageCount,
 			watch: scores,
+			banners,
 			url: 'https://blog.lihailezzc.com'
 		});
 		const merber = getClientIP(ctx.request);
-		// const agent = getUserAgent(ctx.request)
-		// const userLIno = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${merber}`);
-		// const visitor = new Visitor({
-		// 	ip: merber,
-		// 	province: typeof userLIno.data.province === 'object' ? undefined : userLIno.data.province,
-		// 	city: typeof userLIno.data.city === 'object' ? undefined : userLIno.data.city,
-		// 	adcoce: typeof userLIno.data.adcoce === 'object' ? undefined : userLIno.data.adcoce,
-		// 	agent,
-		// })
-		// await visitor.save()
+		const agent = getUserAgent(ctx.request)
+		const userLIno = await getAddress(`https://restapi.amap.com/v3/ip?key=${KEY.GD_KEY}&ip=${merber}`);
+		const visitor = new Visitor({
+			ip: merber,
+			province: typeof userLIno.data.province === 'object' ? undefined : userLIno.data.province,
+			city: typeof userLIno.data.city === 'object' ? undefined : userLIno.data.city,
+			adcoce: typeof userLIno.data.adcoce === 'object' ? undefined : userLIno.data.adcoce,
+			agent,
+		})
+		await visitor.save()
 		const blogsyStemLog = new BlogsyStemLog({
 			ip: merber,
 			type: 'homelook',

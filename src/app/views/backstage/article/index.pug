@@ -1,88 +1,88 @@
-extends ../layout
+//- extends ../layout
 
-block content
-  table.table.table-bordered
-    thead
-      tr
-        th(width="30%") 标题
-        th
-          if sortby === 'publishd'
-            if (sortdir === 'desc')
-              a(href="/admin/article" + '?sortby=publishd&sortdir=asc')
-                i.fa.fa-arrow-down
-                | &nbsp;是否发布
-            else
-              a(href="/admin/article" + '?sortby=publishd&sortdir=desc')
-                i.fa.fa-arrow-up
-                | &nbsp;是否发布
-          else
-            a(href="/admin/article" + '?sortby=publishd&sortdir=desc') 是否发布
-        th
-          if sortby === 'category'
-            if (sortdir === 'desc')
-              a(href="/admin/article" + '?sortby=category&sortdir=asc')
-                i.fa.fa-arrow-down
-                | &nbsp;分类
-            else
-              a(href="/admin/article" + '?sortby=category&sortdir=desc')
-                i.fa.fa-arrow-up
-                | &nbsp;分类
-          else
-            a(href="/admin/article" + '?sortby=category&sortdir=desc') 分类
-        th
-          if sortby === 'lookTimes'
-            if (sortdir === 'desc')
-              a(href="/admin/article" + '?sortby=lookTimes&sortdir=asc')
-                i.fa.fa-arrow-down
-                | &nbsp;浏览次数
-            else
-              a(href="/admin/article" + '?sortby=lookTimes&sortdir=desc')
-                i.fa.fa-arrow-up
-                | &nbsp;浏览次数
-          else
-            a(href="/admin/article" + '?sortby=lookTimes&sortdir=desc') 浏览次数
-        th
-          if sortby === 'meta.createdAt'
-            if (sortdir === 'desc')
-              a(href="/admin/article" + '?sortby=meta.createdAt&sortdir=asc')
-                i.fa.fa-arrow-down
-                | &nbsp;添加时间
-            else
-              a(href="/admin/article" + '?sortby=meta.createdAt&sortdir=desc')
-                i.fa.fa-arrow-up
-                | &nbsp;添加时间
-          else
-            a(href="/admin/article" + '?sortby=meta.createdAt&sortdir=desc') 添加时间
-        th 管理
-    tbody
-    each article in articles
-      tr
-        td
-          a(href="/article/" + article.slug, target="_blank") #{article.title}
-        td(style="color:#5BC0DE") #{article.publishd ? '已发布' : '未发布' }
-        td #{article.category.name}
-        td #{watch.includes(article.title) ? watch[(watch.findIndex(item => item === article.title) + 1)] : 0}
-        td #{moment(article.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}
-        td
-          a.btn.btn-sm.btn-info(href="/admin/article/edit/" + article._id) 编辑
-          | &nbsp;&nbsp;
-          a.btn.btn-sm.btn-success(href="/admin/article/publishd/" + article._id) 发布
-          | &nbsp;&nbsp;
-          a.btn.btn-sm.btn-danger(href="/admin/article/delete/" + article._id) 取消发布
-          | &nbsp;&nbsp;
-          a.btn.btn-sm.btn-danger(href="/admin/article/trueDelete/" + article._id) 删除
+//- block content
+//-   table.table.table-bordered
+//-     thead
+//-       tr
+//-         th(width="30%") 标题
+//-         th
+//-           if sortby === 'publishd'
+//-             if (sortdir === 'desc')
+//-               a(href="/admin/article" + '?sortby=publishd&sortdir=asc')
+//-                 i.fa.fa-arrow-down
+//-                 | &nbsp;是否发布
+//-             else
+//-               a(href="/admin/article" + '?sortby=publishd&sortdir=desc')
+//-                 i.fa.fa-arrow-up
+//-                 | &nbsp;是否发布
+//-           else
+//-             a(href="/admin/article" + '?sortby=publishd&sortdir=desc') 是否发布
+//-         th
+//-           if sortby === 'category'
+//-             if (sortdir === 'desc')
+//-               a(href="/admin/article" + '?sortby=category&sortdir=asc')
+//-                 i.fa.fa-arrow-down
+//-                 | &nbsp;分类
+//-             else
+//-               a(href="/admin/article" + '?sortby=category&sortdir=desc')
+//-                 i.fa.fa-arrow-up
+//-                 | &nbsp;分类
+//-           else
+//-             a(href="/admin/article" + '?sortby=category&sortdir=desc') 分类
+//-         th
+//-           if sortby === 'lookTimes'
+//-             if (sortdir === 'desc')
+//-               a(href="/admin/article" + '?sortby=lookTimes&sortdir=asc')
+//-                 i.fa.fa-arrow-down
+//-                 | &nbsp;浏览次数
+//-             else
+//-               a(href="/admin/article" + '?sortby=lookTimes&sortdir=desc')
+//-                 i.fa.fa-arrow-up
+//-                 | &nbsp;浏览次数
+//-           else
+//-             a(href="/admin/article" + '?sortby=lookTimes&sortdir=desc') 浏览次数
+//-         th
+//-           if sortby === 'meta.createdAt'
+//-             if (sortdir === 'desc')
+//-               a(href="/admin/article" + '?sortby=meta.createdAt&sortdir=asc')
+//-                 i.fa.fa-arrow-down
+//-                 | &nbsp;添加时间
+//-             else
+//-               a(href="/admin/article" + '?sortby=meta.createdAt&sortdir=desc')
+//-                 i.fa.fa-arrow-up
+//-                 | &nbsp;添加时间
+//-           else
+//-             a(href="/admin/article" + '?sortby=meta.createdAt&sortdir=desc') 添加时间
+//-         th 管理
+//-     tbody
+//-     each article in articles
+//-       tr
+//-         td
+//-           a(href="/article/" + article.slug, target="_blank") #{article.title}
+//-         td(style="color:#5BC0DE") #{article.publishd ? '已发布' : '未发布' }
+//-         td #{article.category.name}
+//-         td #{watch.includes(article.title) ? watch[(watch.findIndex(item => item === article.title) + 1)] : 0}
+//-         td #{moment(article.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}
+//-         td
+//-           a.btn.btn-sm.btn-info(href="/admin/article/edit/" + article._id) 编辑
+//-           | &nbsp;&nbsp;
+//-           a.btn.btn-sm.btn-success(href="/admin/article/publishd/" + article._id) 发布
+//-           | &nbsp;&nbsp;
+//-           a.btn.btn-sm.btn-danger(href="/admin/article/delete/" + article._id) 取消发布
+//-           | &nbsp;&nbsp;
+//-           a.btn.btn-sm.btn-danger(href="/admin/article/trueDelete/" + article._id) 删除
 
-  if pageCount > 1
-    nav
-      ul.pagination
-        - var currentPage = 1
-        while currentPage < pageCount
-          if (currentPage === pageNum)
-            li.active
-               a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author + "&sortby=" + sortby + "&sortdir" + sortdir)= currentPage++
-          else
-            li
-               a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author +"&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
+//-   if pageCount > 1
+//-     nav
+//-       ul.pagination
+//-         - var currentPage = 1
+//-         while currentPage < pageCount
+//-           if (currentPage === pageNum)
+//-             li.active
+//-                a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author + "&sortby=" + sortby + "&sortdir" + sortdir)= currentPage++
+//-           else
+//-             li
+//-                a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author +"&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
 
-  script(src="/js/querystring.js")
-  script(src="/js/admin/post.js")
+//-   script(src="/js/querystring.js")
+//-   script(src="/js/admin/post.js")

@@ -1,46 +1,46 @@
-extends ../layout
+//- extends ../layout
 
-block content
-  if info
+//- block content
+//-   if info
 
-  table.table.table-bordered
-    thead
-      tr
-        th 用户名
-        th 本月访问天数
-        th 角色
-        th 性别
-        th 邮箱
-        th 添加时间
-        th 个性签名
-        th 管理
-    tbody
-    each user in users
-      tr
-        td #{user.nickname}
-        th #{user.times}
-        td(style="color:#5BC0DE") #{user.role}
-        td #{user.sex}
-        td #{user.email}
-        td #{moment(user.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}
-        td #{user.autograph}
-        td
-          a.btn.btn-sm.btn-info(href="/admin/user/delete/" + user._id) 删除
-          | &nbsp;&nbsp;
-          a.btn.btn-sm.btn-success(href="/admin/user/up/" + user._id)= user.role === '管理员' ? '降权' : '升权' 
+//-   table.table.table-bordered
+//-     thead
+//-       tr
+//-         th 用户名
+//-         th 本月访问天数
+//-         th 角色
+//-         th 性别
+//-         th 邮箱
+//-         th 添加时间
+//-         th 个性签名
+//-         th 管理
+//-     tbody
+//-     each user in users
+//-       tr
+//-         td #{user.nickname}
+//-         th #{user.times}
+//-         td(style="color:#5BC0DE") #{user.role}
+//-         td #{user.sex}
+//-         td #{user.email}
+//-         td #{moment(user.meta.createdAt).format('YYYY-MM-DD HH:mm:ss')}
+//-         td #{user.autograph}
+//-         td
+//-           a.btn.btn-sm.btn-info(href="/admin/user/delete/" + user._id) 删除
+//-           | &nbsp;&nbsp;
+//-           a.btn.btn-sm.btn-success(href="/admin/user/up/" + user._id)= user.role === '管理员' ? '降权' : '升权' 
           
 
-  if pageCount > 1
-    nav
-      ul.pagination
-        - var currentPage = 1
-        while currentPage < pageCount
-          if (currentPage === pageNum)
-            li.active
-               a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author + "&sortby=" + sortby + "&sortdir" + sortdir)= currentPage++
-          else
-            li
-               a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author +"&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
+//-   if pageCount > 1
+//-     nav
+//-       ul.pagination
+//-         - var currentPage = 1
+//-         while currentPage < pageCount
+//-           if (currentPage === pageNum)
+//-             li.active
+//-                a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author + "&sortby=" + sortby + "&sortdir" + sortdir)= currentPage++
+//-           else
+//-             li
+//-                a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author +"&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
 
-  script(src="/js/querystring.js")
-  script(src="/js/admin/post.js")
+//-   script(src="/js/querystring.js")
+//-   script(src="/js/admin/post.js")

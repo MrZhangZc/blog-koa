@@ -43,18 +43,61 @@
 }
 .home-front{
   width: 100%;
-  height: 270px;
-  display: flex;
+  height: 370px;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: url('/images/homebg.jpg') no-repeat;
+  background: url('/images/homebg.jpg') no-repeat; */
   background-size: 100% 100%;
 }
-.home-front.img{
-  width: 300px;
-  height: 120px;
-  background-image: url('/images/zzc.png') cover;
+.mF_fscreen_tb_wrap{
+  width: 100%;
+  height: 100%;
+}
+#boxID{
+  width: 100%;
+  height: 100%;
+}
+
+#boxID .pic{
+  width: 100%;
+  height: 100%;
+}
+
+#boxID .pic{
+  width: 100%;
+  height: 100%;
+}
+
+.pic ul{
+  width: 100%;
+  height: 100%;
+}
+
+.pic ul li{
+  width: 100%;
+  height: 100%;
+}
+
+.pic ul li{
+  width: 100%;
+  height: 100%;
+}
+.pic ul li a{
+  width: 100%;
+  height: 100%;
+}
+
+.pic ul li a img{
+  width: 100%;
+  height: 100%;
+}
+
+.home-front > img{
+  width: 100%;
+  height: 100%;
+  /* background-image: url('/images/zzc.png') cover; */
 }
 .home-nav{
   width: 100%;
@@ -94,7 +137,7 @@
   line-height: 42px;
   display: block;
   color: #868686;
-  border-bottom: 1px solid #f7f7f7;
+  /* border-bottom: 1px solid #f7f7f7; */
 }
 .theme-main-sidebar .sidebar-trending-post .single-trending-post img {width: 80px;height: 65px;}
 .theme-main-sidebar .sidebar-trending-post .single-trending-post .post {
@@ -157,24 +200,36 @@
   font-weight: bold;
 }
 .cateUl{
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  /* flex-direction: row; */
+  /* justify-content: center; */
 }
 .cateItemLi{
-  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* width: 100%; */
+  height: 100%;
+  /* height: 30px; */
   margin-right: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   border: #868686 1px solid;
+  border-bottom: 1px solid #868686;
   border-radius: 15px;
-  padding-left: 7px;
-  padding-right: 7px;
+  padding-left: 15px;
+  padding-right: 15px;
   /* padding: 5px; */
 }
-.cateItem{
-  /* display: flex; */
-  display:block;
-  height: 100%;
-  width: 100%;
-  line-height: 30px;
-  /* border: 1px solid #000; */
+.cateItemLi:hover{
+  background-color: antiquewhite;
 }
+.hotUl{}
+.hotLi{
+  /* display: flex; */
+  font-size: 12px;
+}
+.hotrank{
+  display: inline;
+}
+

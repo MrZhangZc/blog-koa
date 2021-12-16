@@ -322,7 +322,7 @@ body .theme-button-one:hover {background: #fff;}
   line-height: 42px;
   display: block;
   color: #868686;
-  border-bottom: 1px solid #f7f7f7;
+  /* border-bottom: 1px solid #f7f7f7; */
 }
 .theme-main-sidebar .sidebar-trending-post .single-trending-post img {width: 80px;height: 65px;}
 .theme-main-sidebar .sidebar-trending-post .single-trending-post .post {
@@ -596,7 +596,7 @@ body .theme-button-one:hover {background: #fff;}
 .comment-meta .single-comment {
   padding-bottom: 40px;
   margin-bottom: 40px;
-  border-bottom: 1px solid #f7f7f7;
+  /* border-bottom: 1px solid #f7f7f7; */
 }
 .comment-meta .single-comment.reply-comment {margin-left: 50px;}
 .comment-meta .single-comment:last-child {
