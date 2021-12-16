@@ -21,7 +21,7 @@ block main
           each banner in banners
             li
               a(href="https://blog.lihailezzc.com/article/" + banner.post_path, target="_blank")
-                img(src="https://file.lihailezzc.com/" + banner.pic_path alt=banner.title text="12321")
+                img(src="https://file.lihailezzc.com/" + banner.pic_path alt=banner.title text=banner.desc)
   nav.navbar.navbar-expand-sm.bg-dark.navbar-dark 
     a.navbar-brand(href='/') 导航
     button.navbar-toggler(type="button" data-toggle="collapse" data-target="#collapsibleNavbar")
@@ -44,7 +44,13 @@ block main
     .row
       .col-lg-8.col-12
         if cate
-          h4 #{cate.name}分类下的所有文章
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1 class="display-4">#{cate.name}</h1>
+            <p class="lead">#{cate.desc}</p>
+          </div>
+        </div>
+          //- h4 #{cate.name}分类下的所有文章
         each article in articles
           .single-blog-post
             .image-box
@@ -66,17 +72,23 @@ block main
               while currentPage <= pageCount
                 if (currentPage === pageNum)
                   li.active.page-item
-                    a(href="/" + currentPage).page-link= currentPage++
+                    a(href=cate ? '/category/' + cate._id + '/' + currentPage : "/" + currentPage).page-link= currentPage++
                 else
                   li.page-item
-                    a(href="/" + currentPage).page-link= currentPage++
+                    a(href=cate ? '/category/' + cate._id + '/' + currentPage : "/" + currentPage).page-link= currentPage++
       .col-lg-4.col-md-7.col-12.theme-main-sidebar
         .sidebar-box.bg-box.sidebar-categories
           h6.fa.fa-shopping-basket.ranking 文章类别
           ul.cateUl
             each category in categories
               li
-                a.cateItemLi(href="/category/" + category._id) #{category.name}
+                if cate 
+                  if (cate._id == category._id)
+                    a.cateItemLi.acticeCate(href="/category/" + category._id) #{category.name}
+                  else
+                    a.cateItemLi(href="/category/" + category._id) #{category.name}
+                else
+                  a.cateItemLi(href="/category/" + category._id) #{category.name}
         .sidebar-box.bg-box.sidebar-categories.sidebar-ranking
           h6.fa.fa-fire.ranking &nbsp;热门文章排行
           ul.hotUl

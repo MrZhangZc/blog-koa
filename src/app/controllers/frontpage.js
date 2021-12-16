@@ -191,7 +191,18 @@ export const messageBoard = async ctx => {
 
 export const getCategoryPost = async ctx => {
 	try {
+		const pageSize = 5;
+		let pageNum = ctx.params.page
+		if(pageNum && (isNaN(+pageNum) || !is(Number, +pageNum))) {
+			return await ctx.render('onstage/404', {
+				title: `张智超blog - 当前页面未找到`,
+				desc: '张智超个人博客网站，记录学习笔记和学习心得 nodejs mysql postgresql es redis mongodb docker...',
+				url: 'https://blog.lihailezzc.com'
+			});
+		}
+		if(pageNum === undefined) pageNum = 1
 		const categoryId = ctx.params.id;
+
 		const category = await Category.findOne({_id:categoryId });
 		if(!category) {
 			return await ctx.render('onstage/404', {
@@ -207,26 +218,39 @@ export const getCategoryPost = async ctx => {
 		if(category.abbreviation) {
 			logJson(300, 'category' + category.abbreviation, 'blogzzc');
 		}
-		const articles = await Article.find(conditions)
-			.populate('author')
-			.populate('category')
-			.sort({_id: -1});
-		const scores = await redisClient.zrange(KEY.Article_LookTime, 0, -1, 'WITHSCORES');
-		const articleRank = await redisClient.zrevrange(KEY.Article_LookTime, 0, 4, 'WITHSCORES');
-		let pageNum = Math.abs(parseInt(ctx.query.page || 1, 10));
-		const pageSize = 5;
-		const totalCount = articles.length;
+		const hotTitle = await redisClient.zrevrange(KEY.Article_LookTime, 0, 5)
+		const [articles, totalCount, banners, hotArticles, hotArticlesScore, scores] = await Promise.all([
+			Article.find(conditions)
+				.skip((pageNum - 1) * 5)
+				.limit(5)
+				.populate('author')
+				.populate('category')
+				.sort({_id: -1}),
+			Article.count(conditions),
+			Banner.find({}).sort({ rank: 1 }),
+			Article.find({ title: { $in:hotTitle }}, '-_id title slug'),
+			redisClient.zrevrange(KEY.Article_LookTime, 0, 5, 'WITHSCORES'),
+			redisClient.zrange(KEY.Article_LookTime, 0, -1, 'WITHSCORES'),
+		])
+		const hot = fromPairs(splitEvery(2, hotArticlesScore))
+		const allarticles = hotArticles.map(item => {
+			return {
+				title: item.title,
+				slug: item.slug,
+				score: hot[item.title]
+			}
+		})
 		let pageCount = Math.ceil(totalCount / pageSize);
 		await ctx.render('onstage/home', {
 			title: `张智超blog_${category.name}类别下的所有文章`,
 			desc: `${category.desc}`,
 			cate: category,
-			articles: articles.slice((pageNum - 1) * pageSize, pageNum * pageSize),
-			allarticles: articles,
-			pageNum: pageNum,
+			articles: articles,
+			allarticles,
+			pageNum: +pageNum,
 			pageCount: pageCount,
 			watch: scores,
-			articleRank: articleRank
+			banners
 		});
 		const merber = getClientIP(ctx.request);
 		const blogsyStemLog = new BlogsyStemLog({
@@ -237,6 +261,7 @@ export const getCategoryPost = async ctx => {
 		})
 		await blogsyStemLog.save()
 	} catch (err) {
+		console.log(err)
 		logJson(500, 'getcategorypost', 'blogzzc');
 		return await ctx.render('onstage/404', {
 			title: `张智超blog - 当前页面未找到`,

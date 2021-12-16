@@ -224,7 +224,9 @@
 .cateItemLi:hover{
   background-color: antiquewhite;
 }
-.hotUl{}
+.acticeCate{
+  background-color:bisque;
+}
 .hotLi{
   /* display: flex; */
   font-size: 12px;

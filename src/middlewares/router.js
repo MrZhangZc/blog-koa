@@ -10,7 +10,6 @@ import moment from 'moment'
 import mongoose from 'mongoose'
 import truncate from 'truncate'
 const Category = mongoose.model('Category')
-import R from 'ramda'
 import redisClient from '../redis';
 
 export const router = async app => {
@@ -42,6 +41,7 @@ export const router = async app => {
   router.get('/message/reply/:id', messageReply)
   router.post('/reply/:id', reply)
   router.get('/category/:id', getCategoryPost)
+  router.get('/category/:id/:page', getCategoryPost)
   router.post('/comment/:id', comment)
 
   router.get('/:page', home)
