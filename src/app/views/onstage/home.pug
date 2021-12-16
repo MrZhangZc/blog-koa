@@ -44,12 +44,10 @@ block main
     .row
       .col-lg-8.col-12
         if cate
-        <div class="jumbotron jumbotron-fluid">
-          <div class="container">
-            <h1 class="display-4">#{cate.name}</h1>
-            <p class="lead">#{cate.desc}</p>
-          </div>
-        </div>
+          .jumbotron.jumbotron-fluid
+            .container
+              h1.display-4 #{cate.name}
+              p.lead #{cate.desc}
           //- h4 #{cate.name}分类下的所有文章
         each article in articles
           .single-blog-post
