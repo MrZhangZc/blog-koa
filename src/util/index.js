@@ -44,3 +44,5 @@ export function getTomorrowTS() {
   }
   return Math.floor(date.getTime() / 1000);
 }
+
+export const BASE_URL = 'https://blog.lihailezzc.com/'

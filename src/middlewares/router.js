@@ -1,10 +1,12 @@
 import Router from 'koa-router'
 import { home, article, personal, messageBoard, aboutMe, message, messageReply, reply, getCategoryPost, uv } from '../app/controllers/frontpage'
-import { login, loginPost, register, registerPost, logout, fixPassworrd, postFixPassworrd, userList, deleteUser, upUser, downUser, load } from '../app/controllers/user'
-import { showArticles, addArticle, postArticle,editArticle, postEditArticle, publishdArticle, upload, deleteArticle, comment, trueDeleteArticle} from '../app/controllers/article'
-import { showCategory, addCategory, postCategory, editCategory, postEditCategory, deleteCategory} from '../app/controllers/category'
-import { adminMess, deleteMess } from '../app/controllers/message'
-import { signinRequired, adminRequired } from '../app/controllers/user'
+import { comment } from '../app/controllers/article'
+import { siteMapTask } from '../app/controllers/api'
+// import { login, loginPost, register, registerPost, logout, fixPassworrd, postFixPassworrd, userList, deleteUser, upUser, downUser, load } from '../app/controllers/user'
+// import { showArticles, addArticle, postArticle,editArticle, postEditArticle, publishdArticle, upload, deleteArticle, comment, trueDeleteArticle} from '../app/controllers/article'
+// import { showCategory, addCategory, postCategory, editCategory, postEditCategory, deleteCategory} from '../app/controllers/category'
+// import { adminMess, deleteMess } from '../app/controllers/message'
+// import { signinRequired, adminRequired } from '../app/controllers/user'
 import url from 'url'
 import moment from 'moment'
 import mongoose from 'mongoose'
@@ -34,6 +36,7 @@ export const router = async app => {
   //get page front
   router.get('/', home)
 
+  router.get('/siteMapTask', siteMapTask)
   router.get('/article/:slug', article)
   router.get('/messageBoard', messageBoard)
   router.get('/aboutMe', aboutMe)
