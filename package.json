@@ -12,7 +12,7 @@
   "dependencies": {
     "@koa/multer": "^3.0.0",
     "@notadd/neditor": "^2.1.14",
-    "axios": "^0.19.0",
+    "axios": "^0.21.2",
     "babel-core": "^6.26.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
