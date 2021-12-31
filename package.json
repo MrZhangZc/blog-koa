@@ -4,8 +4,7 @@
   "description": "blog-sever",
   "main": "start.js",
   "scripts": {
-    "start": "nodemon start.js",
-    "dev": "node start.js"
+    "start": "nodemon start.js"
   },
   "repository": "https://github.com/MrZhangZc/blog-koa.git",
   "author": "zhangzhichao <jiayouzzc@126.com>",
