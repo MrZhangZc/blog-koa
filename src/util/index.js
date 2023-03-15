@@ -2,6 +2,13 @@ import axios from 'axios';
 import { unlinkSync } from 'fs'
 import { join } from 'path'
 
+import * as xssFilters from 'xss-filters'
+import { JSDOM } from 'jsdom';
+import DOMPurify from 'dompurify';
+
+const window = new JSDOM('').window;
+const purify = DOMPurify(window);
+
 const OneDay = 24 * 3600 * 1000;
 
 export const logJson = (level, msg, proj) => {
@@ -46,3 +53,7 @@ export function getTomorrowTS() {
 }
 
 export const BASE_URL = 'https://blog.lihailezzc.com/'
+
+export const getClearnData = string => {
+  return xssFilters.inHTMLData(purify.sanitize(string))
+}

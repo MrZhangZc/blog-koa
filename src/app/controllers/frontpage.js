@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import {logJson, getClientIP, getUserAgent, getAddress, getTomorrowTS } from '../../util';
 import redisClient from '../../redis';
 import {KEY} from '../../util/key';
+import { getClearnData } from '../../util'
 import moment from 'moment';
 import { is, splitEvery, fromPairs } from 'ramda'
 const User = mongoose.model('User');
@@ -170,11 +171,18 @@ export const messageBoard = async ctx => {
 			.populate('from')
 			.populate('reply.from')
 			.sort({_id: -1});
+		const clearnMesage = messages.map(item => ({
+			createdAt: item.createdAt,
+			updatedAt: item.updatedAt,
+			_id: item._id,
+			email: getClearnData(item.email),
+			content: getClearnData(item.content),
+		}))
 		const action = '/message';
 		await ctx.render('onstage/messageBoard', {
 			title: '张智超blog_留言板',
 			desc: '有什么想要交流的尽情留言吧',
-			messages: messages,
+			messages: clearnMesage,
 			action: action,
 			url: 'https://blog.lihailezzc.com/messageBoard'
 		});
@@ -273,13 +281,18 @@ export const getCategoryPost = async ctx => {
 
 export const message = async ctx => {
 	try {
-		console.log(ctx.request.body)
 		const { content, email } = ctx.request.body
 		const message = await new Message({
-			email,
-			content
+			email: getClearnData(email),
+			content: getClearnData(content)
 		});
 		await message.save();
+		const merber = getClientIP(ctx.request);
+		const blogsyStemLog = new BlogsyStemLog({
+			ip: merber,
+			type: 'messagesave',
+		})
+		blogsyStemLog.save()
 		logJson(300, 'newmessage', 'blogzzc');
 		ctx.response.redirect('/messageBoard');
 	} catch (err) {
@@ -310,7 +323,7 @@ export const messageReply = async ctx => {
 export const reply = async ctx => {
 	try {
 		const userId = ctx.session.user._id;
-		const replyContent = ctx.request.body.content;
+		const replyContent = getClearnData(ctx.request.body.content);
 		const messageId = ctx.params.id;
 		const upReply = {$push: {reply: {from: userId, content: replyContent}}};
 		await Message.updateOne({_id: messageId}, upReply);

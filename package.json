@@ -21,9 +21,11 @@
     "babel-preset-stage-0": "^6.24.1",
     "bcryptjs": "^2.4.3",
     "bootstrap-fileinput": "^5.2.2",
+    "dompurify": "^3.0.1",
     "dotenv": "^10.0.0",
     "glob": "^7.1.4",
     "ioredis": "^4.9.3",
+    "jsdom": "^21.1.1",
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",
     "koa-logger": "^3.2.0",
@@ -40,6 +42,7 @@
     "qiniu": "^7.3.3",
     "ramda": "^0.26.1",
     "slug": "^1.1.0",
-    "truncate": "^2.0.1"
+    "truncate": "^2.0.1",
+    "xss-filters": "^1.2.7"
   }
 }
