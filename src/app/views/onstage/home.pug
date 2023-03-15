@@ -22,24 +22,6 @@ block main
             li
               a(href="https://blog.lihailezzc.com/article/" + banner.post_path, target="_blank")
                 img(src="https://file.lihailezzc.com/" + banner.pic_path alt=banner.title text=banner.desc)
-  nav.navbar.navbar-expand-sm.bg-dark.navbar-dark 
-    a.navbar-brand(href='/') 导航
-    button.navbar-toggler(type="button" data-toggle="collapse" data-target="#collapsibleNavbar")
-      span.navbar-toggler-icon
-    .collapse.navbar-collapse#collapsibleNavbar
-      ul.navbar-nav.mr-auto
-        li.nav-item 
-          a.nav-link(href="/aboutMe") 关于我
-        li.nav-item 
-          a.nav-link(href="/messageBoard") 留言板
-        li.nav-item
-      form.form-inline.my-2.my-lg-0
-        input(name="keyword", type="search" placeholder="搜索" aria-label="Search").form-control.mr-sm-2
-        button(type="submit").btn.btn-outline-info.my-2.my-sm-0
-          i.fa.fa-search
-        //- if user
-        //-   li.nav-item 
-        //-     a.nav-link(href="/personal") 个人中心
   .container
     .row
       .col-lg-8.col-12

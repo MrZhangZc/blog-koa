@@ -21,13 +21,14 @@ html(lang='zh-cmn-Hans')
       link(rel="stylesheet", href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css")
       link(rel='stylesheet', href='/font-awesome/css/font-awesome.min.css')
       link(rel='stylesheet', href='/css/base.css')
+      link(rel="stylesheet", href="/css/style.css")
     block js
       script(src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js")
       //- script(src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js")
       script(src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js")
   body(style="overflow: visible")
-    .home-header
-      .home-header-center
+    //- .home-header
+      //- .home-header-center
         //- .home-header-left
           //- if user
           //-   if user.role === '普通用户'
@@ -42,11 +43,38 @@ html(lang='zh-cmn-Hans')
           //-   a(href="/") 首页&nbsp;|&nbsp; 
           //-   a(href="/login") 登陆&nbsp;|&nbsp;
           //-   a(href="/register") 注册
-        .home-header-right
-          a(href="https://github.com/MrZhangZc", target="_blank")
-            i(aria-hidden="true").fa.fa-github
-          a(href="http://grafana.lihailezzc.com/d/sOFh7Eknk/blog", target="_blank")
-            i(aria-hidden="true").fa.fa-area-chart.fa-bar-chart  
+        //- .home-header-right
+        //-   a(href="https://github.com/MrZhangZc", target="_blank")
+        //-     i(aria-hidden="true").fa.fa-github
+        //-   a(href="http://grafana.lihailezzc.com/d/sOFh7Eknk/blog", target="_blank")
+        //-     i(aria-hidden="true").fa.fa-area-chart.fa-bar-chart  
+    nav.navbar.navbar-expand-sm.bg-dark.navbar-dark
+      a.navbar-brand(href='/') 导航
+      button.navbar-toggler(type="button" data-toggle="collapse" data-target="#collapsibleNavbar")
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse#collapsibleNavbar
+        ul.navbar-nav.mr-auto
+          li.nav-item 
+            a.nav-link(href="/") 首页
+          li.nav-item 
+            a.nav-link(href="/") chatGPT
+          li.nav-item 
+            a.nav-link(href="/messageBoard") 留言板
+          li.nav-item 
+            a.nav-link(href="/aboutMe") 关于我
+          li.nav-item
+            a.nav-link(href="https://github.com/MrZhangZc", target="_blank")
+              i(aria-hidden="true").fa.fa-github
+          li.nav-item
+            a.nav-link(href="http://grafana.lihailezzc.com/d/sOFh7Eknk/blog", target="_blank")
+              i(aria-hidden="true").fa.fa-area-chart.fa-bar-chart  
+        form.form-inline.my-2.my-lg-0
+          input(name="keyword", type="search" placeholder="搜索" aria-label="Search").form-control.mr-sm-2
+          button(type="submit").btn.btn-outline-info.my-2.my-sm-0
+            i.fa.fa-search
+          //- if user
+          //-   li.nav-item 
+          //-     a.nav-link(href="/personal") 个人中心  
     block main
     footer.footer
       img(src="/images/zzc.png", alt="zzc底图")
