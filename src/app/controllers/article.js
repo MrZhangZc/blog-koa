@@ -3,7 +3,7 @@ import * as path from 'path'
 import mongoose from 'mongoose';
 import slug from 'slug';
 import pinyin from 'pinyin';
-import {logJson} from '../../util';
+import {getClearnData, logJson} from '../../util';
 import redisClient from '../../redis';
 import {KEY} from '../../util/key';
 
@@ -165,8 +165,8 @@ export const comment = async ctx => {
 		const { comment:content , email } = ctx.request.body
 		const article = await Article.findById(articleId);
 		const comment = await new Comment({
-			email,
-			content
+			email: getClearnData(email),
+			content: getClearnData(content)
 		});
 		await comment.save();
 		const upComment = {$push: {comments: comment._id}};

@@ -14,7 +14,7 @@ import truncate from 'truncate'
 const Category = mongoose.model('Category')
 import redisClient from '../redis';
 
-export const router = async app => {
+export const router = app => {
   const router = new Router()
   router.use(async (ctx,next)=>{
     let categories = await redisClient.get('categories')
