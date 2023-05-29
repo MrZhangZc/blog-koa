@@ -1,9 +1,9 @@
 import session from 'koa-session2'
 import bodyParser from 'koa-body'
-import logger from 'koa-logger'
+// import logger from 'koa-logger'
 import views from 'koa-views'
 import serve from 'koa-static'
-import cors from 'koa2-cors'
+// import cors from 'koa2-cors'
 import { resolve } from 'path'
 import Store from "../util/store"
 
@@ -18,9 +18,9 @@ export const addBodyParser = app => {
   app.use(bodyParser({ multipart: true,formidable: { maxFileSize: 200*1024*1024 }}))
 }
 
-export const addCros = app => {
-  app.use(cors());
-}
+// export const addCros = app => {
+//   // app.use(cors());
+// }
 
 // export const addLogger = app => {
 //   app.use(logger())
