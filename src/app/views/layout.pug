@@ -9,7 +9,7 @@ html(lang='zh-cmn-Hans')
     meta(property="og:description" content=desc)
     link(rel="shortcut icon", href="/images/favicon.ico", type="image/x-icon")
     link(rel="canonical", href="" + url)
-    script.
+    <script nonce="NONCE_TOKEN">
       var _hmt = _hmt || [];
         (function() {
           var hm = document.createElement("script");
@@ -17,6 +17,7 @@ html(lang='zh-cmn-Hans')
           var s = document.getElementsByTagName("script")[0]; 
           s.parentNode.insertBefore(hm, s);
         })();
+    </script>
     block css
       link(rel="stylesheet", href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css")
       link(rel='stylesheet', href='/font-awesome/css/font-awesome.min.css')
