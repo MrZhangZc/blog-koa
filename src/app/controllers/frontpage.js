@@ -38,7 +38,7 @@ export const home = async ctx => {
 				.limit(5)
 				.populate('author')
 				.populate('category')
-				.sort({_id: -1}),
+				.sort({'meta.createdAt': -1}),
 			Article.count(conditions),
 			Article.find({ title: { $in:hotTitle }}, '-_id title slug'),
 			redisClient.zrevrange(KEY.Article_LookTime, 0, 5, 'WITHSCORES'),
